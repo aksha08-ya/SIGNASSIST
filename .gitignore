@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+*.env
+.streamlit/secrets.toml
+models/*.pt
+models/*.pth
+models/*.onnx
+*.mp4
+*.mov
+*.avi
+.DS_Store
