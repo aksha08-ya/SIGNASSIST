@@ -1,5 +1,5 @@
 """
-Features package for SIGNASSIST landmark processing & feature extraction.
+Features package for SIGNASSIST landmark processing, feature extraction, and graph topology.
 """
 
 from src.features.constants import (
@@ -13,6 +13,12 @@ from src.features.constants import (
     SELECTED_FACE_INDICES,
 )
 from src.features.extractor import MediaPipeHolisticExtractor
+from src.features.graph import (
+    GraphPartitions,
+    GraphTopology,
+    build_graph_edges,
+    get_canonical_graph,
+)
 from src.features.normalizer import LandmarkNormalizer
 from src.features.selector import LandmarkSelector
 from src.features.sequence import SequenceBuffer
@@ -42,4 +48,8 @@ __all__ = [
     "LandmarkNormalizer",
     "StaticFeatureBuilder",
     "SequenceBuffer",
+    "GraphTopology",
+    "GraphPartitions",
+    "build_graph_edges",
+    "get_canonical_graph",
 ]

@@ -102,9 +102,17 @@ class RoutingConfig:
 
 
 @dataclass
+class GraphConfig:
+    num_nodes: int = 115
+    self_loops: bool = True
+    normalization: str = "symmetric"
+    cross_part_edges: bool = True
+
+
+@dataclass
 class StaticModelConfig:
     name: str = "static_sign_classifier"
-    type: str = "mlp"
+    type: str = "gnn"
     input_dim: int = 225  # 75 nodes (21 LH + 21 RH + 33 Pose) x 3 spatial coords (x,y,z)
     num_nodes: int = 75
     spatial_channels: int = 3
@@ -142,6 +150,7 @@ class InferenceConfig:
 @dataclass
 class ModelConfig:
     routing: RoutingConfig = field(default_factory=RoutingConfig)
+    graph: GraphConfig = field(default_factory=GraphConfig)
     static_model: StaticModelConfig = field(default_factory=StaticModelConfig)
     dynamic_model: DynamicModelConfig = field(default_factory=DynamicModelConfig)
     inference: InferenceConfig = field(default_factory=InferenceConfig)
@@ -312,6 +321,7 @@ class ConfigManager:
 
         # Model configs
         routing_raw = self._raw_model_cfg.get("routing", {})
+        graph_raw = self._raw_model_cfg.get("graph", {})
         static_raw = self._raw_model_cfg.get("static_model", {})
         dynamic_raw = self._raw_model_cfg.get("dynamic_model", {})
         inference_raw = self._raw_model_cfg.get("inference", {})
@@ -327,9 +337,15 @@ class ConfigManager:
                 dynamic_threshold=float(routing_raw.get("dynamic_threshold", 0.5)),
                 enable_fast_path=bool(routing_raw.get("enable_fast_path", True)),
             ),
+            graph=GraphConfig(
+                num_nodes=int(graph_raw.get("num_nodes", 115)),
+                self_loops=bool(graph_raw.get("self_loops", True)),
+                normalization=graph_raw.get("normalization", "symmetric"),
+                cross_part_edges=bool(graph_raw.get("cross_part_edges", True)),
+            ),
             static_model=StaticModelConfig(
                 name=static_raw.get("name", "static_sign_classifier"),
-                type=static_raw.get("type", "mlp"),
+                type=static_raw.get("type", "gnn"),
                 input_dim=int(static_raw.get("input_dim", 225)),
                 num_nodes=int(static_raw.get("num_nodes", 75)),
                 spatial_channels=int(static_raw.get("spatial_channels", 3)),

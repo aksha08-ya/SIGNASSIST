@@ -5,9 +5,15 @@ routing:
   dynamic_threshold: 0.5
   enable_fast_path: true
 
+graph:
+  num_nodes: 115 # Canonical recognition graph nodes V
+  self_loops: true
+  normalization: "symmetric" # symmetric: D^(-1/2) A D^(-1/2)
+  cross_part_edges: true
+
 static_model:
   name: "static_sign_classifier"
-  type: "mlp" # mlp | resnet_landmark
+  type: "gnn" # gnn | resnet_landmark
   # Model input feature dimension: 75 spatial nodes (21 LH + 21 RH + 33 Pose) x 3 spatial coords (x,y,z) = 225
   input_dim: 225
   num_nodes: 75 # 21 LH + 21 RH + 33 Pose
