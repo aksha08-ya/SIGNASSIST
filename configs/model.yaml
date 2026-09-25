@@ -1,0 +1,39 @@
+# SIGNASSIST Model Architecture & Inference Configuration
+
+routing:
+  mechanism: "learned" # learned | threshold | hybrid
+  dynamic_threshold: 0.5
+  enable_fast_path: true
+
+static_model:
+  name: "static_sign_classifier"
+  type: "mlp" # mlp | resnet_landmark
+  # Model input feature dimension: 75 spatial nodes (21 LH + 21 RH + 33 Pose) x 3 spatial coords (x,y,z) = 225
+  input_dim: 225
+  num_nodes: 75 # 21 LH + 21 RH + 33 Pose
+  spatial_channels: 3 # (x, y, z)
+  hidden_dims: [512, 256, 128]
+  dropout: 0.2
+  num_classes: 36 # A-Z, 0-9
+
+dynamic_model:
+  name: "dynamic_sign_classifier"
+  type: "st_gcn_transformer" # st_gcn | transformer | hybrid
+  sequence_length: 60 # Temporal window T (frames)
+  raw_landmarks: 543 # Raw perception landmarks from MediaPipe Holistic (468 face + 33 pose + 21 LH + 21 RH)
+  num_nodes: 115 # Selected recognition graph nodes V (21 LH + 21 RH + 33 pose + 40 facial contour)
+  landmark_channels: 5 # Node feature channels C (x, y, z, vx, vy)
+  input_landmarks: 543 # Alias for backward compatibility
+  hidden_dim: 256
+  num_stgcn_layers: 4
+  num_transformer_layers: 4
+  num_heads: 8
+  dropout: 0.3
+  num_classes: 250
+
+inference:
+  confidence_threshold: 0.70
+  rejection_threshold: 0.40
+  temporal_window_size: 5
+  duplicate_suppression_window: 10
+  batch_size: 16

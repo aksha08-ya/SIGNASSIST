@@ -1,0 +1,30 @@
+# SIGNASSIST Default System & Infrastructure Configuration
+
+system:
+  name: "SIGNASSIST"
+  version: "0.1.0"
+  environment: "development" # development | production | testing
+  seed: 42
+  device: "auto" # auto | cpu | cuda | mps (automatically falls back to cpu if cuda unavailable)
+
+paths:
+  base_dir: "."
+  data_dir: "data"
+  models_dir: "models"
+  reports_dir: "reports"
+  logs_dir: "reports/logs"
+
+logging:
+  level: "INFO" # DEBUG | INFO | WARNING | ERROR | CRITICAL
+  console_output: true
+  file_output: true
+  log_filename: "signassist.log"
+  max_file_size_mb: 10
+  backup_count: 5
+
+video:
+  target_fps: 30
+  target_width: 640
+  target_height: 480
+  supported_extensions: [".mp4", ".avi", ".mov", ".mkv", ".webm"]
+  max_video_length_sec: 120
