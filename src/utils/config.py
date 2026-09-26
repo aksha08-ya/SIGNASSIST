@@ -84,6 +84,15 @@ class LoggingConfig:
 
 
 @dataclass
+class TrackerConfig:
+    iou_threshold: float = 0.3
+    max_age: int = 30
+    min_hits: int = 3
+    selection_mode: str = "largest"
+    landmark_margin: float = 0.1
+
+
+@dataclass
 class VideoConfig:
     target_fps: int = 30
     target_width: int = 640
@@ -92,6 +101,8 @@ class VideoConfig:
         default_factory=lambda: [".mp4", ".avi", ".mov", ".mkv", ".webm"]
     )
     max_video_length_sec: int = 120
+    tracking: TrackerConfig = field(default_factory=TrackerConfig)
+
 
 
 @dataclass
@@ -350,6 +361,15 @@ class ConfigManager:
             backup_count=int(logging_raw.get("backup_count", 5)),
         )
 
+        tracking_raw = video_raw.get("tracking", {})
+        tracker_cfg = TrackerConfig(
+            iou_threshold=float(tracking_raw.get("iou_threshold", 0.3)),
+            max_age=int(tracking_raw.get("max_age", 30)),
+            min_hits=int(tracking_raw.get("min_hits", 3)),
+            selection_mode=str(tracking_raw.get("selection_mode", "largest")),
+            landmark_margin=float(tracking_raw.get("landmark_margin", 0.1)),
+        )
+
         video_cfg = VideoConfig(
             target_fps=int(video_raw.get("target_fps", 30)),
             target_width=int(video_raw.get("target_width", 640)),
@@ -358,6 +378,7 @@ class ConfigManager:
                 "supported_extensions", [".mp4", ".avi", ".mov", ".mkv", ".webm"]
             ),
             max_video_length_sec=int(video_raw.get("max_video_length_sec", 120)),
+            tracking=tracker_cfg,
         )
 
         # Model configs
