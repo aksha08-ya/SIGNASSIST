@@ -16,11 +16,13 @@ from src.ui import (
     get_ui_config,
     init_session_state,
     process_video_file,
+    process_video_url,
     render_empty_state,
     render_error_state,
     render_header,
     render_model_status,
 )
+from src.video.url_downloader import URLExtractionError, URLVideoDownloader
 
 APPLICATION_MODES: List[str] = [
     "Live Webcam",
@@ -239,8 +241,36 @@ def render_mode_upload_video(status_info: dict) -> None:
         )
 
 
+def _handle_video_url_processing(url: str) -> None:
+    """Invokes process_video_url service, handles errors, and updates session state."""
+    st.session_state["processing"] = True
+    st.session_state["status_message"] = "Downloading and processing video from URL..."
+    st.session_state["last_error"] = None
+
+    try:
+        result = process_video_url(url=url)
+        st.session_state["latest_video_result"] = result
+        st.session_state["last_processed_url"] = url
+        st.session_state["processing"] = False
+        st.session_state["status_message"] = "URL video processing completed."
+        if getattr(result, "transcript", None):
+            st.session_state["transcript"] = result.transcript.text
+    except URLExtractionError as err:
+        st.session_state["processing"] = False
+        st.session_state["last_error"] = str(err)
+        st.session_state["status_message"] = "URL video processing failed."
+        st.session_state["latest_video_result"] = None
+        render_error_state(str(err))
+    except Exception as err:
+        st.session_state["processing"] = False
+        st.session_state["last_error"] = str(err)
+        st.session_state["status_message"] = "URL video processing failed."
+        st.session_state["latest_video_result"] = None
+        render_error_state(f"Failed to process video URL: {err}")
+
+
 def render_mode_video_url(status_info: dict) -> None:
-    """Renders Video URL mode placeholder."""
+    """Renders Video URL mode."""
     render_header(
         title="Video URL Processing",
         page_icon="🔗",
@@ -250,14 +280,45 @@ def render_mode_video_url(status_info: dict) -> None:
         "Enter Video URL",
         placeholder="https://www.youtube.com/watch?v=...",
     )
-    if url_input and url_input.strip():
-        st.caption(f"Target URL: {url_input}")
-        st.info("URL video downloader service ready. Recognition backend: Standby (no model checkpoint).")
-    render_empty_state(
-        title="External Video URL Processing",
-        message="Enter a valid video URL above to fetch and process video frames through the SIGNASSIST pipeline.",
-        icon="🔗",
-    )
+
+    clean_url = url_input.strip() if url_input else ""
+
+    if clean_url:
+        try:
+            downloader = URLVideoDownloader()
+            platform_name = downloader.detect_platform(clean_url)
+        except Exception:
+            platform_name = "unknown"
+
+        st.caption(f"Target URL: `{clean_url}` | Detected Platform: `{platform_name.upper()}`")
+
+    process_button = st.button("Process Video", type="primary")
+
+    if process_button:
+        if not clean_url:
+            st.session_state["last_error"] = "Please enter a valid non-empty Video URL."
+            render_error_state("Please enter a valid non-empty Video URL.")
+        else:
+            _handle_video_url_processing(clean_url)
+
+    result = st.session_state.get("latest_video_result")
+    last_processed_url = st.session_state.get("last_processed_url")
+
+    if result is not None and last_processed_url:
+        meta = getattr(result, "additional_metadata", {}) or {}
+        retrieved_path = meta.get("retrieved_file_path") or getattr(
+            getattr(result, "video_metadata", None), "file_path", None
+        )
+        if retrieved_path and Path(retrieved_path).exists():
+            st.video(retrieved_path)
+
+        render_video_processing_result(result)
+    elif not clean_url and not st.session_state.get("last_error"):
+        render_empty_state(
+            title="External Video URL Processing",
+            message="Enter a valid video URL above to fetch and process video frames through the SIGNASSIST pipeline.",
+            icon="🔗",
+        )
 
 
 def render_mode_text_to_isl(status_info: dict) -> None:
