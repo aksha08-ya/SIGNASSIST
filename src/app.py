@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from src.ui import (
     check_model_availability,
+    convert_text_to_isl,
     get_ui_config,
     init_session_state,
     render_empty_state,
@@ -99,6 +100,7 @@ def render_mode_upload_video(status_info: dict) -> None:
     if uploaded_file is not None:
         st.video(uploaded_file)
         st.caption(f"Loaded video file: {uploaded_file.name}")
+        st.info("Video processing service ready. Recognition backend: Standby (no model checkpoint).")
     render_empty_state(
         title="Video Upload Processing",
         message="Upload a video file above to process frames through the landmark extraction and recognition pipeline.",
@@ -117,8 +119,9 @@ def render_mode_video_url(status_info: dict) -> None:
         "Enter Video URL",
         placeholder="https://www.youtube.com/watch?v=...",
     )
-    if url_input:
+    if url_input and url_input.strip():
         st.caption(f"Target URL: {url_input}")
+        st.info("URL video downloader service ready. Recognition backend: Standby (no model checkpoint).")
     render_empty_state(
         title="External Video URL Processing",
         message="Enter a valid video URL above to fetch and process video frames through the SIGNASSIST pipeline.",
@@ -127,7 +130,7 @@ def render_mode_video_url(status_info: dict) -> None:
 
 
 def render_mode_text_to_isl(status_info: dict) -> None:
-    """Renders Text → ISL mode placeholder."""
+    """Renders Text → ISL mode."""
     render_header(
         title="Text to ISL Demonstration Engine",
         page_icon="🤟",
@@ -137,8 +140,22 @@ def render_mode_text_to_isl(status_info: dict) -> None:
         "Enter Text to Translate into ISL",
         placeholder="e.g. Hello welcome to India",
     )
-    if text_input:
-        st.caption(f"Input Text: {text_input}")
+    if text_input and text_input.strip():
+        result = convert_text_to_isl(text_input)
+        st.success(f"Translated input text into {len(result.sequence.demonstrations)} ISL demonstration(s).")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Dictionary Signs", result.dictionary_count)
+        with col2:
+            st.metric("Fingerspelled Words", result.fingerspell_count)
+        with col3:
+            st.metric("Unknown Words", result.unknown_count)
+
+        if result.output_video_path:
+            st.video(result.output_video_path)
+        else:
+            st.caption("No valid video clip assets available for output stitching.")
+
     render_empty_state(
         title="Text-to-ISL Generator",
         message=(

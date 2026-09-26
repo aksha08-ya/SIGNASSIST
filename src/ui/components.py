@@ -5,6 +5,9 @@ from typing import Any, Dict, Optional, Union
 import streamlit as st
 
 
+from src.ui.services import get_recognition_readiness
+
+
 def check_model_availability(
     models_dir: Optional[Union[str, Path]] = None,
     pipeline_instance: Optional[Any] = None,
@@ -12,49 +15,13 @@ def check_model_availability(
 ) -> Dict[str, Any]:
     """Checks for model architecture, trained checkpoint, and recognition pipeline availability.
 
-    Do NOT instantiate/load models or equate checkpoint presence with pipeline readiness.
-
-    Args:
-        models_dir: Optional directory path to check for trained model checkpoints.
-                   If None, defaults to Path("models").
-        pipeline_instance: Optional instantiated pipeline/adapter object to check for readiness.
-        explicit_pipeline_available: Optional explicit boolean flag indicating if a usable pipeline is ready.
-
-    Returns:
-        Dictionary containing detailed availability status:
-          - architecture_available: bool (True since PyTorch architecture modules exist in codebase)
-          - checkpoint_available: bool (True only if checkpoint files exist on disk)
-          - recognition_pipeline_available: bool (False unless a usable pipeline is verified/supplied)
-          - checkpoint_count: int
-          - models_dir: str
+    Delegates to get_recognition_readiness in src.ui.services.
     """
-    m_dir = Path(models_dir) if models_dir is not None else Path("models")
-
-    checkpoint_files = []
-    if m_dir.exists() and m_dir.is_dir():
-        for ext in ("*.pt", "*.pth", "*.bin", "*.ckpt"):
-            checkpoint_files.extend(list(m_dir.glob(ext)))
-
-    checkpoint_files = sorted(list(set(checkpoint_files)))
-    checkpoint_available = len(checkpoint_files) > 0
-    architecture_available = True  # ST-GCN, GNN, Transformer, Fusion modules exist in codebase
-
-    # Recognition pipeline is available ONLY if an explicit verified pipeline instance or flag is provided.
-    # Checkpoints existing does NOT imply a pipeline adapter is initialized or available.
-    if explicit_pipeline_available is not None:
-        recognition_pipeline_available = bool(explicit_pipeline_available)
-    elif pipeline_instance is not None:
-        recognition_pipeline_available = getattr(pipeline_instance, "is_ready", True)
-    else:
-        recognition_pipeline_available = False
-
-    return {
-        "architecture_available": architecture_available,
-        "checkpoint_available": checkpoint_available,
-        "recognition_pipeline_available": recognition_pipeline_available,
-        "checkpoint_count": len(checkpoint_files),
-        "models_dir": str(m_dir),
-    }
+    return get_recognition_readiness(
+        models_dir=models_dir,
+        pipeline_instance=pipeline_instance,
+        explicit_pipeline_available=explicit_pipeline_available,
+    )
 
 
 def render_header(
