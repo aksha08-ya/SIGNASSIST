@@ -2,6 +2,11 @@
 Models package for SIGNASSIST neural network architectures.
 """
 
+from src.models.dynamic_classifier import (
+    DynamicClassifierOutput,
+    DynamicSTGCNTransformer,
+    DynamicSignClassifier,
+)
 from src.models.static_gcn import (
     StaticGCNOutput,
     StaticGraphConv,
@@ -30,4 +35,7 @@ __all__ = [
     "SpatialGraphConv",
     "TransformerTemporalEncoder",
     "SinusoidalPositionalEncoding",
+    "DynamicSignClassifier",
+    "DynamicSTGCNTransformer",
+    "DynamicClassifierOutput",
 ]
