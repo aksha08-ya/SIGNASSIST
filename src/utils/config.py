@@ -175,6 +175,15 @@ class InferenceConfig:
 
 
 @dataclass
+class NLPConfig:
+    enable_duplicate_suppression: bool = True
+    duplicate_suppression_window: int = 10
+    enable_context_rules: bool = True
+    auto_punctuation: bool = True
+    vocab_filepath: Optional[str] = None
+
+
+@dataclass
 class ModelConfig:
     routing: RoutingConfig = field(default_factory=RoutingConfig)
     fusion: FusionConfig = field(default_factory=FusionConfig)
@@ -183,6 +192,7 @@ class ModelConfig:
     static_model: StaticModelConfig = field(default_factory=StaticModelConfig)
     dynamic_model: DynamicModelConfig = field(default_factory=DynamicModelConfig)
     inference: InferenceConfig = field(default_factory=InferenceConfig)
+    nlp: NLPConfig = field(default_factory=NLPConfig)
 
 
 @dataclass
@@ -356,6 +366,7 @@ class ConfigManager:
         static_raw = self._raw_model_cfg.get("static_model", {})
         dynamic_raw = self._raw_model_cfg.get("dynamic_model", {})
         inference_raw = self._raw_model_cfg.get("inference", {})
+        nlp_raw = self._raw_model_cfg.get("nlp", {})
 
         conf_env = os.getenv("SIGNASSIST_CONFIDENCE_THRESHOLD")
         conf_threshold = (
@@ -376,6 +387,18 @@ class ConfigManager:
             min_boundary_separation=int(boundary_raw.get("min_boundary_separation", 8)),
             debounce_window=int(boundary_raw.get("debounce_window", 5)),
             active_nodes=active_nodes_val,
+        )
+
+        nlp_cfg = NLPConfig(
+            enable_duplicate_suppression=bool(
+                nlp_raw.get("enable_duplicate_suppression", True)
+            ),
+            duplicate_suppression_window=int(
+                nlp_raw.get("duplicate_suppression_window", 10)
+            ),
+            enable_context_rules=bool(nlp_raw.get("enable_context_rules", True)),
+            auto_punctuation=bool(nlp_raw.get("auto_punctuation", True)),
+            vocab_filepath=nlp_raw.get("vocab_filepath", None),
         )
 
         model_cfg = ModelConfig(
@@ -439,6 +462,7 @@ class ConfigManager:
                 ),
                 batch_size=int(inference_raw.get("batch_size", 16)),
             ),
+            nlp=nlp_cfg,
         )
 
         # UI configs
