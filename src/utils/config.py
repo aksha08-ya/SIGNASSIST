@@ -115,6 +115,19 @@ class FusionConfig:
 
 
 @dataclass
+class BoundaryConfig:
+    energy_smoothing_window: int = 5
+    energy_threshold: float = 0.15
+    rest_pose_threshold: float = 0.10
+    min_segment_duration: int = 10
+    min_boundary_separation: int = 8
+    debounce_window: int = 5
+    active_nodes: List[int] = field(
+        default_factory=lambda: list(range(42)) + [57, 58]
+    )
+
+
+@dataclass
 class GraphConfig:
     num_nodes: int = 115
     self_loops: bool = True
@@ -165,6 +178,7 @@ class InferenceConfig:
 class ModelConfig:
     routing: RoutingConfig = field(default_factory=RoutingConfig)
     fusion: FusionConfig = field(default_factory=FusionConfig)
+    boundary_detection: BoundaryConfig = field(default_factory=BoundaryConfig)
     graph: GraphConfig = field(default_factory=GraphConfig)
     static_model: StaticModelConfig = field(default_factory=StaticModelConfig)
     dynamic_model: DynamicModelConfig = field(default_factory=DynamicModelConfig)
@@ -337,6 +351,7 @@ class ConfigManager:
         # Model configs
         routing_raw = self._raw_model_cfg.get("routing", {})
         fusion_raw = self._raw_model_cfg.get("fusion", {})
+        boundary_raw = self._raw_model_cfg.get("boundary_detection", {})
         graph_raw = self._raw_model_cfg.get("graph", {})
         static_raw = self._raw_model_cfg.get("static_model", {})
         dynamic_raw = self._raw_model_cfg.get("dynamic_model", {})
@@ -345,6 +360,22 @@ class ConfigManager:
         conf_env = os.getenv("SIGNASSIST_CONFIDENCE_THRESHOLD")
         conf_threshold = (
             float(conf_env) if conf_env is not None else float(inference_raw.get("confidence_threshold", 0.70))
+        )
+
+        active_nodes_cfg = boundary_raw.get("active_nodes", None)
+        if active_nodes_cfg is None:
+            active_nodes_val = list(range(42)) + [57, 58]
+        else:
+            active_nodes_val = [int(x) for x in active_nodes_cfg]
+
+        boundary_cfg = BoundaryConfig(
+            energy_smoothing_window=int(boundary_raw.get("energy_smoothing_window", 5)),
+            energy_threshold=float(boundary_raw.get("energy_threshold", 0.15)),
+            rest_pose_threshold=float(boundary_raw.get("rest_pose_threshold", 0.10)),
+            min_segment_duration=int(boundary_raw.get("min_segment_duration", 10)),
+            min_boundary_separation=int(boundary_raw.get("min_boundary_separation", 8)),
+            debounce_window=int(boundary_raw.get("debounce_window", 5)),
+            active_nodes=active_nodes_val,
         )
 
         model_cfg = ModelConfig(
@@ -364,6 +395,7 @@ class ConfigManager:
                 dropout=float(fusion_raw.get("dropout", 0.2)),
                 use_refinement=bool(fusion_raw.get("use_refinement", True)),
             ),
+            boundary_detection=boundary_cfg,
             graph=GraphConfig(
                 num_nodes=int(graph_raw.get("num_nodes", 115)),
                 self_loops=bool(graph_raw.get("self_loops", True)),

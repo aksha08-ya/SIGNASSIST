@@ -54,3 +54,12 @@ inference:
   temporal_window_size: 5
   duplicate_suppression_window: 10
   batch_size: 16
+
+boundary_detection:
+  energy_smoothing_window: 5
+  energy_threshold: 0.15
+  rest_pose_threshold: 0.10
+  min_segment_duration: 10
+  min_boundary_separation: 8
+  debounce_window: 5
+  active_nodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 57, 58]
