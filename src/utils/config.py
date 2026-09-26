@@ -106,6 +106,15 @@ class RoutingConfig:
 
 
 @dataclass
+class FusionConfig:
+    mechanism: str = "weighted_sum"
+    input_dim: int = 256
+    output_dim: int = 256
+    dropout: float = 0.2
+    use_refinement: bool = True
+
+
+@dataclass
 class GraphConfig:
     num_nodes: int = 115
     self_loops: bool = True
@@ -154,6 +163,7 @@ class InferenceConfig:
 @dataclass
 class ModelConfig:
     routing: RoutingConfig = field(default_factory=RoutingConfig)
+    fusion: FusionConfig = field(default_factory=FusionConfig)
     graph: GraphConfig = field(default_factory=GraphConfig)
     static_model: StaticModelConfig = field(default_factory=StaticModelConfig)
     dynamic_model: DynamicModelConfig = field(default_factory=DynamicModelConfig)
@@ -325,6 +335,7 @@ class ConfigManager:
 
         # Model configs
         routing_raw = self._raw_model_cfg.get("routing", {})
+        fusion_raw = self._raw_model_cfg.get("fusion", {})
         graph_raw = self._raw_model_cfg.get("graph", {})
         static_raw = self._raw_model_cfg.get("static_model", {})
         dynamic_raw = self._raw_model_cfg.get("dynamic_model", {})
@@ -344,6 +355,13 @@ class ConfigManager:
                 dynamic_dim=int(routing_raw.get("dynamic_dim", 256)),
                 hidden_dim=int(routing_raw.get("hidden_dim", 128)),
                 dropout=float(routing_raw.get("dropout", 0.2)),
+            ),
+            fusion=FusionConfig(
+                mechanism=fusion_raw.get("mechanism", "weighted_sum"),
+                input_dim=int(fusion_raw.get("input_dim", 256)),
+                output_dim=int(fusion_raw.get("output_dim", 256)),
+                dropout=float(fusion_raw.get("dropout", 0.2)),
+                use_refinement=bool(fusion_raw.get("use_refinement", True)),
             ),
             graph=GraphConfig(
                 num_nodes=int(graph_raw.get("num_nodes", 115)),

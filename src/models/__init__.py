@@ -7,6 +7,11 @@ from src.models.dynamic_classifier import (
     DynamicSTGCNTransformer,
     DynamicSignClassifier,
 )
+from src.models.fusion import (
+    MultimodalFusionEngine,
+    MultimodalFusionModule,
+    MultimodalFusionOutput,
+)
 from src.models.router import (
     LearnedRouter,
     LearnedStaticDynamicRouter,
@@ -46,4 +51,7 @@ __all__ = [
     "LearnedStaticDynamicRouter",
     "LearnedRouter",
     "RouterOutput",
+    "MultimodalFusionEngine",
+    "MultimodalFusionModule",
+    "MultimodalFusionOutput",
 ]

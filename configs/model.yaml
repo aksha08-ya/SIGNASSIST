@@ -9,6 +9,13 @@ routing:
   hidden_dim: 128
   dropout: 0.2
 
+fusion:
+  mechanism: "weighted_sum" # weighted_sum
+  input_dim: 256
+  output_dim: 256
+  dropout: 0.2
+  use_refinement: true
+
 graph:
   num_nodes: 115 # Canonical recognition graph nodes V
   self_loops: true
