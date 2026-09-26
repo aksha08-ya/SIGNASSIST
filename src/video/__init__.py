@@ -16,6 +16,7 @@ from src.video.signer_tracker import (
     SignerTrackerOutput,
     TrackState,
 )
+from src.video.url_downloader import URLVideoDownloader, URLVideoMetadata
 
 __all__ = [
     "BoundingBox",
@@ -33,4 +34,6 @@ __all__ = [
     "VideoProcessingResult",
     "RecognitionPipelineAdapter",
     "VideoProcessor",
+    "URLVideoMetadata",
+    "URLVideoDownloader",
 ]
