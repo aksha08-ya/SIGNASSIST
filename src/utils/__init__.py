@@ -1,6 +1,7 @@
 """Utils package for SIGNASSIST."""
 
 from src.utils.config import AppConfig, ConfigManager, load_config
+from src.utils.evaluation_dataset import EvaluationDataset, EvaluationSample, LOSOFold
 from src.utils.exceptions import ConfigurationError, DataError, SignAssistException, VideoProcessingError
 from src.utils.logger import setup_logger
 from src.utils.metrics import EvaluationResult, MetricsEvaluator
@@ -18,4 +19,7 @@ __all__ = [
     "ReportExporter",
     "EvaluationResult",
     "MetricsEvaluator",
+    "EvaluationSample",
+    "EvaluationDataset",
+    "LOSOFold",
 ]
