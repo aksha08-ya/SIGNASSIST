@@ -7,6 +7,11 @@ from src.models.dynamic_classifier import (
     DynamicSTGCNTransformer,
     DynamicSignClassifier,
 )
+from src.models.router import (
+    LearnedRouter,
+    LearnedStaticDynamicRouter,
+    RouterOutput,
+)
 from src.models.static_gcn import (
     StaticGCNOutput,
     StaticGraphConv,
@@ -38,4 +43,7 @@ __all__ = [
     "DynamicSignClassifier",
     "DynamicSTGCNTransformer",
     "DynamicClassifierOutput",
+    "LearnedStaticDynamicRouter",
+    "LearnedRouter",
+    "RouterOutput",
 ]

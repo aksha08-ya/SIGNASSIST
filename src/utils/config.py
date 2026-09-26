@@ -99,6 +99,10 @@ class RoutingConfig:
     mechanism: str = "learned"
     dynamic_threshold: float = 0.5
     enable_fast_path: bool = True
+    static_dim: int = 256
+    dynamic_dim: int = 256
+    hidden_dim: int = 128
+    dropout: float = 0.2
 
 
 @dataclass
@@ -336,6 +340,10 @@ class ConfigManager:
                 mechanism=routing_raw.get("mechanism", "learned"),
                 dynamic_threshold=float(routing_raw.get("dynamic_threshold", 0.5)),
                 enable_fast_path=bool(routing_raw.get("enable_fast_path", True)),
+                static_dim=int(routing_raw.get("static_dim", 256)),
+                dynamic_dim=int(routing_raw.get("dynamic_dim", 256)),
+                hidden_dim=int(routing_raw.get("hidden_dim", 128)),
+                dropout=float(routing_raw.get("dropout", 0.2)),
             ),
             graph=GraphConfig(
                 num_nodes=int(graph_raw.get("num_nodes", 115)),
