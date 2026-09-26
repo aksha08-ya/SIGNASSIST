@@ -77,6 +77,51 @@ class LOSOEvaluationResult:
         return json_str
 
 
+def validate_and_parse_predictions(preds_raw: Any, expected_count: int) -> List[int]:
+    """Validates raw predictions from an inference callback and parses them as integer labels.
+
+    Args:
+        preds_raw: Raw prediction output from inference callback.
+        expected_count: Expected sequence length (matching sample or test count).
+
+    Returns:
+        List of integer label predictions.
+
+    Raises:
+        ValueError: If predictions are None, non-numeric, 2D/invalid shape, count mismatch,
+                    contain NaN or Inf, contain non-integer float values, or contain negative values.
+    """
+    if preds_raw is None:
+        raise ValueError("Inference callback returned None instead of predictions")
+
+    try:
+        preds_arr = np.asarray(preds_raw)
+    except (ValueError, TypeError) as err:
+        raise ValueError(f"Could not parse inference predictions as NumPy array: {err}")
+
+    if not np.issubdtype(preds_arr.dtype, np.integer) and not np.issubdtype(preds_arr.dtype, np.floating):
+        raise ValueError(f"Predictions must be numeric, got dtype {preds_arr.dtype}")
+
+    if preds_arr.ndim != 1:
+        raise ValueError(f"Predictions must be a 1D sequence, got shape {preds_arr.shape}")
+
+    if len(preds_arr) != expected_count:
+        raise ValueError(
+            f"Prediction count ({len(preds_arr)}) does not match test sample count ({expected_count})"
+        )
+
+    if np.any(np.isnan(preds_arr)) or np.any(np.isinf(preds_arr)):
+        raise ValueError("Predictions contain NaN or Infinity values")
+
+    if len(preds_arr) > 0 and not np.all(np.equal(preds_arr, np.round(preds_arr))):
+        raise ValueError("Predictions contain non-integer numeric labels")
+
+    if np.any(preds_arr < 0):
+        raise ValueError("Predictions contain negative label values")
+
+    return [int(x) for x in preds_arr]
+
+
 class LOSOEvaluator:
     """Model-agnostic Leave-One-Signer-Out (LOSO) evaluation orchestrator."""
 
@@ -136,36 +181,7 @@ class LOSOEvaluator:
 
             # Invoke inference callback
             preds_raw = inference_fn(fold.train_samples, fold.test_samples)
-
-            if preds_raw is None:
-                raise ValueError("Inference callback returned None instead of predictions")
-
-            try:
-                preds_arr = np.asarray(preds_raw)
-            except (ValueError, TypeError) as err:
-                raise ValueError(f"Could not parse inference predictions as NumPy array: {err}")
-
-            if not np.issubdtype(preds_arr.dtype, np.integer) and not np.issubdtype(preds_arr.dtype, np.floating):
-                raise ValueError(f"Predictions must be numeric, got dtype {preds_arr.dtype}")
-
-            if preds_arr.ndim != 1:
-                raise ValueError(f"Predictions must be a 1D sequence, got shape {preds_arr.shape}")
-
-            if len(preds_arr) != len(fold.test_samples):
-                raise ValueError(
-                    f"Prediction count ({len(preds_arr)}) does not match test sample count ({len(fold.test_samples)})"
-                )
-
-            if np.any(np.isnan(preds_arr)) or np.any(np.isinf(preds_arr)):
-                raise ValueError("Predictions contain NaN or Infinity values")
-
-            if len(preds_arr) > 0 and not np.all(np.equal(preds_arr, np.round(preds_arr))):
-                raise ValueError("Predictions contain non-integer numeric labels")
-
-            if np.any(preds_arr < 0):
-                raise ValueError("Predictions contain negative label values")
-
-            preds_list = [int(x) for x in preds_arr]
+            preds_list = validate_and_parse_predictions(preds_raw, len(fold.test_samples))
             true_list = [int(s.label) for s in fold.test_samples]
 
             all_true_labels.extend(true_list)
