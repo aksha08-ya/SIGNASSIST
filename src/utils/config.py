@@ -167,11 +167,11 @@ class DynamicModelConfig:
 @dataclass
 class InferenceConfig:
     confidence_threshold: float = 0.70
-    rejection_threshold: float = 0.40
     top_k: int = 3
     temporal_window_size: int = 5
     duplicate_suppression_window: int = 10
     batch_size: int = 16
+
 
 
 @dataclass
@@ -226,6 +226,8 @@ class TTSConfig:
     auto_play: bool = False
     voice_gender: str = "female"
     speech_rate: float = 1.0
+    volume: float = 1.0
+
 
 
 @dataclass
@@ -454,7 +456,6 @@ class ConfigManager:
             ),
             inference=InferenceConfig(
                 confidence_threshold=conf_threshold,
-                rejection_threshold=float(inference_raw.get("rejection_threshold", 0.40)),
                 top_k=int(inference_raw.get("top_k", 3)),
                 temporal_window_size=int(inference_raw.get("temporal_window_size", 5)),
                 duplicate_suppression_window=int(
@@ -532,11 +533,6 @@ class ConfigManager:
         if not (0.0 <= config.model.inference.confidence_threshold <= 1.0):
             raise ConfigurationError(
                 f"Invalid confidence_threshold: {config.model.inference.confidence_threshold}. Must be between 0.0 and 1.0."
-            )
-
-        if not (0.0 <= config.model.inference.rejection_threshold <= 1.0):
-            raise ConfigurationError(
-                f"Invalid rejection_threshold: {config.model.inference.rejection_threshold}. Must be between 0.0 and 1.0."
             )
 
         valid_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
