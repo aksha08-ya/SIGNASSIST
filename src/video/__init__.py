@@ -1,6 +1,7 @@
 """SIGNASSIST Video Package (Phase 12: Signer Detection & Tracking, Phase 13: Video Ingestion)."""
 
 from src.video.file_reader import DecodedFrame, VideoFileReader, VideoMetadata
+from src.video.isl_stitcher import ISLStitchResult, ISLVideoStitcher
 from src.video.processor import (
     RecognitionPipelineAdapter,
     TimestampedSignEntry,
@@ -36,4 +37,6 @@ __all__ = [
     "VideoProcessor",
     "URLVideoMetadata",
     "URLVideoDownloader",
+    "ISLStitchResult",
+    "ISLVideoStitcher",
 ]
