@@ -7,3 +7,4 @@ numpy>=1.24.0
 torch>=2.0.0
 pyttsx3>=2.90
 gTTS>=2.4.0
+reportlab>=4.0.0
