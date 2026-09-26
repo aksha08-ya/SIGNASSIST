@@ -50,7 +50,7 @@ dynamic_model:
 
 inference:
   confidence_threshold: 0.70
-  rejection_threshold: 0.40
+  top_k: 3
   temporal_window_size: 5
   duplicate_suppression_window: 10
   batch_size: 16

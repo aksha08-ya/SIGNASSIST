@@ -2,6 +2,11 @@
 Models package for SIGNASSIST neural network architectures.
 """
 
+from src.models.confidence import (
+    ConfidenceEstimator,
+    ConfidenceOutput,
+    ConfidenceRejectionEngine,
+)
 from src.models.dynamic_classifier import (
     DynamicClassifierOutput,
     DynamicSTGCNTransformer,
@@ -54,4 +59,7 @@ __all__ = [
     "MultimodalFusionEngine",
     "MultimodalFusionModule",
     "MultimodalFusionOutput",
+    "ConfidenceEstimator",
+    "ConfidenceRejectionEngine",
+    "ConfidenceOutput",
 ]
