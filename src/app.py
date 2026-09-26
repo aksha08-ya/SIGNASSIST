@@ -2,8 +2,9 @@
 
 import os
 import sys
+import tempfile
 from pathlib import Path
-from typing import List
+from typing import Any, List, Optional
 import streamlit as st
 
 # Bootstrap repository root
@@ -14,6 +15,7 @@ from src.ui import (
     convert_text_to_isl,
     get_ui_config,
     init_session_state,
+    process_video_file,
     render_empty_state,
     render_error_state,
     render_header,
@@ -87,25 +89,154 @@ def render_mode_continuous_sentence(status_info: dict) -> None:
     )
 
 
+def render_video_processing_result(result: Any) -> None:
+    """Displays VideoProcessingResult fields in a structured Streamlit summary layout."""
+    st.markdown("### 📊 Processing Results")
+
+    # 1. Recognition status banner
+    rec_avail = getattr(result, "recognition_available", False)
+    if rec_avail:
+        st.success("Recognition backend active.")
+    else:
+        st.warning(
+            "Video processing completed, but the recognition backend is unavailable (standby / no model checkpoint)."
+        )
+
+    # 2. Key Metrics
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("Frames Processed", getattr(result, "frames_processed", 0))
+    with col2:
+        fps = getattr(result, "processing_fps", 0.0)
+        st.metric("Processing FPS", f"{fps:.1f}")
+    with col3:
+        exec_sec = getattr(result, "execution_seconds", 0.0)
+        st.metric("Execution Time", f"{exec_sec:.2f} s")
+    with col4:
+        st.metric("Recognition Status", "Active" if rec_avail else "Standby")
+
+    # 3. Quality Report if present
+    quality = getattr(result, "quality_report", None)
+    if quality is not None:
+        st.markdown("#### 🎥 Video Quality Assessment")
+        q_col1, q_col2, q_col3, q_col4 = st.columns(4)
+        with q_col1:
+            st.metric("Overall Rating", getattr(quality, "overall_rating", "N/A"))
+        with q_col2:
+            brightness = getattr(quality, "average_brightness", 0.0)
+            st.metric("Brightness", f"{brightness:.1f}")
+        with q_col3:
+            contrast = getattr(quality, "average_contrast", 0.0)
+            st.metric("Contrast", f"{contrast:.1f}")
+        with q_col4:
+            blur = getattr(quality, "average_blur_score", 0.0)
+            st.metric("Sharpness (Blur)", f"{blur:.1f}")
+
+    # 4. Signer / Tracking Information if present
+    meta = getattr(result, "additional_metadata", {}) or {}
+    manual_signer = meta.get("manual_signer_id")
+    if manual_signer is not None:
+        st.info(f"**Signer Tracking**: Manual Signer ID `{manual_signer}` assigned.")
+
+    # 5. Transcript if genuinely present
+    transcript = getattr(result, "transcript", None)
+    if transcript is not None and getattr(transcript, "text", "").strip():
+        st.markdown("#### 📝 Sentence Transcript")
+        st.success(f"**Transcript**: {transcript.text}")
+        if hasattr(transcript, "mean_confidence") and transcript.mean_confidence > 0:
+            st.caption(f"Mean Confidence: {transcript.mean_confidence:.2%}")
+
+    # 6. Timeline entries if present
+    timeline = getattr(result, "timeline", []) or []
+    if timeline:
+        st.markdown("#### ⏱️ Sign Recognition Timeline")
+        timeline_data = []
+        for entry in timeline:
+            timeline_data.append(
+                {
+                    "Start Frame": getattr(entry, "start_frame", 0),
+                    "End Frame": getattr(entry, "end_frame", 0),
+                    "Timestamp": f"{getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')}",
+                    "Gloss": getattr(entry, "recognized_gloss", ""),
+                    "Confidence": f"{getattr(entry, 'confidence', 0.0):.2%}",
+                    "Signer Track ID": getattr(entry, "primary_signer_track_id", "N/A"),
+                }
+            )
+        st.dataframe(timeline_data, use_container_width=True)
+
+
+def _handle_video_upload(uploaded_file: Any) -> None:
+    """Saves uploaded video file to a temporary file, processes it, updates session state, and cleans up."""
+    file_name = getattr(uploaded_file, "name", "uploaded_video.mp4")
+    suffix = Path(file_name).suffix or ".mp4"
+
+    st.session_state["processing"] = True
+    st.session_state["status_message"] = f"Processing {file_name}..."
+    st.session_state["last_error"] = None
+
+    temp_path: Optional[Path] = None
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
+            if hasattr(uploaded_file, "getvalue"):
+                content = uploaded_file.getvalue()
+            elif hasattr(uploaded_file, "read"):
+                content = uploaded_file.read()
+                if hasattr(uploaded_file, "seek"):
+                    uploaded_file.seek(0)
+            else:
+                content = bytes(uploaded_file)
+            temp_file.write(content)
+            temp_path = Path(temp_file.name)
+
+        result = process_video_file(temp_path)
+
+        st.session_state["latest_video_result"] = result
+        st.session_state["processing"] = False
+        st.session_state["status_message"] = "Video processing completed."
+        st.session_state["uploaded_file_id"] = f"{file_name}_{getattr(uploaded_file, 'size', 0)}"
+        if getattr(result, "transcript", None):
+            st.session_state["transcript"] = result.transcript.text
+    except Exception as err:
+        st.session_state["processing"] = False
+        st.session_state["last_error"] = str(err)
+        st.session_state["status_message"] = f"Error: {err}"
+        st.session_state["latest_video_result"] = None
+        render_error_state(f"Failed to process video file: {err}")
+    finally:
+        if temp_path is not None and temp_path.exists():
+            try:
+                temp_path.unlink()
+            except OSError:
+                pass
+
+
 def render_mode_upload_video(status_info: dict) -> None:
-    """Renders Upload Video mode placeholder."""
+    """Renders Upload Video mode."""
     render_header(
         title="Upload Video File",
         page_icon="📁",
         description="Upload MP4 or AVI video files for sign language recognition and translation.",
     )
     uploaded_file = st.file_uploader(
-        "Choose a video file", type=["mp4", "avi", "mov", "mkv"]
+        "Choose a video file", type=["mp4", "mov", "avi", "mkv", "webm"]
     )
     if uploaded_file is not None:
         st.video(uploaded_file)
         st.caption(f"Loaded video file: {uploaded_file.name}")
-        st.info("Video processing service ready. Recognition backend: Standby (no model checkpoint).")
-    render_empty_state(
-        title="Video Upload Processing",
-        message="Upload a video file above to process frames through the landmark extraction and recognition pipeline.",
-        icon="📁",
-    )
+
+        file_id = f"{uploaded_file.name}_{getattr(uploaded_file, 'size', 0)}"
+        if st.session_state.get("uploaded_file_id") != file_id:
+            _handle_video_upload(uploaded_file)
+
+        result = st.session_state.get("latest_video_result")
+        if result is not None:
+            render_video_processing_result(result)
+    else:
+        render_empty_state(
+            title="Video Upload Processing",
+            message="Upload a video file above to process frames through the landmark extraction and recognition pipeline.",
+            icon="📁",
+        )
 
 
 def render_mode_video_url(status_info: dict) -> None:
