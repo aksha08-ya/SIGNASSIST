@@ -14,6 +14,10 @@ from src.models.stgcn import (
     STGCNBlock,
     SpatialGraphConv,
 )
+from src.models.transformer_encoder import (
+    SinusoidalPositionalEncoding,
+    TransformerTemporalEncoder,
+)
 
 __all__ = [
     "StaticGraphGCN",
@@ -24,4 +28,6 @@ __all__ = [
     "STGCN",
     "STGCNBlock",
     "SpatialGraphConv",
+    "TransformerTemporalEncoder",
+    "SinusoidalPositionalEncoding",
 ]
