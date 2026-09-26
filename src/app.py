@@ -11,6 +11,7 @@ import streamlit as st
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.ui import (
+    TextToISLResult,
     check_model_availability,
     convert_text_to_isl,
     get_ui_config,
@@ -321,6 +322,84 @@ def render_mode_video_url(status_info: dict) -> None:
         )
 
 
+def render_text_to_isl_result(result: TextToISLResult) -> None:
+    """Renders TextToISLResult fields, metrics, tokens, sequence, and optional video."""
+    st.markdown("### 🤟 ISL Translation Summary")
+    st.caption(f"Original Input: {result.sequence.original_text}")
+
+    # 1. Token Counts Metrics
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Dictionary Signs", result.dictionary_count)
+    with col2:
+        st.metric("Fingerspelled Words", result.fingerspell_count)
+    with col3:
+        st.metric("Unknown Words", result.unknown_count)
+
+    # 2. Included & Skipped Tokens
+    if result.included_tokens:
+        st.markdown(f"**Included Tokens**: `{', '.join(result.included_tokens)}`")
+    if result.skipped_tokens:
+        st.warning(f"**Skipped / Unknown Tokens**: `{', '.join(result.skipped_tokens)}`")
+
+    # 3. Demonstration Sequence in Token Order
+    demos = getattr(result.sequence, "demonstrations", [])
+    if demos:
+        st.markdown("#### 📋 Demonstration Sequence")
+        seq_data = []
+        for idx, d in enumerate(demos, 1):
+            source_str = d.source.value if hasattr(d.source, "value") else str(d.source)
+            detail = d.dictionary_gloss if d.dictionary_gloss else (", ".join(d.characters) if d.characters else "N/A")
+            seq_data.append(
+                {
+                    "Step": idx,
+                    "Input Token": d.token,
+                    "Normalized Token": d.normalized_token,
+                    "Source": source_str.upper(),
+                    "Detail / Gloss": detail,
+                }
+            )
+        st.dataframe(seq_data, use_container_width=True)
+
+    # 4. Video Stitched Output if valid file path exists
+    if result.output_video_path and Path(result.output_video_path).exists():
+        st.markdown("#### 🎬 Stitched ISL Demonstration Video")
+        st.video(result.output_video_path)
+    else:
+        st.info(
+            "Textual ISL demonstration sequence generated. "
+            "No stitched video clip could be produced because video assets for the dictionary entries are unavailable."
+        )
+
+
+def _handle_text_to_isl_conversion(text: str) -> None:
+    """Invokes convert_text_to_isl service and updates session state."""
+    st.session_state["processing"] = True
+    st.session_state["status_message"] = "Converting text to ISL sequence..."
+    st.session_state["last_error"] = None
+
+    out_dir = Path(tempfile.gettempdir()) / "signassist_isl_stitch"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_video_path = out_dir / "stitched_output.mp4"
+
+    try:
+        result = convert_text_to_isl(
+            text=text,
+            stitch_video=True,
+            output_video_path=out_video_path,
+        )
+        st.session_state["text_to_isl_result"] = result
+        st.session_state["text_to_isl_last_processed"] = text
+        st.session_state["processing"] = False
+        st.session_state["status_message"] = "Text to ISL conversion complete."
+    except Exception as err:
+        st.session_state["processing"] = False
+        st.session_state["last_error"] = str(err)
+        st.session_state["status_message"] = "Text to ISL conversion failed."
+        st.session_state["text_to_isl_result"] = None
+        render_error_state(f"Failed to convert text to ISL: {err}")
+
+
 def render_mode_text_to_isl(status_info: dict) -> None:
     """Renders Text → ISL mode."""
     render_header(
@@ -328,34 +407,37 @@ def render_mode_text_to_isl(status_info: dict) -> None:
         page_icon="🤟",
         description="Convert input text sentences into Indian Sign Language video demonstrations.",
     )
-    text_input = st.text_input(
-        "Enter Text to Translate into ISL",
+    input_text = st.text_area(
+        "Enter English Text to Translate into ISL",
         placeholder="e.g. Hello welcome to India",
+        key="text_to_isl_input",
     )
-    if text_input and text_input.strip():
-        result = convert_text_to_isl(text_input)
-        st.success(f"Translated input text into {len(result.sequence.demonstrations)} ISL demonstration(s).")
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Dictionary Signs", result.dictionary_count)
-        with col2:
-            st.metric("Fingerspelled Words", result.fingerspell_count)
-        with col3:
-            st.metric("Unknown Words", result.unknown_count)
 
-        if result.output_video_path:
-            st.video(result.output_video_path)
+    clean_text = input_text.strip() if input_text else ""
+
+    convert_button = st.button("Convert to ISL", type="primary")
+
+    if convert_button:
+        if not clean_text:
+            st.session_state["last_error"] = "Please enter non-empty English text to translate."
+            render_error_state("Please enter non-empty English text to translate.")
         else:
-            st.caption("No valid video clip assets available for output stitching.")
+            _handle_text_to_isl_conversion(clean_text)
 
-    render_empty_state(
-        title="Text-to-ISL Generator",
-        message=(
-            "Converts input text into ISL gloss sequence, dictionary lookup clips, "
-            "and fingerspelling fallbacks using OpenCV Video Stitcher."
-        ),
-        icon="🤟",
-    )
+    result: Optional[TextToISLResult] = st.session_state.get("text_to_isl_result")
+    last_processed = st.session_state.get("text_to_isl_last_processed")
+
+    if result is not None and last_processed:
+        render_text_to_isl_result(result)
+    elif not clean_text and not st.session_state.get("last_error"):
+        render_empty_state(
+            title="Text-to-ISL Generator",
+            message=(
+                "Converts input text into ISL gloss sequence, dictionary lookup clips, "
+                "and fingerspelling fallbacks using OpenCV Video Stitcher."
+            ),
+            icon="🤟",
+        )
 
 
 def render_mode_research_analytics(status_info: dict) -> None:
