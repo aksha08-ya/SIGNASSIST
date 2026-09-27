@@ -26,10 +26,16 @@ from src.utils.metrics import EvaluationResult, MetricsEvaluator
 
 # --- Private Helper: Default VideoProcessor Factory ---
 
+def get_default_recognition_pipeline() -> RecognitionPipeline:
+    """Instantiates and returns the default RecognitionPipeline adapter."""
+    return RecognitionPipeline()
+
+
 def _create_default_video_processor() -> VideoProcessor:
     """Creates default VideoProcessor initialized with RecognitionPipeline adapter."""
-    pipeline = RecognitionPipeline()
+    pipeline = get_default_recognition_pipeline()
     return VideoProcessor(recognition_pipeline=pipeline)
+
 
 
 # --- Service 1: Video File Processing ---

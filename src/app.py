@@ -6,15 +6,21 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
+import numpy as np
 import streamlit as st
+
+import logging
+
 
 # Bootstrap repository root
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from src.nlp.types import BoundedSignPrediction
 from src.ui import (
     TextToISLResult,
     check_model_availability,
     convert_text_to_isl,
+    get_default_recognition_pipeline,
     get_ui_config,
     init_session_state,
     parse_research_artifact,
@@ -25,7 +31,10 @@ from src.ui import (
     render_header,
     render_model_status,
 )
+from src.ui.webcam import WebcamRecognitionSession
 from src.video.url_downloader import URLExtractionError, URLVideoDownloader
+
+logger = logging.getLogger(__name__)
 
 APPLICATION_MODES: List[str] = [
     "Live Webcam",
@@ -37,42 +46,207 @@ APPLICATION_MODES: List[str] = [
 ]
 
 
+def make_video_frame_callback(session: WebcamRecognitionSession):
+    """Creates a WebRTC video frame callback bound to the given session instance.
+
+    This function and the returned callback MUST NOT touch Streamlit APIs or st.session_state.
+    """
+    def video_frame_callback(frame: Any) -> Any:
+        try:
+            img = frame.to_ndarray(format="bgr24")
+            session.add_frame(img)
+        except Exception as e:
+            logger.warning(f"Error converting WebRTC video frame: {e}")
+        return frame
+
+    return video_frame_callback
+
+
+def get_or_create_webcam_session() -> WebcamRecognitionSession:
+    """Retrieves or initializes the session-scoped WebcamRecognitionSession instance."""
+    if "webcam_session" not in st.session_state or st.session_state["webcam_session"] is None:
+        try:
+            pipeline = get_default_recognition_pipeline()
+        except Exception:
+            pipeline = None
+        st.session_state["webcam_session"] = WebcamRecognitionSession(recognition_pipeline=pipeline)
+    return st.session_state["webcam_session"]
+
+
+def extract_prediction_info(pred: Optional[BoundedSignPrediction]) -> Dict[str, Any]:
+    """Extracts UI-displayable gloss, confidence, class index, and top-3 candidates from BoundedSignPrediction."""
+    if pred is None or getattr(pred, "prediction", None) is None:
+        return {"gloss": "N/A", "confidence": 0.0, "top_k": [], "accepted": False}
+
+    p = pred.prediction
+
+    cls_val = getattr(p, "predicted_class", None)
+    if hasattr(cls_val, "item"):
+        cls_idx = int(cls_val.item())
+    elif isinstance(cls_val, (int, np.integer)):
+        cls_idx = int(cls_val)
+    else:
+        cls_idx = 0
+
+    gloss = getattr(p, "predicted_gloss", None) or f"Sign #{cls_idx}"
+
+    conf_val = getattr(p, "confidence", 0.0)
+    if hasattr(conf_val, "item"):
+        conf_score = float(conf_val.item())
+    else:
+        try:
+            conf_score = float(conf_val)
+        except (ValueError, TypeError):
+            conf_score = 0.0
+
+    accepted = bool(getattr(p, "is_accepted", True))
+
+    top_k_list = []
+    top_k_idxs = getattr(p, "top_k_indices", None)
+    top_k_probs = getattr(p, "top_k_probabilities", None)
+
+    if top_k_idxs is not None and top_k_probs is not None:
+        try:
+            if hasattr(top_k_idxs, "tolist"):
+                idxs = top_k_idxs.tolist()
+            else:
+                idxs = list(top_k_idxs)
+            if hasattr(top_k_probs, "tolist"):
+                probs = top_k_probs.tolist()
+            else:
+                probs = list(top_k_probs)
+
+            if idxs and isinstance(idxs[0], list):
+                idxs = idxs[0]
+            if probs and isinstance(probs[0], list):
+                probs = probs[0]
+
+            for idx, prob in zip(idxs[:3], probs[:3]):
+                top_k_list.append((f"Sign #{int(idx)}", float(prob)))
+        except Exception:
+            pass
+
+    return {
+        "gloss": gloss,
+        "class_index": cls_idx,
+        "confidence": conf_score,
+        "top_k": top_k_list,
+        "accepted": accepted,
+    }
+
+
 def render_mode_live_webcam(status_info: dict) -> None:
-    """Renders Live Webcam mode placeholder."""
+    """Renders Live Webcam Recognition mode with WebRTC streaming."""
     render_header(
         title="Live Webcam Recognition",
         page_icon="📹",
         description="Real-time sign language recognition and translation from your camera feed.",
     )
-    if status_info.get("recognition_pipeline_available"):
-        st.info("Live webcam inference pipeline is ready.")
-    elif status_info.get("checkpoint_available"):
-        count = status_info.get("checkpoint_count", 0)
-        render_empty_state(
-            title="Recognition Adapter Standby",
-            message=(
-                f"Trained checkpoint file(s) found ({count}), but the live recognition adapter pipeline is not yet wired or verified.\n\n"
-                "**Status Details**:\n"
-                "- Model Architecture: ✅ Available (ST-GCN / GNN)\n"
-                "- Trained Checkpoints: ✅ Found\n"
-                "- Recognition Pipeline Adapter: ⚠️ Standby (Unwired)\n\n"
-                "Live inference cannot start until the live recognition adapter pipeline is initialized and connected."
-            ),
-            icon="📹",
+
+    # Lazy WebRTC import boundary
+    try:
+        from streamlit_webrtc import RTCConfiguration, WebRtcMode, webrtc_streamer
+    except Exception as err:
+        st.error(
+            f"Streamlit WebRTC component unavailable: {err}.\n\n"
+            "Please ensure `streamlit-webrtc` and system video dependencies (av / PyAV) are installed."
         )
-    else:
-        render_empty_state(
-            title="Recognition Backend Standby",
-            message=(
-                "Model architectures are available, but no trained checkpoints were found under the models directory.\n\n"
-                "**Status Details**:\n"
-                "- Model Architecture: ✅ Available (ST-GCN / GNN)\n"
-                "- Trained Checkpoints: ⚠️ None Found\n"
-                "- Recognition Pipeline: ⚠️ Standby\n\n"
-                "Live stream inference requires trained checkpoint files and an initialized recognition pipeline adapter."
+        return
+
+    session = get_or_create_webcam_session()
+    video_callback = make_video_frame_callback(session)
+
+    col_stream, col_controls = st.columns([3, 1])
+
+    with col_stream:
+        webrtc_ctx = webrtc_streamer(
+            key="live_webcam_streamer",
+            mode=WebRtcMode.SENDRECV,
+            rtc_configuration=RTCConfiguration(
+                {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
             ),
-            icon="📹",
+            video_frame_callback=video_callback,
+            media_stream_constraints={"video": True, "audio": False},
+            async_processing=True,
         )
+
+    is_playing = bool(webrtc_ctx and hasattr(webrtc_ctx, "state") and getattr(webrtc_ctx.state, "playing", False))
+
+    # Detect stop/disable transition and reset recognition session state
+    was_playing = st.session_state.get("webcam_was_playing", False)
+    if was_playing and not is_playing:
+        session.reset()
+    st.session_state["webcam_was_playing"] = is_playing
+
+    with col_controls:
+        st.markdown("#### Session Controls")
+        if st.button("Reset Recognition", key="reset_webcam_session_btn", use_container_width=True):
+            session.reset()
+
+    res = session.get_result()
+    info = extract_prediction_info(res.latest_prediction)
+
+    # Display availability / camera state banners
+    if not res.recognition_available:
+        st.warning(
+            "⚠️ **Recognition Pipeline Standby**: Trained model checkpoints or pipeline adapters are not loaded. "
+            "Webcam preview is active, but live recognition inference is disabled."
+        )
+    elif not is_playing:
+        st.info("📹 **Camera Idle**: Click **START** above to activate the live webcam stream.")
+
+    # Telemetry and Predictions Display
+    st.markdown("### 📊 Live Telemetry & Predictions")
+
+    m_col1, m_col2, m_col3, m_col4, m_col5, m_col6 = st.columns(6)
+    with m_col1:
+        if not is_playing:
+            status_label = "Stopped"
+        elif not res.recognition_available:
+            status_label = "Unavailable"
+        elif res.total_frames_received < 60:
+            status_label = "Buffering"
+        else:
+            status_label = "Active"
+        st.metric("Status", status_label)
+
+    with m_col2:
+        st.metric("Latest Sign", info["gloss"] if is_playing else "N/A")
+
+    with m_col3:
+        conf_display = f"{info['confidence'] * 100:.1f}%" if (is_playing and info["gloss"] != "N/A") else "N/A"
+        st.metric("Confidence", conf_display)
+
+    with m_col4:
+        st.metric("FPS", f"{res.processing_fps:.1f}" if is_playing else "0.0")
+
+    with m_col5:
+        st.metric("Latency", f"{res.last_latency_ms:.1f} ms" if is_playing else "0.0 ms")
+
+    with m_col6:
+        st.metric("Windows", res.processed_windows if is_playing else 0)
+
+    # Top-3 Candidates when available
+    if is_playing and info["top_k"]:
+        st.markdown("#### 🎯 Top-3 Candidates")
+        cand_cols = st.columns(len(info["top_k"]))
+        for idx, (label, prob) in enumerate(info["top_k"]):
+            with cand_cols[idx]:
+                st.metric(f"Rank {idx+1}: {label}", f"{prob * 100:.1f}%")
+
+    # Prediction History list
+    if is_playing and res.prediction_history:
+        st.markdown("#### 📋 Recognition History")
+        history_rows = []
+        for p_item in reversed(res.prediction_history):
+            p_info = extract_prediction_info(p_item)
+            history_rows.append({
+                "Sign / Gloss": p_info["gloss"],
+                "Confidence": f"{p_info['confidence'] * 100:.1f}%",
+                "Status": "Accepted" if p_info["accepted"] else "Rejected",
+            })
+        st.dataframe(history_rows, use_container_width=True)
+
 
 
 def render_mode_continuous_sentence(status_info: dict) -> None:
