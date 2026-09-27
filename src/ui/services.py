@@ -11,6 +11,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
+from src.pipeline.recognition import RecognitionPipeline
+from src.video.processor import VideoProcessingResult, VideoProcessor
+from src.video.url_downloader import URLVideoDownloader
+from src.video.isl_stitcher import ISLStitchResult, ISLVideoStitcher
 from src.nlp.isl_dictionary import ISLDictionaryIndex
 from src.nlp.text_to_isl import (
     DemonstrationSource,
@@ -18,9 +22,14 @@ from src.nlp.text_to_isl import (
     TextToISLConverter,
 )
 from src.utils.metrics import EvaluationResult, MetricsEvaluator
-from src.video.isl_stitcher import ISLStitchResult, ISLVideoStitcher
-from src.video.processor import VideoProcessingResult, VideoProcessor
-from src.video.url_downloader import URLVideoDownloader
+
+
+# --- Private Helper: Default VideoProcessor Factory ---
+
+def _create_default_video_processor() -> VideoProcessor:
+    """Creates default VideoProcessor initialized with RecognitionPipeline adapter."""
+    pipeline = RecognitionPipeline()
+    return VideoProcessor(recognition_pipeline=pipeline)
 
 
 # --- Service 1: Video File Processing ---
@@ -45,7 +54,7 @@ def process_video_file(
         VideoProcessingResult from the backend VideoProcessor.
     """
     if processor is None:
-        processor = VideoProcessor()
+        processor = _create_default_video_processor()
 
     return processor.process_file(
         file_path=file_path,
@@ -71,7 +80,7 @@ def process_video_url(
     Args:
         url: Web video URL (YouTube, Instagram, Facebook, Google Drive, Direct file link).
         downloader: Optional URLVideoDownloader instance.
-        processor: Optional VideoProcessor instance.
+        processor: Optional VideoProcessor instance. If None, default VideoProcessor is created.
         output_dir: Optional destination directory for downloaded video.
         manual_signer_id: Optional manual signer track ID override.
         enable_tts: Whether to enable TTS synthesis.
@@ -85,6 +94,9 @@ def process_video_url(
     """
     if downloader is None:
         downloader = URLVideoDownloader()
+
+    if processor is None:
+        processor = _create_default_video_processor()
 
     return downloader.process_url(
         url=url,

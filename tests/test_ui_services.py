@@ -1,13 +1,15 @@
 """Unit tests for SIGNASSIST Phase 17 Block 2 UI Service Layer."""
 
 from pathlib import Path
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 import pytest
 
 from src.nlp.isl_dictionary import ISLDictionaryEntry, ISLDictionaryIndex
 from src.nlp.text_to_isl import DemonstrationSource, ISLDemonstrationSequence
+from src.pipeline.recognition import RecognitionPipeline
 from src.ui.services import (
     TextToISLResult,
+    _create_default_video_processor,
     convert_text_to_isl,
     evaluate_classification,
     get_recognition_readiness,
@@ -15,7 +17,7 @@ from src.ui.services import (
     process_video_url,
 )
 from src.utils.metrics import EvaluationResult, MetricsEvaluator
-from src.video.processor import VideoProcessingResult
+from src.video.processor import VideoProcessingResult, VideoProcessor
 
 
 # 1. Video Processing Service Test
@@ -42,6 +44,34 @@ def test_process_video_file_service_delegation() -> None:
     )
     assert res is mock_result
     assert res.recognition_available is False
+
+
+def test_process_video_file_default_processor_creation(tmp_path: Path) -> None:
+    """Tests that process_video_file creates default VideoProcessor with RecognitionPipeline when processor is None."""
+    dummy_video = tmp_path / "dummy.mp4"
+    dummy_video.write_bytes(b"dummy")
+
+    with patch("src.ui.services._create_default_video_processor") as mock_factory:
+        mock_processor = MagicMock(spec=VideoProcessor)
+        mock_result = MagicMock(spec=VideoProcessingResult)
+        mock_processor.process_file.return_value = mock_result
+        mock_factory.return_value = mock_processor
+
+        res = process_video_file(file_path=dummy_video)
+
+        mock_factory.assert_called_once()
+        mock_processor.process_file.assert_called_once()
+        assert res is mock_result
+
+
+def test_default_video_processor_factory_pipeline_integration() -> None:
+    """Tests _create_default_video_processor instantiates RecognitionPipeline adapter without fabricating recognition."""
+    processor = _create_default_video_processor()
+
+    assert isinstance(processor, VideoProcessor)
+    assert isinstance(processor.recognition_pipeline, RecognitionPipeline)
+    # Since no trained checkpoints exist in repository, default pipeline is unavailable
+    assert processor.recognition_pipeline.is_available() is False
 
 
 # 2. Video URL Processing Service Test
@@ -71,6 +101,34 @@ def test_process_video_url_service_delegation() -> None:
         chunk_size=60,
     )
     assert res is mock_result
+
+
+def test_process_video_url_default_processor_creation() -> None:
+    """Tests that process_video_url creates default VideoProcessor with RecognitionPipeline when processor is None and passes it to downloader."""
+    mock_downloader = MagicMock()
+    mock_result = MagicMock(spec=VideoProcessingResult)
+    mock_downloader.process_url.return_value = mock_result
+
+    with patch("src.ui.services._create_default_video_processor") as mock_factory:
+        mock_processor = MagicMock(spec=VideoProcessor)
+        mock_factory.return_value = mock_processor
+
+        res = process_video_url(
+            url="https://youtube.com/watch?v=demo",
+            downloader=mock_downloader,
+            processor=None,
+        )
+
+        mock_factory.assert_called_once()
+        mock_downloader.process_url.assert_called_once_with(
+            url="https://youtube.com/watch?v=demo",
+            processor=mock_processor,
+            output_dir=None,
+            manual_signer_id=None,
+            enable_tts=False,
+            chunk_size=60,
+        )
+        assert res is mock_result
 
 
 # 3. Text → ISL Service Tests

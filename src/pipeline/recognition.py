@@ -26,10 +26,10 @@ from src.models.router import LearnedStaticDynamicRouter
 from src.models.static_gcn import StaticGraphGCN
 from src.pipeline.boundary_detector import SignBoundaryDetector, SignSegment
 from src.utils.config import AppConfig, load_config
-from src.video.file_reader import DecodedFrame
 
 if TYPE_CHECKING:
     from src.nlp.types import BoundedSignPrediction
+    from src.video.file_reader import DecodedFrame
     from src.video.signer_tracker import BoundingBox
 
 logger = logging.getLogger(__name__)
@@ -215,7 +215,7 @@ class RecognitionPipeline:
         Returns:
             Tuple of (RawLandmarks, SelectedGraphLandmarks (115, 5), StaticFeatureVector (225,)).
         """
-        if isinstance(frame, DecodedFrame):
+        if hasattr(frame, "frame") and hasattr(frame, "frame_index") and isinstance(frame.frame, np.ndarray):
             bgr_image = frame.frame
         elif isinstance(frame, np.ndarray):
             bgr_image = frame
