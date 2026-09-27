@@ -15,6 +15,7 @@ from src.ui.services import (
     convert_text_to_isl,
     evaluate_classification,
     get_recognition_readiness,
+    parse_research_artifact,
     process_video_file,
     process_video_url,
 )
@@ -36,5 +37,6 @@ __all__ = [
     "convert_text_to_isl",
     "evaluate_classification",
     "get_recognition_readiness",
+    "parse_research_artifact",
     "TextToISLResult",
 ]

@@ -1,10 +1,11 @@
 """SIGNASSIST - Real-Time Indian Sign Language Recognition & Translation UI Application."""
 
+import json
 import os
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional, Tuple, Union
 import streamlit as st
 
 # Bootstrap repository root
@@ -16,6 +17,7 @@ from src.ui import (
     convert_text_to_isl,
     get_ui_config,
     init_session_state,
+    parse_research_artifact,
     process_video_file,
     process_video_url,
     render_empty_state,
@@ -440,30 +442,257 @@ def render_mode_text_to_isl(status_info: dict) -> None:
         )
 
 
+def render_core_metrics_summary(metrics_dict: Dict[str, Any]) -> None:
+    """Renders 9 core classification metrics using st.metric cards."""
+    st.markdown("#### 🎯 Overall Classification Metrics")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Accuracy", f"{metrics_dict.get('accuracy', 0.0):.2%}")
+        st.metric("Macro Precision", f"{metrics_dict.get('macro_precision', 0.0):.2%}")
+        st.metric("Weighted Precision", f"{metrics_dict.get('weighted_precision', 0.0):.2%}")
+    with col2:
+        st.metric("Total Samples", metrics_dict.get("total_samples", 0))
+        st.metric("Macro Recall", f"{metrics_dict.get('macro_recall', 0.0):.2%}")
+        st.metric("Weighted Recall", f"{metrics_dict.get('weighted_recall', 0.0):.2%}")
+    with col3:
+        st.metric("Number of Classes", metrics_dict.get("num_classes", 0))
+        st.metric("Macro F1", f"{metrics_dict.get('macro_f1', 0.0):.2%}")
+        st.metric("Weighted F1", f"{metrics_dict.get('weighted_f1', 0.0):.2%}")
+
+
+def render_per_class_metrics_table(per_class_dict: Dict[str, Any]) -> None:
+    """Renders per-class precision, recall, f1, and support in a dataframe."""
+    if not per_class_dict:
+        return
+
+    st.markdown("#### 🏷️ Per-Class Performance")
+    rows = []
+    for cls_name, vals in per_class_dict.items():
+        if isinstance(vals, dict):
+            rows.append(
+                {
+                    "Class": cls_name,
+                    "Precision": f"{vals.get('precision', 0.0):.4f}",
+                    "Recall": f"{vals.get('recall', 0.0):.4f}",
+                    "F1 Score": f"{vals.get('f1', 0.0):.4f}",
+                    "Support": vals.get("support", 0),
+                }
+            )
+
+    if rows:
+        st.dataframe(rows, use_container_width=True)
+
+
+def render_confusion_matrix_table(cm_list: List[List[int]], class_names: List[str]) -> None:
+    """Renders confusion matrix table with rows as Actual and columns as Predicted classes."""
+    if not cm_list:
+        return
+
+    st.markdown("#### 🔢 Confusion Matrix")
+    num_classes = len(cm_list)
+    if not class_names or len(class_names) != num_classes:
+        class_names = [f"Class_{i}" for i in range(num_classes)]
+
+    cm_df_data = []
+    for idx, row in enumerate(cm_list):
+        row_dict = {"Actual Class": class_names[idx]}
+        for c_idx, val in enumerate(row):
+            col_name = f"Pred: {class_names[c_idx]}"
+            row_dict[col_name] = val
+        cm_df_data.append(row_dict)
+
+    st.dataframe(cm_df_data, use_container_width=True)
+
+
+def render_evaluation_result_dashboard(payload: Dict[str, Any]) -> None:
+    """Renders standard EvaluationResult artifact metrics, per-class metrics, and confusion matrix."""
+    st.markdown("### 📈 Evaluation Result Dashboard")
+    render_core_metrics_summary(payload)
+    render_per_class_metrics_table(payload.get("per_class_metrics", {}))
+    render_confusion_matrix_table(payload.get("confusion_matrix", []), payload.get("class_names", []))
+
+
+def render_loso_result_dashboard(payload: Dict[str, Any]) -> None:
+    """Renders Leave-One-Signer-Out (LOSO) cross-validation evaluation results."""
+    st.markdown("### 👥 Leave-One-Signer-Out (LOSO) Evaluation Dashboard")
+
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("Number of Signers", payload.get("num_signers", len(payload.get("folds", []))))
+    with col2:
+        st.metric("Total Samples", payload.get("num_samples", 0))
+    with col3:
+        agg = payload.get("aggregate_metrics", {})
+        st.metric("Aggregate Accuracy", f"{agg.get('accuracy', 0.0):.2%}")
+    with col4:
+        st.metric("Aggregate Macro F1", f"{agg.get('macro_f1', 0.0):.2%}")
+
+    agg = payload.get("aggregate_metrics", {})
+    if agg:
+        render_core_metrics_summary(agg)
+        render_per_class_metrics_table(agg.get("per_class_metrics", {}))
+        render_confusion_matrix_table(agg.get("confusion_matrix", []), agg.get("class_names", []))
+
+    folds = payload.get("folds", [])
+    if folds:
+        st.markdown("#### 📂 Per-Fold Signer Isolation Details")
+        fold_rows = []
+        for idx, fold in enumerate(folds, 1):
+            f_metrics = fold.get("metrics", {})
+            fold_rows.append(
+                {
+                    "Fold": idx,
+                    "Held-Out Signer": fold.get("held_out_signer", f"Signer_{idx}"),
+                    "Train Samples": fold.get("train_sample_count", 0),
+                    "Test Samples": fold.get("test_sample_count", 0),
+                    "Accuracy": f"{f_metrics.get('accuracy', 0.0):.4f}",
+                    "Macro F1": f"{f_metrics.get('macro_f1', 0.0):.4f}",
+                }
+            )
+        st.dataframe(fold_rows, use_container_width=True)
+
+
+def render_ablation_result_dashboard(payload: Dict[str, Any]) -> None:
+    """Renders Ablation Study results across multiple experiment configurations."""
+    st.markdown("### 🔬 Ablation Study Dashboard")
+    st.caption(
+        f"Evaluation Mode: `{payload.get('evaluation_type', 'standard').upper()}` | "
+        f"Experiments: `{payload.get('num_experiments', len(payload.get('experiments', [])))}`"
+    )
+
+    experiments = payload.get("experiments", [])
+    if not experiments:
+        st.info("No experiment results found in ablation artifact.")
+        return
+
+    exp_rows = []
+    for exp in experiments:
+        m = exp.get("metrics", {})
+        params = exp.get("parameters", {})
+        param_str = ", ".join(f"{k}={v}" for k, v in params.items()) if isinstance(params, dict) else str(params)
+
+        exp_rows.append(
+            {
+                "Experiment Name": exp.get("name", "N/A"),
+                "Description": exp.get("description", "N/A"),
+                "Accuracy": f"{m.get('accuracy', 0.0):.4f}",
+                "Macro F1": f"{m.get('macro_f1', 0.0):.4f}",
+                "Parameters": param_str,
+                "Sample Count": exp.get("sample_count", "N/A"),
+                "Signer Count": exp.get("signer_count", "N/A"),
+            }
+        )
+
+    st.dataframe(exp_rows, use_container_width=True)
+
+
+def generate_synthetic_demo_artifact() -> Dict[str, Any]:
+    """Generates a synthetic LOSO evaluation artifact for UI demonstration only."""
+    from scripts.evaluate_loso import create_demo_dataset, mock_deterministic_classifier
+    from src.utils.loso_evaluator import LOSOEvaluator
+
+    ds = create_demo_dataset()
+    evaluator = LOSOEvaluator(zero_division=0.0, num_classes=3, class_names=["CLASS_0", "CLASS_1", "CLASS_2"])
+    res = evaluator.evaluate(ds, mock_deterministic_classifier)
+    return {
+        "artifact_type": "loso",
+        "payload": res.to_dict(),
+    }
+
+
 def render_mode_research_analytics(status_info: dict) -> None:
-    """Renders Research Analytics mode placeholder."""
+    """Renders Research Analytics & Benchmarks mode."""
     render_header(
         title="Research Analytics & Benchmarks",
         page_icon="📊",
-        description="Evaluate model metrics, confusion matrices, LOSO cross-validation, and ablation studies.",
-    )
-    checkpoint_count = status_info.get("checkpoint_count", 0)
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Model Architecture", "ST-GCN + GNN")
-    with col2:
-        st.metric("Checkpoints Available", str(checkpoint_count))
-    with col3:
-        st.metric("Benchmark Status", "Ready for Evaluation")
-
-    render_empty_state(
-        title="Research Evaluation Framework",
-        message=(
-            "Provides model-agnostic MetricsEvaluator, LOSO evaluation engine, and Ablation Study runner.\n\n"
-            "Run `python scripts/evaluate_loso.py --demo` or `python scripts/run_ablation.py --demo` from the terminal to view benchmark evaluations."
+        description=(
+            "Visualize genuine evaluation result artifacts, confusion matrices, LOSO cross-validation, "
+            "and ablation study results produced by the Phase 16 evaluation framework."
         ),
-        icon="📊",
     )
+
+    col_up, col_demo = st.columns([3, 2])
+
+    with col_up:
+        uploaded_file = st.file_uploader(
+            "Upload Evaluation Result Artifact (JSON)",
+            type=["json"],
+            key="research_file_uploader",
+        )
+
+    with col_demo:
+        st.markdown("#### 🧪 Demo Mode")
+        demo_active = st.checkbox(
+            "Run Synthetic Demonstration (TEST ONLY)",
+            value=st.session_state.get("research_demo_active", False),
+            key="research_demo_active_checkbox",
+        )
+        st.session_state["research_demo_active"] = demo_active
+
+    # Handle synthetic demo mode
+    if demo_active:
+        st.error("⚠️ DEMONSTRATION / TEST ONLY — SYNTHETIC DATA — NOT RESEARCH RESULTS")
+        demo_artifact = generate_synthetic_demo_artifact()
+        render_loso_result_dashboard(demo_artifact["payload"])
+        return
+
+    # Handle file upload
+    if uploaded_file is not None:
+        file_id = f"{uploaded_file.name}_{getattr(uploaded_file, 'size', 0)}"
+        if st.session_state.get("research_result_file_id") != file_id:
+            try:
+                raw_bytes = uploaded_file.getvalue() if hasattr(uploaded_file, "getvalue") else uploaded_file.read()
+                json_data = json.loads(raw_bytes.decode("utf-8"))
+                parsed = parse_research_artifact(json_data)
+
+                st.session_state["research_result"] = parsed["payload"]
+                st.session_state["research_result_type"] = parsed["artifact_type"]
+                st.session_state["research_result_filename"] = uploaded_file.name
+                st.session_state["research_result_file_id"] = file_id
+                st.session_state["research_last_error"] = None
+            except json.JSONDecodeError as err:
+                st.session_state["research_result"] = None
+                st.session_state["research_result_type"] = None
+                st.session_state["research_last_error"] = f"Malformed JSON file: {err}"
+                render_error_state(f"Malformed JSON file: {err}")
+            except ValueError as err:
+                st.session_state["research_result"] = None
+                st.session_state["research_result_type"] = None
+                st.session_state["research_last_error"] = str(err)
+                render_error_state(str(err))
+            except Exception as err:
+                st.session_state["research_result"] = None
+                st.session_state["research_result_type"] = None
+                st.session_state["research_last_error"] = str(err)
+                render_error_state(f"Failed to load evaluation artifact: {err}")
+
+    res_payload = st.session_state.get("research_result")
+    res_type = st.session_state.get("research_result_type")
+
+    if res_payload is not None and res_type is not None:
+        st.caption(f"Loaded Artifact: `{st.session_state.get('research_result_filename', 'uploaded.json')}`")
+        if res_type == "evaluation":
+            render_evaluation_result_dashboard(res_payload)
+        elif res_type == "loso":
+            render_loso_result_dashboard(res_payload)
+        elif res_type == "ablation":
+            render_ablation_result_dashboard(res_payload)
+    elif uploaded_file is None and not st.session_state.get("research_last_error"):
+        checkpoint_count = status_info.get("checkpoint_count", 0)
+        render_empty_state(
+            title="Research Evaluation Framework",
+            message=(
+                "Model architectures and evaluation frameworks are available.\n\n"
+                f"**System Status**:\n"
+                f"- Model Architecture: ✅ Available (ST-GCN / GNN)\n"
+                f"- Checkpoints Found: {checkpoint_count}\n"
+                f"- Evaluation Framework: ✅ Ready (MetricsEvaluator / LOSO / Ablation)\n\n"
+                "Real research analytics require uploading a genuine evaluation result JSON artifact produced by Phase 16 benchmark scripts. "
+                "You may also enable 'Run Synthetic Demonstration (TEST ONLY)' above for framework validation."
+            ),
+            icon="📊",
+        )
 
 
 def main() -> None:
