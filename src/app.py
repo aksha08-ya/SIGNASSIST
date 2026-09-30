@@ -30,6 +30,7 @@ from src.ui import (
     render_error_state,
     render_header,
     render_model_status,
+    ContinuousSentenceSession,
 )
 from src.ui.webcam import WebcamRecognitionSession
 from src.video.url_downloader import URLExtractionError, URLVideoDownloader
@@ -249,22 +250,231 @@ def render_mode_live_webcam(status_info: dict) -> None:
 
 
 
+def get_or_create_continuous_sentence_session() -> ContinuousSentenceSession:
+    """Retrieves or initializes the session-scoped continuous sentence session."""
+    if (
+        "continuous_sentence_session" not in st.session_state
+        or st.session_state["continuous_sentence_session"] is None
+    ):
+        try:
+            pipeline = get_default_recognition_pipeline()
+        except Exception:
+            pipeline = None
+
+        webcam_session = WebcamRecognitionSession(recognition_pipeline=pipeline)
+        st.session_state["continuous_sentence_session"] = ContinuousSentenceSession(
+            webcam_session=webcam_session
+        )
+
+    return st.session_state["continuous_sentence_session"]
+
+
+def make_continuous_sentence_frame_callback(session: ContinuousSentenceSession):
+    """Creates a WebRTC callback for the continuous sentence session.
+
+    The callback performs no Streamlit operations and delegates all recognition
+    processing to ContinuousSentenceSession.
+    """
+    def video_frame_callback(frame: Any) -> Any:
+        try:
+            img = frame.to_ndarray(format="bgr24")
+            session.add_frame(img)
+        except Exception as err:
+            logger.warning(f"Error processing continuous sentence frame: {err}")
+        return frame
+
+    return video_frame_callback
+
+
 def render_mode_continuous_sentence(status_info: dict) -> None:
-    """Renders Continuous Sentence mode placeholder."""
+    """Renders the live Continuous Sentence Recognition mode."""
     render_header(
         title="Continuous Sentence Recognition",
         page_icon="💬",
-        description="Translate continuous ISL gesture sequences into structured sentences.",
-    )
-    render_empty_state(
-        title="Continuous Sentence Mode Standby",
-        message=(
-            "Translates continuous sign sequences into natural text using boundary detection and NLP context smoothing.\n\n"
-            "**Backend Status**:\n"
-            f"- Architecture: {'✅ Available' if status_info.get('architecture_available') else '❌ Unavailable'}\n"
-            f"- Checkpoint: {'✅ Available' if status_info.get('checkpoint_available') else '⚠️ None Found'}"
+        description=(
+            "Translate continuous Indian Sign Language sequences into structured "
+            "sentences using temporal segmentation and context-aware reconstruction."
         ),
-        icon="💬",
+    )
+
+    try:
+        from streamlit_webrtc import RTCConfiguration, WebRtcMode, webrtc_streamer
+    except Exception as err:
+        st.error(
+            f"Streamlit WebRTC component unavailable: {err}.\n\n"
+            "Please ensure `streamlit-webrtc` and system video dependencies "
+            "(av / PyAV) are installed."
+        )
+        return
+
+    session = get_or_create_continuous_sentence_session()
+    video_callback = make_continuous_sentence_frame_callback(session)
+
+    col_stream, col_controls = st.columns([3, 1])
+
+    with col_stream:
+        webrtc_ctx = webrtc_streamer(
+            key="continuous_sentence_streamer",
+            mode=WebRtcMode.SENDRECV,
+            rtc_configuration=RTCConfiguration(
+                {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+            ),
+            video_frame_callback=video_callback,
+            media_stream_constraints={"video": True, "audio": False},
+            async_processing=True,
+        )
+
+    is_playing = bool(
+        webrtc_ctx
+        and hasattr(webrtc_ctx, "state")
+        and getattr(webrtc_ctx.state, "playing", False)
+    )
+
+    was_playing = st.session_state.get("continuous_sentence_was_playing", False)
+    if was_playing and not is_playing:
+        # Stop the active camera stream without discarding the sentence transcript.
+        pass
+    st.session_state["continuous_sentence_was_playing"] = is_playing
+
+    with col_controls:
+        st.markdown("#### Session Controls")
+
+        if st.button(
+            "Finalize Sentence",
+            key="finalize_continuous_sentence_btn",
+            type="primary",
+            use_container_width=True,
+        ):
+            result = session.finalize_sentence()
+            st.session_state["finalized_sentence"] = result.current_sentence
+
+        if st.button(
+            "Reset Sentence",
+            key="reset_continuous_sentence_btn",
+            use_container_width=True,
+        ):
+            session.reset()
+            st.session_state["finalized_sentence"] = ""
+
+    result = session.get_result()
+
+    if not result.recognition_available:
+        st.warning(
+            "⚠️ **Recognition Pipeline Standby**: trained model checkpoints or "
+            "pipeline adapters are not loaded. The camera preview may be active, "
+            "but continuous sentence recognition is disabled."
+        )
+    elif not is_playing:
+        st.info("📹 **Camera Idle**: Click **START** above to begin continuous signing.")
+
+    # Current sentence
+    st.markdown("### 📝 Current Sentence")
+
+    current_sentence = result.current_sentence.strip()
+    if current_sentence:
+        st.success(current_sentence)
+    else:
+        st.info(
+            "No sentence reconstructed yet. Start signing after the recognition "
+            "pipeline becomes available."
+        )
+
+    finalized_sentence = st.session_state.get("finalized_sentence", "").strip()
+    if finalized_sentence:
+        st.markdown("### ✅ Finalized Sentence")
+        st.success(finalized_sentence)
+
+    # Telemetry
+    st.markdown("### 📊 Continuous Recognition Telemetry")
+
+    m_col1, m_col2, m_col3, m_col4, m_col5, m_col6 = st.columns(6)
+
+    with m_col1:
+        if not is_playing:
+            status_label = "Stopped"
+        elif not result.recognition_available:
+            status_label = "Unavailable"
+        elif result.total_frames_received < 60:
+            status_label = "Buffering"
+        else:
+            status_label = "Active"
+        st.metric("Status", status_label)
+
+    with m_col2:
+        st.metric("Tokens", result.filtered_token_count)
+
+    with m_col3:
+        st.metric(
+            "Mean Confidence",
+            f"{result.mean_confidence * 100:.1f}%"
+            if result.filtered_token_count
+            else "N/A",
+        )
+
+    with m_col4:
+        st.metric("FPS", f"{result.processing_fps:.1f}" if is_playing else "0.0")
+
+    with m_col5:
+        st.metric("Latency", f"{result.latency_ms:.1f} ms" if is_playing else "0.0 ms")
+
+    with m_col6:
+        st.metric("Windows", result.processed_windows if is_playing else 0)
+
+    # Latest prediction
+    latest_info = extract_prediction_info(result.latest_prediction)
+
+    if result.latest_prediction is not None:
+        st.markdown("### 🎯 Latest Recognition")
+
+        latest_col1, latest_col2, latest_col3 = st.columns(3)
+
+        with latest_col1:
+            st.metric("Latest Sign", latest_info["gloss"])
+
+        with latest_col2:
+            st.metric("Confidence", f"{latest_info['confidence'] * 100:.1f}%")
+
+        with latest_col3:
+            accepted_label = "Accepted" if latest_info["accepted"] else "Rejected"
+            st.metric("Prediction Status", accepted_label)
+
+        if latest_info["top_k"]:
+            st.markdown("#### Top-3 Candidates")
+            candidate_cols = st.columns(len(latest_info["top_k"]))
+            for idx, (label, probability) in enumerate(latest_info["top_k"]):
+                with candidate_cols[idx]:
+                    st.metric(
+                        f"Rank {idx + 1}: {label}",
+                        f"{probability * 100:.1f}%",
+                    )
+
+    # Prediction history
+    if result.prediction_history:
+        st.markdown("### 📋 Sign Recognition History")
+
+        history_rows = []
+        for prediction in reversed(result.prediction_history):
+            info = extract_prediction_info(prediction)
+            segment = getattr(prediction, "segment", None)
+
+            history_rows.append(
+                {
+                    "Sign / Gloss": info["gloss"],
+                    "Confidence": f"{info['confidence'] * 100:.1f}%",
+                    "Status": "Accepted" if info["accepted"] else "Rejected",
+                    "Start Frame": getattr(segment, "start_frame", "N/A"),
+                    "End Frame": getattr(segment, "end_frame", "N/A"),
+                }
+            )
+
+        st.dataframe(history_rows, use_container_width=True)
+
+    # Session information
+    st.caption(
+        f"Frames received: {result.total_frames_received} | "
+        f"Processed windows: {result.processed_windows} | "
+        f"Raw tokens: {result.raw_token_count} | "
+        f"Filtered tokens: {result.filtered_token_count}"
     )
 
 

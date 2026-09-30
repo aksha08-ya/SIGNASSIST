@@ -46,7 +46,7 @@ dynamic_model:
   num_transformer_layers: 4
   num_heads: 8
   dropout: 0.3
-  num_classes: 250
+  num_classes: 262
 
 inference:
   confidence_threshold: 0.70

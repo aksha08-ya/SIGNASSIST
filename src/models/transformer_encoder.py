@@ -120,6 +120,7 @@ if _TORCH_AVAILABLE:
             self.transformer_encoder = nn.TransformerEncoder(
                 encoder_layer=encoder_layer,
                 num_layers=num_transformer_layers,
+                enable_nested_tensor=False,
             )
 
             # Final Norm & Projection Layer

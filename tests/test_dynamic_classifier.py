@@ -4,7 +4,7 @@ Verifies:
 - Model construction and configuration loading (from_config);
 - Package exports via src.models;
 - Single internal ST-GCN backbone and Transformer encoder instances without duplicates;
-- Input shape [B, 5, T, 115] -> Output logits [B, 250] & embedding [B, 256];
+- Input shape [B, 5, T, 115] -> Output logits [B, 262] & embedding [B, 256];
 - Batch sizes 1, 2, and 8;
 - Variable temporal lengths T = 10, 30, 60, 90, 120;
 - [B, T] and [B, T, 115] validity masks;
@@ -47,7 +47,7 @@ def test_model_construction():
     assert model.num_nodes == 115
     assert model.sequence_length == 60
     assert model.hidden_dim == 256
-    assert model.num_classes == 250
+    assert model.num_classes == 262
     assert isinstance(model.stgcn_backbone, STGCNBackbone)
     assert isinstance(model.transformer_encoder, TransformerTemporalEncoder)
 
@@ -59,7 +59,7 @@ def test_construction_from_config():
     assert model.num_nodes == 115
     assert model.sequence_length == 60
     assert model.hidden_dim == 256
-    assert model.num_classes == 250
+    assert model.num_classes == 262
 
 
 def test_no_duplicate_instances():
@@ -83,7 +83,7 @@ def test_no_duplicate_instances():
 
 
 def test_forward_pass_default_shapes():
-    """Verifies forward pass output shapes: logits [B, 250], embedding [B, 256], ST-GCN [B, 256, 60, 115]."""
+    """Verifies forward pass output shapes: logits [B, 262], embedding [B, 256], ST-GCN [B, 256, 60, 115]."""
     model = DynamicSignClassifier()
     model.eval()
 
@@ -94,7 +94,7 @@ def test_forward_pass_default_shapes():
         out = model(x)
 
     assert isinstance(out, DynamicClassifierOutput)
-    assert out.logits.shape == (B, 250), f"Expected logits shape {(B, 250)}, got {out.logits.shape}"
+    assert out.logits.shape == (B, 262), f"Expected logits shape {(B, 262)}, got {out.logits.shape}"
     assert out.embedding.shape == (B, 256), f"Expected embedding shape {(B, 256)}, got {out.embedding.shape}"
     assert out.stgcn_features.shape == (B, 256, T, V), f"Expected ST-GCN features shape {(B, 256, T, V)}, got {out.stgcn_features.shape}"
     assert torch.isfinite(out.logits).all()
@@ -125,14 +125,14 @@ def test_batch_sizes(batch_size: int):
     model.eval()
     with torch.no_grad():
         out_eval = model(x)
-    assert out_eval.logits.shape == (batch_size, 250)
+    assert out_eval.logits.shape == (batch_size, 262)
     assert out_eval.embedding.shape == (batch_size, 256)
     assert torch.isfinite(out_eval.logits).all()
 
     # Train mode
     model.train()
     out_train = model(x)
-    assert out_train.logits.shape == (batch_size, 250)
+    assert out_train.logits.shape == (batch_size, 262)
     assert out_train.embedding.shape == (batch_size, 256)
     assert torch.isfinite(out_train.logits).all()
 
@@ -147,7 +147,7 @@ def test_variable_temporal_lengths(seq_length: int):
     with torch.no_grad():
         out = model(x)
 
-    assert out.logits.shape == (2, 250)
+    assert out.logits.shape == (2, 262)
     assert out.embedding.shape == (2, 256)
     assert out.stgcn_features.shape == (2, 256, seq_length, 115)
 
@@ -165,7 +165,7 @@ def test_temporal_2d_mask():
     with torch.no_grad():
         out = model(x, mask=mask_2d)
 
-    assert out.logits.shape == (B, 250)
+    assert out.logits.shape == (B, 262)
     assert out.embedding.shape == (B, 256)
     assert torch.isfinite(out.logits).all()
 
@@ -183,7 +183,7 @@ def test_node_3d_mask():
     with torch.no_grad():
         out = model(x, mask=mask_3d)
 
-    assert out.logits.shape == (B, 250)
+    assert out.logits.shape == (B, 262)
     assert out.embedding.shape == (B, 256)
     assert torch.isfinite(out.logits).all()
 
@@ -232,7 +232,7 @@ def test_all_masked_edge_case():
     with torch.no_grad():
         out = model(x, mask=mask_all_false)
 
-    assert out.logits.shape == (B, 250)
+    assert out.logits.shape == (B, 262)
     assert out.embedding.shape == (B, 256)
     assert not torch.isnan(out.logits).any()
     assert not torch.isinf(out.logits).any()

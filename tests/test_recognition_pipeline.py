@@ -229,7 +229,7 @@ def test_process_frames_structural_inference_path(tmp_path: Path) -> None:
 
 
 def test_separate_vocabularies_and_branch_selection(tmp_path: Path) -> None:
-    """Structural Test: Verifies static (36) vs dynamic (250) branch selection logic."""
+    """Structural Test: Verifies static (36) vs dynamic (262) branch selection logic."""
     models_dir = tmp_path / "models"
     models_dir.mkdir()
 
@@ -306,8 +306,8 @@ def test_separate_vocabularies_and_branch_selection(tmp_path: Path) -> None:
         p_dyn = preds_dynamic[0].prediction
         assert isinstance(p_dyn, ConfidenceOutput)
         # Class index must be within dynamic vocabulary [0, 249]
-        assert 0 <= int(p_dyn.predicted_class[0].item()) < 250
-        assert p_dyn.probabilities.shape[1] == 250
+        assert 0 <= int(p_dyn.predicted_class[0].item()) < 262
+        assert p_dyn.probabilities.shape[1] == 262
     finally:
         pipeline.close()
 

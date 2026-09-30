@@ -172,7 +172,7 @@ class DynamicModelConfig:
     num_transformer_layers: int = 4
     num_heads: int = 8
     dropout: float = 0.3
-    num_classes: int = 250
+    num_classes: int = 262
 
 
 @dataclass
@@ -473,7 +473,7 @@ class ConfigManager:
                 num_transformer_layers=int(dynamic_raw.get("num_transformer_layers", 4)),
                 num_heads=int(dynamic_raw.get("num_heads", 8)),
                 dropout=float(dynamic_raw.get("dropout", 0.3)),
-                num_classes=int(dynamic_raw.get("num_classes", 250)),
+                num_classes=int(dynamic_raw.get("num_classes", 262)),
             ),
             inference=InferenceConfig(
                 confidence_threshold=conf_threshold,

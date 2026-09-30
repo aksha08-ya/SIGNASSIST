@@ -15,3 +15,10 @@ models/*.onnx
 .DS_Store
 
 reports/logs/
+
+# SIGNASSIST datasets and generated artifacts
+data/raw/
+data/processed/include/features/
+models/checkpoints/
+reports/training/
+wget-log*

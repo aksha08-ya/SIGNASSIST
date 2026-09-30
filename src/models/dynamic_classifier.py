@@ -6,7 +6,7 @@ temporal encoder into an end-to-end dynamic sign classifier.
 Input shape: [B, 5, T, 115] (B=batch size, C=5 landmark channels, T=sequence length, V=115 graph nodes).
 ST-GCN backbone output: [B, 256, T, 115].
 Transformer temporal encoder output: [B, 256] (fixed-size temporal representation).
-Classification head output: [B, 250] (logits across dynamic ISL sign vocabulary).
+Classification head output: [B, 262] (logits across dynamic ISL sign vocabulary).
 
 Strictly excludes LSTM, GRU, RNN, or any recurrent architectures.
 """
@@ -34,7 +34,7 @@ from src.utils.config import DynamicModelConfig, load_config
 class DynamicClassifierOutput:
     """Output container for DynamicSignClassifier forward execution."""
 
-    logits: Any  # torch.Tensor shaped [B, 250]
+    logits: Any  # torch.Tensor shaped [B, 262]
     embedding: Any  # torch.Tensor shaped [B, 256]
     stgcn_features: Optional[Any] = None  # torch.Tensor shaped [B, 256, T, 115]
 
@@ -45,7 +45,7 @@ if _TORCH_AVAILABLE:
         """Dynamic Sign Classifier integrating ST-GCN backbone & Transformer temporal encoder.
 
         Pipeline:
-            [B, 5, T, 115] -> STGCNBackbone -> [B, 256, T, 115] -> TransformerTemporalEncoder -> [B, 256] -> Classifier Head -> [B, 250]
+            [B, 5, T, 115] -> STGCNBackbone -> [B, 256, T, 115] -> TransformerTemporalEncoder -> [B, 256] -> Classifier Head -> [B, 262]
         """
 
         def __init__(
@@ -58,7 +58,7 @@ if _TORCH_AVAILABLE:
             num_transformer_layers: int = 4,
             num_heads: int = 8,
             dropout: float = 0.3,
-            num_classes: int = 250,
+            num_classes: int = 262,
             stgcn_backbone: Optional[STGCNBackbone] = None,
             transformer_encoder: Optional[TransformerTemporalEncoder] = None,
         ) -> None:
@@ -93,7 +93,7 @@ if _TORCH_AVAILABLE:
                     sequence_length=sequence_length,
                 )
 
-            # 3. Classification Head: 256 -> 256 -> 250
+            # 3. Classification Head: 256 -> 256 -> 262
             self.classifier = nn.Sequential(
                 nn.Linear(hidden_dim, hidden_dim),
                 nn.BatchNorm1d(hidden_dim),
@@ -114,7 +114,7 @@ if _TORCH_AVAILABLE:
                 mask: Optional validity mask of shape [B, T] or [B, T, 115] (True=valid, False=padded).
 
             Returns:
-                DynamicClassifierOutput containing logits [B, 250], embedding [B, 256], and stgcn_features [B, 256, T, 115].
+                DynamicClassifierOutput containing logits [B, 262], embedding [B, 256], and stgcn_features [B, 256, T, 115].
             """
             if x.dim() != 4:
                 raise ValueError(
@@ -137,7 +137,7 @@ if _TORCH_AVAILABLE:
             # Stage 2: Temporal Encoding via Transformer [B, 256, T, 115] -> [B, 256]
             embedding = self.transformer_encoder(stgcn_features, mask=mask)
 
-            # Stage 3: Classification Head [B, 256] -> [B, 250]
+            # Stage 3: Classification Head [B, 256] -> [B, 262]
             if self.training and embedding.shape[0] == 1:
                 self.classifier[1].eval()
                 logits = self.classifier(embedding)

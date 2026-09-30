@@ -21,6 +21,7 @@ from src.ui.services import (
     process_video_url,
 )
 from src.ui.state import INITIAL_STATE_DEFAULTS, init_session_state
+from src.ui.continuous_sentence import ContinuousSentenceResult, ContinuousSentenceSession
 
 __all__ = [
     "get_ui_config",
@@ -41,4 +42,6 @@ __all__ = [
     "get_default_recognition_pipeline",
     "parse_research_artifact",
     "TextToISLResult",
+    "ContinuousSentenceResult",
+    "ContinuousSentenceSession",
 ]

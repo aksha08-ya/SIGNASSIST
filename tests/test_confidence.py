@@ -11,7 +11,7 @@ Verifies:
 - Batch sizes 1, 2, and 8;
 - Configurable confidence_threshold override;
 - Configurable top_k override (K=1, K=3, K=5);
-- Compatibility with 36-class static logits and 250-class dynamic logits;
+- Compatibility with 36-class static logits and 262-class dynamic logits;
 - Invalid input shape and invalid top-K error handling;
 - Deterministic behavior in eval mode;
 - Zero recurrent (LSTM/GRU/RNN) modules.
@@ -75,7 +75,7 @@ def test_top_k_ordering_and_values():
     estimator = ConfidenceEstimator(top_k=3)
     estimator.eval()
 
-    B, num_classes = 2, 250
+    B, num_classes = 2, 262
     logits = torch.randn(B, num_classes)
 
     with torch.no_grad():
@@ -135,7 +135,7 @@ def test_batch_sizes(batch_size: int):
     estimator = ConfidenceEstimator()
     estimator.eval()
 
-    logits = torch.randn(batch_size, 250)
+    logits = torch.randn(batch_size, 262)
     with torch.no_grad():
         out = estimator(logits)
 
@@ -181,19 +181,19 @@ def test_configurable_top_k(k: int):
 
 
 def test_compatibility_static_and_dynamic_logits():
-    """Verifies compatibility with 36-class static GCN logits and 250-class dynamic classifier logits."""
+    """Verifies compatibility with 36-class static GCN logits and 262-class dynamic classifier logits."""
     estimator = ConfidenceEstimator()
     estimator.eval()
 
     static_logits = torch.randn(2, 36)
-    dynamic_logits = torch.randn(2, 250)
+    dynamic_logits = torch.randn(2, 262)
 
     with torch.no_grad():
         out_static = estimator(static_logits)
         out_dynamic = estimator(dynamic_logits)
 
     assert out_static.probabilities.shape == (2, 36)
-    assert out_dynamic.probabilities.shape == (2, 250)
+    assert out_dynamic.probabilities.shape == (2, 262)
     assert torch.isfinite(out_static.confidence).all()
     assert torch.isfinite(out_dynamic.confidence).all()
 
@@ -228,7 +228,7 @@ def test_deterministic_eval_behavior():
     estimator = ConfidenceEstimator()
     estimator.eval()
 
-    logits = torch.randn(2, 250)
+    logits = torch.randn(2, 262)
     with torch.no_grad():
         out1 = estimator(logits)
         out2 = estimator(logits)
