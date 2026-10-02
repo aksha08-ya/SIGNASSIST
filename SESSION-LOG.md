@@ -217,3 +217,20 @@
   6. **Final Forensic Audit & Reports**: Created `END_TO_END_FINAL_AUDIT.md` and `END_TO_END_STATUS.json` documenting the 12/12 `VERIFIED_FUNCTIONAL` status, root causes, model limitations, temperature calibration ($T=0.68$), confidence policy ($\ge 0.70$), and 0.0% data leakage policy.
 - **Rejected**: Model retraining, modifying model checkpoints, lowering the 0.70 threshold, fabricating predictions or video assets, or violating data isolation rules.
 - **Verification**: **528 / 528 automated pytest tests passed (100%)**.
+
+## Session Entry - Real End-to-End Text -> ISL & Feature Hardening Pass
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Upgraded Text -> ISL feature into a presentation-quality video demonstration engine with verified asset provenance, individual video players, normalized lookup, multi-word clip stitching, coverage metrics, and explicit unsupported token warnings.
+- **Changes**:
+  1. **ISL Dictionary Index Hardening**: Added path validation support in `ISLDictionaryIndex.load(index_path, validate_paths=True)` to ensure loaded dictionary entries map to existing, non-zero video files.
+  2. **Text -> ISL Demonstration Enrichment**: Attached `category` and `duration_sec` fields to `ISLDemonstration` dataclass in `src/nlp/text_to_isl.py`.
+  3. **Presentation-Quality UI Layout in `src/app.py`**:
+     - Added explicit notice banner distinguishing lexical sign video demonstration from unrestricted English-to-ISL grammatical translation.
+     - Added coverage summary cards (`dict_matched/total_tokens` %, dictionary signs, unavailable tokens).
+     - Rendered individual video players (`st.video`) for every dictionary-matched sign with asset provenance paths, glosses, categories, and clip durations.
+     - Rendered explicit alert cards for unsupported tokens ("ISL demonstration unavailable") explaining that no fake, simulated, or ASL clips were substituted.
+     - Rendered combined stitched video player (`st.video`) with resolution, FPS, and duration metadata.
+  4. **Smoke Test & Verification Scripts**: Created `scripts/smoke_test_text_to_isl_real.py` verifying real asset playback (`plane`, `cow`, `slow`, `cat`) and stitched output (`/tmp/real_text_to_isl_smoke_test.mp4`, 640x480 @ 30 FPS H.264 Web MP4).
+  5. **Unit & Integration Test Suite Expansion**: Created `tests/test_text_to_isl_e2e_hardening.py` with 6 new tests covering dictionary path validation, normalized lookup, phrase matching, unsupported words, mixed input, and asset provenance.
+- **Rejected**: Retraining models, modifying checkpoints, lowering 0.70 confidence threshold, substituting ASL assets, or fabricating predictions or video clips.
+- **Verification**: **534 / 534 pytest tests passed (100% pass rate across 3 batches)**; `py_compile` succeeded cleanly; real smoke test passed with 100% assertions.

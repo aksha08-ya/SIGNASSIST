@@ -193,7 +193,9 @@ class ISLDictionaryIndex:
         return [self.lookup(t) for t in terms]
 
     @classmethod
-    def load(cls, index_path: Union[str, Path]) -> "ISLDictionaryIndex":
+    def load(
+        cls, index_path: Union[str, Path], validate_paths: bool = False
+    ) -> "ISLDictionaryIndex":
         """Loads and validates an ISLDictionaryIndex from a JSON file or directory path."""
         path = Path(index_path)
         if path.is_dir():
@@ -201,6 +203,8 @@ class ISLDictionaryIndex:
 
         if not path.exists():
             raise FileNotFoundError(f"Dictionary index file not found: {path}")
+
+        dict_dir = path.parent
 
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -215,9 +219,16 @@ class ISLDictionaryIndex:
         for raw in data["entries"]:
             if not isinstance(raw, dict):
                 raise ValueError("Each item in 'entries' must be a dictionary")
+
+            video_rel = raw.get("video_path", "")
+            if validate_paths and video_rel:
+                abs_video = dict_dir / video_rel
+                if not abs_video.exists() or abs_video.stat().st_size == 0:
+                    continue
+
             entry = ISLDictionaryEntry(
                 gloss=raw.get("gloss", ""),
-                video_path=raw.get("video_path", ""),
+                video_path=video_rel,
                 aliases=raw.get("aliases", []),
                 category=raw.get("category", "general"),
                 source=raw.get("source"),

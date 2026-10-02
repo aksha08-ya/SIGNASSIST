@@ -218,7 +218,7 @@ def convert_text_to_isl(
             index_path = Path("data/external/isl_dictionary/index.json")
         dict_path = Path(index_path)
         if dict_path.exists():
-            dictionary = ISLDictionaryIndex.load(dict_path)
+            dictionary = ISLDictionaryIndex.load(dict_path, validate_paths=True)
             dict_base_dir = dict_path.parent
         else:
             dictionary = ISLDictionaryIndex(entries=[])

@@ -34,6 +34,8 @@ class ISLDemonstration:
         alphabet_video_paths: Ordered list of alphabet video clip paths for fingerspelling.
         dictionary_gloss: Canonical ISL dictionary gloss if matched.
         description: Description/context from dictionary entry if matched.
+        category: Category domain tag if matched.
+        duration_sec: Video clip duration in seconds if matched.
     """
 
     token: str
@@ -44,6 +46,8 @@ class ISLDemonstration:
     alphabet_video_paths: List[str] = field(default_factory=list)
     dictionary_gloss: Optional[str] = None
     description: Optional[str] = None
+    category: Optional[str] = None
+    duration_sec: Optional[float] = None
 
     def __post_init__(self) -> None:
         if isinstance(self.source, str) and not isinstance(self.source, DemonstrationSource):
@@ -172,6 +176,8 @@ class TextToISLConverter:
                         alphabet_video_paths=[],
                         dictionary_gloss=entry.gloss,
                         description=entry.description,
+                        category=entry.category,
+                        duration_sec=entry.duration_sec,
                     )
                     demonstrations.append(demo)
                     i += span_len

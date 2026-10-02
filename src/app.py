@@ -868,11 +868,22 @@ def render_mode_video_url(status_info: dict) -> None:
 
 
 def render_text_to_isl_result(result: TextToISLResult) -> None:
-    """Renders TextToISLResult fields, metrics, tokens, sequence, and optional video."""
-    st.markdown("### 🤟 ISL Translation Summary")
-    st.caption(f"Original Input: {result.sequence.original_text}")
+    """Renders TextToISLResult fields, metrics, individual video players, unavailable tokens, and stitched video."""
+    st.markdown("### 🤟 ISL Video Demonstration Summary")
 
-    # 1. Token Counts Metrics
+    st.markdown(
+        "ℹ️ **Lexical Video Demonstration Notice**: This feature displays canonical Indian Sign Language (ISL) "
+        "dictionary video clips for recognized words/phrases. It demonstrates lexical sign equivalents in input sequence "
+        "and is not an unrestricted English-to-ISL grammatical translator."
+    )
+    st.caption(f"Original Input: `{result.sequence.original_text}` | Normalized Text: `{result.sequence.normalized_text}`")
+
+    demos = getattr(result.sequence, "demonstrations", []) or []
+    total_tokens = len(demos)
+    dict_matched = result.dictionary_count
+    coverage_pct = (dict_matched / total_tokens * 100.0) if total_tokens > 0 else 0.0
+
+    # 1. Coverage Metrics Cards
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Dictionary Signs", result.dictionary_count)
@@ -881,54 +892,98 @@ def render_text_to_isl_result(result: TextToISLResult) -> None:
     with col3:
         st.metric("Unknown Words", result.unknown_count)
 
-    # 2. Missing & Included Tokens Handling
-    demos = getattr(result.sequence, "demonstrations", []) or []
+    st.markdown(
+        f"**Coverage Summary**: `{dict_matched}/{total_tokens}` input tokens ({coverage_pct:.1f}%) "
+        f"have verified ISL dictionary demonstrations."
+    )
+
+    # 2. Combined Stitched Video Output (Multi-word assembly)
+    if result.output_video_path and Path(result.output_video_path).exists():
+        st.markdown("#### 🎬 Combined Stitched ISL Demonstration Video")
+        st.video(result.output_video_path)
+        clip_count = getattr(result.stitch_result, "total_clips", len(result.included_tokens))
+        duration = getattr(result.stitch_result, "duration_sec", 0.0)
+        st.caption(
+            f"**Included Words**: `{', '.join(result.included_tokens)}` | "
+            f"**Clips Stitched**: `{clip_count}` | "
+            f"**Duration**: `{duration:.2f}s` | "
+            f"**Format**: H.264 Web MP4 (640x480 @ 30 FPS)"
+        )
+    elif result.included_tokens:
+        st.info("ℹ️ Stitched compilation video unavailable, but individual video clips are displayed below.")
+    else:
+        st.info(
+            "Textual ISL demonstration sequence generated. "
+            "No stitched video clip could be produced because video assets for the dictionary entries are unavailable."
+        )
+
+    # 3. Individual Verified ISL Videos Section
+    matched_demos = [d for d in demos if d.source == DemonstrationSource.DICTIONARY and d.video_path]
+    if matched_demos:
+        st.markdown("#### 📽️ Individual Verified ISL Dictionary Videos")
+        dict_dir = Path("data/external/isl_dictionary")
+        for idx, d in enumerate(matched_demos, 1):
+            abs_v_path = dict_dir / d.video_path
+            with st.container():
+                st.markdown(f"##### Sign #{idx}: `{d.token}` ➔ Canonical Gloss: `{d.dictionary_gloss}`")
+                v_col1, v_col2 = st.columns([1, 1])
+                with v_col1:
+                    if abs_v_path.exists():
+                        st.video(str(abs_v_path))
+                    else:
+                        st.warning(f"Video file missing on disk: {abs_v_path}")
+                with v_col2:
+                    st.markdown(f"- **Input Word**: `{d.token}`")
+                    st.markdown(f"- **Canonical Gloss**: `{d.dictionary_gloss}`")
+                    st.markdown(f"- **Category**: `{getattr(d, 'category', None) or 'general'}`")
+                    if getattr(d, "duration_sec", None):
+                        st.markdown(f"- **Clip Duration**: `{d.duration_sec:.2f}s`")
+                    st.markdown(f"- **Source Provenance**: `ISL Dictionary (INCLUDE_TRAIN)`")
+                    st.markdown(f"- **Local Asset Path**: `{abs_v_path}`")
+                    if d.description:
+                        st.caption(f"Notes: {d.description}")
+                st.markdown("---")
+
+    # 4. Unavailable Tokens Handling
     missing_tokens = []
     for d in demos:
         if d.source == DemonstrationSource.UNKNOWN or (d.source == DemonstrationSource.DICTIONARY and not d.video_path):
             missing_tokens.append(d.token)
-    
     if result.skipped_tokens:
         for st_tok in result.skipped_tokens:
             if st_tok not in missing_tokens:
                 missing_tokens.append(st_tok)
 
     if missing_tokens:
-        missing_str = ", ".join([f"'{w}'" for w in missing_tokens])
-        st.warning(f"⚠️ **ISL demonstration unavailable for**: {missing_str}")
-        if result.included_tokens:
-            st.info("ℹ️ **Partial Translation**: Stitching video only for available dictionary clips. Missing tokens are omitted from video compilation.")
+        st.markdown("#### ⚠️ Unavailable Demonstrations")
+        for un_tok in missing_tokens:
+            st.warning(
+                f"⚠️ **ISL demonstration unavailable for**: `{un_tok}`\n\n"
+                f"- **Reason**: No verified ISL dictionary video asset exists in `data/external/isl_dictionary/` for this word.\n"
+                f"- **Fingerspelling Policy**: Fingerspelling is disabled as no verified ISL alphabet video assets are present in the repository.\n"
+                f"- **Integrity Policy**: No simulated, fake, or ASL video assets have been substituted."
+            )
 
-    if result.included_tokens:
-        st.markdown(f"**Included Words**: `{', '.join(result.included_tokens)}`")
-
-    # 3. Demonstration Sequence in Token Order
+    # 5. Full Sequence Provenance Dataframe
     if demos:
-        st.markdown("#### 📋 Demonstration Sequence")
+        st.markdown("#### 📋 Full Demonstration Sequence Provenance")
         seq_data = []
+        dict_dir = Path("data/external/isl_dictionary")
         for idx, d in enumerate(demos, 1):
             source_str = d.source.value if hasattr(d.source, "value") else str(d.source)
-            detail = d.dictionary_gloss if d.dictionary_gloss else (", ".join(d.characters) if d.characters else "Unavailable")
+            detail = d.dictionary_gloss if d.dictionary_gloss else "ISL demonstration unavailable"
+            v_path_str = str(dict_dir / d.video_path) if d.video_path else "N/A"
             seq_data.append(
                 {
                     "Step": idx,
                     "Input Token": d.token,
                     "Normalized Token": d.normalized_token,
                     "Source": source_str.upper(),
-                    "Detail / Gloss": detail,
+                    "Canonical Gloss": detail,
+                    "Asset Video Path": v_path_str,
                 }
             )
         st.dataframe(seq_data, use_container_width=True)
-
-    # 4. Video Stitched Output if valid file path exists
-    if result.output_video_path and Path(result.output_video_path).exists():
-        st.markdown("#### 🎬 Stitched ISL Demonstration Video")
-        st.video(result.output_video_path)
-    else:
-        st.info(
-            "Textual ISL demonstration sequence generated. "
-            "No stitched video clip could be produced because video assets for the dictionary entries are unavailable."
-        )
 
 
 def _handle_text_to_isl_conversion(text: str) -> None:
