@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-10-02 11:51:28 UTC",
+  "status": "HARDENING_COMPLETE",
+  "backend": {
+    "name": "experimental_42",
+    "checkpoint": "models/checkpoints/experimental/controlled_stgcn_best.pt",
+    "num_classes": 42,
+    "calibration_temperature": 0.68,
+    "acceptance_threshold": 0.7,
+    "boundary_trimming": "OFF"
+  },
+  "text_to_isl": {
+    "dictionary_classes": 262,
+    "data_leakage": "0.0%",
+    "cat_support": "VERIFIED_FUNCTIONAL (MVI_2981.MOV, TRAIN split)",
+    "unsupported_word_behavior": "HONEST_WARNING_NO_FABRICATION"
+  },
+  "ui_hardening": {
+    "backend_default": "Experimental \u2014 42 classes",
+    "verification_banner": "ADDED (MODEL PREDICTION | ACCEPTED BY CONFIDENCE POLICY | NOT USER-VERIFIED)",
+    "confidence_labeling": "EXPLICIT (Calibrated T=0.68 vs Raw Softmax)",
+    "domain_constraint_banner": "ADDED (42-class controlled vocabulary limit)"
+  },
+  "e2e_feature_audit": {
+    "verified_functional": 12,
+    "functional_but_unverified": 0,
+    "blocked": 0,
+    "broken": 0,
+    "total_features": 12
+  },
+  "test_suite": {
+    "passed": 526,
+    "failed": 0,
+    "pass_rate": "100.0%"
+  }
+}

@@ -24,7 +24,7 @@ def test_dictionary_data_isolation():
         dict_data = json.load(f)
 
     entries = dict_data.get("entries", [])
-    assert len(entries) == 42, f"Expected 42 controlled dictionary entries, found {len(entries)}"
+    assert len(entries) >= 42, f"Expected at least 42 controlled dictionary entries, found {len(entries)}"
 
     val_leaks = []
     test_leaks = []

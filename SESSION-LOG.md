@@ -184,3 +184,19 @@
   7. **Phase 16 Master Report**: Created `scripts/gen_reports.py` producing `reports/final_autonomous_optimization.json` and `reports/final_autonomous_optimization.md`.
 - **Rejected**: Fabricating results, altering acceptance threshold ($\tau=0.70$), replacing baseline model with a worse candidate, leaking validation/test data into dictionary assets, or modifying held-out test set.
 - **Verification**: All 59 system integration tests passed; dictionary validation passed 42/42 entries; `ffprobe` decodability verified; all report artifacts saved to disk.
+
+## Session Entry - Final Autonomous Product Hardening Pass
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Executed the final autonomous product hardening pass for SIGNASSIST, expanding the Text→ISL dictionary to 262 TRAIN-only classes, refining UI verification banners, clarifying confidence telemetry labels, enforcing vocabulary domain constraints, verifying supported vs unsupported words, running the 12-feature E2E audit, and executing complete repository test verification.
+- **Changes**:
+  1. **Text → ISL Dictionary Expansion**: Created `scripts/build_expanded_isl_dictionary.py` populating `data/external/isl_dictionary/index.json` with 262 real TRAIN-only classes from INCLUDE dataset, resolving common sign lookups like `cat` (`2. Cat` $\rightarrow$ `MVI_2981.MOV`), while maintaining 0.0% validation or test split data leakage.
+  2. **Text → ISL End-to-End Verification (`cat` vs Unsupported)**: Verified end-to-end Text→ISL translation: `cat` produces browser-decodable H.264 video (`/tmp/test_cat.mp4`); unsupported words (e.g. `xyz123unsupported`) render an honest UI warning banner (`⚠️ ISL demonstration unavailable for...`) with zero video fabrication.
+  3. **UI Wording & Verification Labels**: Updated `src/app.py` (`render_video_processing_result`) to explicitly tag predictions as `[MODEL PREDICTION | ACCEPTED BY CONFIDENCE POLICY (≥0.70) | NOT USER-VERIFIED]` or `[MODEL PREDICTION | REJECTED BY CONFIDENCE POLICY (<0.70) | NOT USER-VERIFIED]`.
+  4. **Confidence Display Audit**: Updated metric and timeline labels in `src/app.py` to distinguish `Calibrated Confidence ($T=0.68$)` when `experimental_42` backend is selected from `Raw Softmax Confidence (UNCALIBRATED / Diagnostic)`.
+  5. **Domain Constraint & Ingestion Notice**: Added clear notice banner to `render_mode_video_url` in `src/app.py` informing users that recognition is strictly limited to the 42-class controlled vocabulary and that arbitrary public internet videos may contain unsupported signs or distribution shifts leading to rejection.
+  6. **12-Feature End-to-End Audit**: Executed `scripts/run_final_feature_audit.py`, classifying 12/12 user-facing feature paths as `VERIFIED_FUNCTIONAL` (0 broken, 0 blocked).
+  7. **Hardening Reports & Artifacts**: Created `scripts/generate_hardening_reports.py` generating `reports/final_product_hardening.json` and `reports/final_product_hardening.md`.
+  8. **Test Suite Alignment & Verification**: Updated assertion in `tests/test_data_isolation.py` for $\ge 42$ dictionary entries with 0% leakage (2/2 passed); updated test mocks in `tests/test_ui_upload.py` and `tests/test_ui_video_url.py` for backend selection (94/94 UI tests passed); compiled `src/app.py` cleanly (`py_compile`). Full repository test suite passed **526/526 tests (100%)**.
+- **Rejected**: Model retraining, modifying model checkpoints, lowering the 0.70 confidence threshold, enabling boundary trimming, fabricating recognition predictions or video clips, or leaking validation/test data into dictionary entries.
+- **Verification**: 12/12 features `VERIFIED_FUNCTIONAL`; 526/526 tests passing; decodability verified; report artifacts saved to disk.
+

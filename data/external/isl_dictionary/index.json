@@ -1,10 +1,81 @@
 {
   "schema_version": "1.0.0",
-  "description": "SIGNASSIST Indian Sign Language (ISL) Dictionary Index - 42 Controlled Classes (STRICT TRAIN SPLIT ONLY)",
+  "description": "SIGNASSIST Indian Sign Language (ISL) Dictionary Index - Full TRAIN Split Catalog",
+  "total_entries": 262,
   "entries": [
     {
+      "gloss": "1. Dog",
+      "video_path": "videos/class_1__dog_MVI_2978.MOV",
+      "aliases": [
+        "Dog",
+        "1  Dog"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.68,
+      "description": "Real ISL demonstration clip for '1. Dog' (Sourced strictly from TRAIN split: MVI_2978.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "1. Religion",
+      "video_path": "videos/class_1__religion_MVI_4251.MOV",
+      "aliases": [
+        "Religion",
+        "1  Religion"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.28,
+      "description": "Real ISL demonstration clip for '1. Religion' (Sourced strictly from TRAIN split: MVI_4251.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "1. loud",
+      "video_path": "videos/class_1__loud_MVI_5177.MOV",
+      "aliases": [
+        "loud",
+        "1  loud"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '1. loud' (Sourced strictly from TRAIN split: MVI_5177.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "10. Energy",
+      "video_path": "videos/class_10__energy_MVI_4287.MOV",
+      "aliases": [
+        "Energy",
+        "10  Energy"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.84,
+      "description": "Real ISL demonstration clip for '10. Energy' (Sourced strictly from TRAIN split: MVI_4287.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "10. Mean",
+      "video_path": "videos/class_10__mean_MVI_9592.MOV",
+      "aliases": [
+        "Mean",
+        "10  Mean"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '10. Mean' (Sourced strictly from TRAIN split: MVI_9592.MOV).",
+      "fingerspelling_available": true
+    },
+    {
       "gloss": "10. Plane",
-      "video_path": "videos/class_000_MVI_3113.MOV",
+      "video_path": "videos/class_10__plane_MVI_3113.MOV",
       "aliases": [
         "Plane",
         "10  Plane"
@@ -13,12 +84,68 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.68,
-      "description": "Controlled 42-class ISL demonstration clip for '10. Plane' (Sourced strictly from TRAIN split: MVI_3113.MOV).",
+      "description": "Real ISL demonstration clip for '10. Plane' (Sourced strictly from TRAIN split: MVI_3113.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "11. Car",
+      "video_path": "videos/class_11__car_MVI_3116.MOV",
+      "aliases": [
+        "Car",
+        "11  Car"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.24,
+      "description": "Real ISL demonstration clip for '11. Car' (Sourced strictly from TRAIN split: MVI_3116.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "11. War",
+      "video_path": "videos/class_11__war_MVI_4291.MOV",
+      "aliases": [
+        "War",
+        "11  War"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '11. War' (Sourced strictly from TRAIN split: MVI_4291.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "11. rich",
+      "video_path": "videos/class_11__rich_MVI_9596.MOV",
+      "aliases": [
+        "rich",
+        "11  rich"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.88,
+      "description": "Real ISL demonstration clip for '11. rich' (Sourced strictly from TRAIN split: MVI_9596.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "12. Peace",
+      "video_path": "videos/class_12__peace_MVI_4295.MOV",
+      "aliases": [
+        "Peace",
+        "12  Peace"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '12. Peace' (Sourced strictly from TRAIN split: MVI_4295.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "12. Truck",
-      "video_path": "videos/class_001_MVI_3119.MOV",
+      "video_path": "videos/class_12__truck_MVI_3119.MOV",
       "aliases": [
         "Truck",
         "12  Truck"
@@ -27,12 +154,110 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 4.16,
-      "description": "Controlled 42-class ISL demonstration clip for '12. Truck' (Sourced strictly from TRAIN split: MVI_3119.MOV).",
+      "description": "Real ISL demonstration clip for '12. Truck' (Sourced strictly from TRAIN split: MVI_3119.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "12. poor",
+      "video_path": "videos/class_12__poor_MVI_9600.MOV",
+      "aliases": [
+        "poor",
+        "12  poor"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.4,
+      "description": "Real ISL demonstration clip for '12. poor' (Sourced strictly from TRAIN split: MVI_9600.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "13. Attack",
+      "video_path": "videos/class_13__attack_MVI_4299.MOV",
+      "aliases": [
+        "Attack",
+        "13  Attack"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.92,
+      "description": "Real ISL demonstration clip for '13. Attack' (Sourced strictly from TRAIN split: MVI_4299.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "13. Bicycle",
+      "video_path": "videos/class_13__bicycle_MVI_3122.MOV",
+      "aliases": [
+        "Bicycle",
+        "13  Bicycle"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.64,
+      "description": "Real ISL demonstration clip for '13. Bicycle' (Sourced strictly from TRAIN split: MVI_3122.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "13. thick",
+      "video_path": "videos/class_13__thick_MVI_9605.MOV",
+      "aliases": [
+        "thick",
+        "13  thick"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '13. thick' (Sourced strictly from TRAIN split: MVI_9605.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "14. Bus",
+      "video_path": "videos/class_14__bus_MVI_3126.MOV",
+      "aliases": [
+        "Bus",
+        "14  Bus"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.88,
+      "description": "Real ISL demonstration clip for '14. Bus' (Sourced strictly from TRAIN split: MVI_3126.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "14. Election",
+      "video_path": "videos/class_14__election_MVI_4304.MOV",
+      "aliases": [
+        "Election",
+        "14  Election"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.88,
+      "description": "Real ISL demonstration clip for '14. Election' (Sourced strictly from TRAIN split: MVI_4304.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "14. thin",
+      "video_path": "videos/class_14__thin_MVI_9609.MOV",
+      "aliases": [
+        "thin",
+        "14  thin"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '14. thin' (Sourced strictly from TRAIN split: MVI_9609.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "15. Boat",
-      "video_path": "videos/class_002_MVI_3129.MOV",
+      "video_path": "videos/class_15__boat_MVI_3129.MOV",
       "aliases": [
         "Boat",
         "15  Boat"
@@ -41,12 +266,68 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 4.48,
-      "description": "Controlled 42-class ISL demonstration clip for '15. Boat' (Sourced strictly from TRAIN split: MVI_3129.MOV).",
+      "description": "Real ISL demonstration clip for '15. Boat' (Sourced strictly from TRAIN split: MVI_3129.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "15. Newspaper",
+      "video_path": "videos/class_15__newspaper_MVI_4308.MOV",
+      "aliases": [
+        "Newspaper",
+        "15  Newspaper"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '15. Newspaper' (Sourced strictly from TRAIN split: MVI_4308.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "15. expensive",
+      "video_path": "videos/class_15__expensive_MVI_9613.MOV",
+      "aliases": [
+        "expensive",
+        "15  expensive"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.04,
+      "description": "Real ISL demonstration clip for '15. expensive' (Sourced strictly from TRAIN split: MVI_9613.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "16. Gun",
+      "video_path": "videos/class_16__gun_MVI_4312.MOV",
+      "aliases": [
+        "Gun",
+        "16  Gun"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '16. Gun' (Sourced strictly from TRAIN split: MVI_4312.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "16. cheap",
+      "video_path": "videos/class_16__cheap_MVI_9617.MOV",
+      "aliases": [
+        "cheap",
+        "16  cheap"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '16. cheap' (Sourced strictly from TRAIN split: MVI_9617.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "16. train ticket",
-      "video_path": "videos/class_003_MVI_3132.MOV",
+      "video_path": "videos/class_16__train_ticket_MVI_3132.MOV",
       "aliases": [
         "train ticket",
         "16  train ticket"
@@ -55,12 +336,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.52,
-      "description": "Controlled 42-class ISL demonstration clip for '16. train ticket' (Sourced strictly from TRAIN split: MVI_3132.MOV).",
+      "description": "Real ISL demonstration clip for '16. train ticket' (Sourced strictly from TRAIN split: MVI_3132.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "17. Sport",
+      "video_path": "videos/class_17__sport_MVI_4316.MOV",
+      "aliases": [
+        "Sport",
+        "17  Sport"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '17. Sport' (Sourced strictly from TRAIN split: MVI_4316.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "17. Transportation",
-      "video_path": "videos/class_004_MVI_3135.MOV",
+      "video_path": "videos/class_17__transportation_MVI_3135.MOV",
       "aliases": [
         "Transportation",
         "17  Transportation"
@@ -69,12 +364,600 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 4.0,
-      "description": "Controlled 42-class ISL demonstration clip for '17. Transportation' (Sourced strictly from TRAIN split: MVI_3135.MOV).",
+      "description": "Real ISL demonstration clip for '17. Transportation' (Sourced strictly from TRAIN split: MVI_3135.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "17. flat",
+      "video_path": "videos/class_17__flat_MVI_9621.MOV",
+      "aliases": [
+        "flat",
+        "17  flat"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '17. flat' (Sourced strictly from TRAIN split: MVI_9621.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "18. City",
+      "video_path": "videos/class_18__city_MVI_3263.MOV",
+      "aliases": [
+        "City",
+        "18  City"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.6,
+      "description": "Real ISL demonstration clip for '18. City' (Sourced strictly from TRAIN split: MVI_3263.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "18. Exercise",
+      "video_path": "videos/class_18__exercise_MVI_4320.MOV",
+      "aliases": [
+        "Exercise",
+        "18  Exercise"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Real ISL demonstration clip for '18. Exercise' (Sourced strictly from TRAIN split: MVI_4320.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "18. curved",
+      "video_path": "videos/class_18__curved_MVI_9633.MOV",
+      "aliases": [
+        "curved",
+        "18  curved"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.08,
+      "description": "Real ISL demonstration clip for '18. curved' (Sourced strictly from TRAIN split: MVI_9633.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "19. Ball",
+      "video_path": "videos/class_19__ball_MVI_4324.MOV",
+      "aliases": [
+        "Ball",
+        "19  Ball"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '19. Ball' (Sourced strictly from TRAIN split: MVI_4324.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "19. House",
+      "video_path": "videos/class_19__house_MVI_3267.MOV",
+      "aliases": [
+        "House",
+        "19  House"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.12,
+      "description": "Real ISL demonstration clip for '19. House' (Sourced strictly from TRAIN split: MVI_3267.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "19. male",
+      "video_path": "videos/class_19__male_MVI_9637.MOV",
+      "aliases": [
+        "male",
+        "19  male"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '19. male' (Sourced strictly from TRAIN split: MVI_9637.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "2. Cat",
+      "video_path": "videos/class_2__cat_MVI_2981.MOV",
+      "aliases": [
+        "Cat",
+        "2  Cat"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.96,
+      "description": "Real ISL demonstration clip for '2. Cat' (Sourced strictly from TRAIN split: MVI_2981.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "2. Death",
+      "video_path": "videos/class_2__death_MVI_4255.MOV",
+      "aliases": [
+        "Death",
+        "2  Death"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.52,
+      "description": "Real ISL demonstration clip for '2. Death' (Sourced strictly from TRAIN split: MVI_4255.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "2. quiet",
+      "video_path": "videos/class_2__quiet_MVI_5180.MOV",
+      "aliases": [
+        "quiet",
+        "2  quiet"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.72,
+      "description": "Real ISL demonstration clip for '2. quiet' (Sourced strictly from TRAIN split: MVI_5180.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "20. Price",
+      "video_path": "videos/class_20__price_MVI_4328.MOV",
+      "aliases": [
+        "Price",
+        "20  Price"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '20. Price' (Sourced strictly from TRAIN split: MVI_4328.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "20. Street or Road",
+      "video_path": "videos/class_20__street_or_road_MVI_3271.MOV",
+      "aliases": [
+        "Street or Road",
+        "20  Street or Road"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.4,
+      "description": "Real ISL demonstration clip for '20. Street or Road' (Sourced strictly from TRAIN split: MVI_3271.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "20. female",
+      "video_path": "videos/class_20__female_MVI_9642.MOV",
+      "aliases": [
+        "female",
+        "20  female"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '20. female' (Sourced strictly from TRAIN split: MVI_9642.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "21. Sign",
+      "video_path": "videos/class_21__sign_MVI_4332.MOV",
+      "aliases": [
+        "Sign",
+        "21  Sign"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '21. Sign' (Sourced strictly from TRAIN split: MVI_4332.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "21. Train Station",
+      "video_path": "videos/class_21__train_station_MVI_3275.MOV",
+      "aliases": [
+        "Train Station",
+        "21  Train Station"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.12,
+      "description": "Real ISL demonstration clip for '21. Train Station' (Sourced strictly from TRAIN split: MVI_3275.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "21. tight",
+      "video_path": "videos/class_21__tight_MVI_9646.MOV",
+      "aliases": [
+        "tight",
+        "21  tight"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.24,
+      "description": "Real ISL demonstration clip for '21. tight' (Sourced strictly from TRAIN split: MVI_9646.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "22. Restaurant",
+      "video_path": "videos/class_22__restaurant_MVI_3280.MOV",
+      "aliases": [
+        "Restaurant",
+        "22  Restaurant"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.8,
+      "description": "Real ISL demonstration clip for '22. Restaurant' (Sourced strictly from TRAIN split: MVI_3280.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "22. Science",
+      "video_path": "videos/class_22__science_MVI_4336.MOV",
+      "aliases": [
+        "Science",
+        "22  Science"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '22. Science' (Sourced strictly from TRAIN split: MVI_4336.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "22. loose",
+      "video_path": "videos/class_22__loose_MVI_9650.MOV",
+      "aliases": [
+        "loose",
+        "22  loose"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '22. loose' (Sourced strictly from TRAIN split: MVI_9650.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "23. Court",
+      "video_path": "videos/class_23__court_MVI_3284.MOV",
+      "aliases": [
+        "Court",
+        "23  Court"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.96,
+      "description": "Real ISL demonstration clip for '23. Court' (Sourced strictly from TRAIN split: MVI_3284.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "23. God",
+      "video_path": "videos/class_23__god_MVI_4340.MOV",
+      "aliases": [
+        "God",
+        "23  God"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '23. God' (Sourced strictly from TRAIN split: MVI_4340.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "23. high",
+      "video_path": "videos/class_23__high_MVI_9654.MOV",
+      "aliases": [
+        "high",
+        "23  high"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '23. high' (Sourced strictly from TRAIN split: MVI_9654.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "24. School",
+      "video_path": "videos/class_24__school_MVI_3290.MOV",
+      "aliases": [
+        "School",
+        "24  School"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.88,
+      "description": "Real ISL demonstration clip for '24. School' (Sourced strictly from TRAIN split: MVI_3290.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "24. Table",
+      "video_path": "videos/class_24__table_MVI_4344.MOV",
+      "aliases": [
+        "Table",
+        "24  Table"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '24. Table' (Sourced strictly from TRAIN split: MVI_4344.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "24. low",
+      "video_path": "videos/class_24__low_MVI_9659.MOV",
+      "aliases": [
+        "low",
+        "24  low"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '24. low' (Sourced strictly from TRAIN split: MVI_9659.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "25. Chair",
+      "video_path": "videos/class_25__chair_MVI_4348.MOV",
+      "aliases": [
+        "Chair",
+        "25  Chair"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.08,
+      "description": "Real ISL demonstration clip for '25. Chair' (Sourced strictly from TRAIN split: MVI_4348.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "25. Office",
+      "video_path": "videos/class_25__office_MVI_3294.MOV",
+      "aliases": [
+        "Office",
+        "25  Office"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.2,
+      "description": "Real ISL demonstration clip for '25. Office' (Sourced strictly from TRAIN split: MVI_3294.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "25. soft",
+      "video_path": "videos/class_25__soft_MVI_9662.MOV",
+      "aliases": [
+        "soft",
+        "25  soft"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '25. soft' (Sourced strictly from TRAIN split: MVI_9662.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "26. Bed",
+      "video_path": "videos/class_26__bed_MVI_4352.MOV",
+      "aliases": [
+        "Bed",
+        "26  Bed"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '26. Bed' (Sourced strictly from TRAIN split: MVI_4352.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "26. University",
+      "video_path": "videos/class_26__university_MVI_3298.MOV",
+      "aliases": [
+        "University",
+        "26  University"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.72,
+      "description": "Real ISL demonstration clip for '26. University' (Sourced strictly from TRAIN split: MVI_3298.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "26. hard",
+      "video_path": "videos/class_26__hard_MVI_9666.MOV",
+      "aliases": [
+        "hard",
+        "26  hard"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Real ISL demonstration clip for '26. hard' (Sourced strictly from TRAIN split: MVI_9666.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "27. Dream",
+      "video_path": "videos/class_27__dream_MVI_4357.MOV",
+      "aliases": [
+        "Dream",
+        "27  Dream"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.88,
+      "description": "Real ISL demonstration clip for '27. Dream' (Sourced strictly from TRAIN split: MVI_4357.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "27. Park",
+      "video_path": "videos/class_27__park_MVI_3302.MOV",
+      "aliases": [
+        "Park",
+        "27  Park"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '27. Park' (Sourced strictly from TRAIN split: MVI_3302.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "27. deep",
+      "video_path": "videos/class_27__deep_MVI_9670.MOV",
+      "aliases": [
+        "deep",
+        "27  deep"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '27. deep' (Sourced strictly from TRAIN split: MVI_9670.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "28. Store or Shop",
+      "video_path": "videos/class_28__store_or_shop_MVI_3307.MOV",
+      "aliases": [
+        "Store or Shop",
+        "28  Store or Shop"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '28. Store or Shop' (Sourced strictly from TRAIN split: MVI_3307.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "28. Window",
+      "video_path": "videos/class_28__window_MVI_4362.MOV",
+      "aliases": [
+        "Window",
+        "28  Window"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.36,
+      "description": "Real ISL demonstration clip for '28. Window' (Sourced strictly from TRAIN split: MVI_4362.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "28. shallow",
+      "video_path": "videos/class_28__shallow_MVI_9674.MOV",
+      "aliases": [
+        "shallow",
+        "28  shallow"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.72,
+      "description": "Real ISL demonstration clip for '28. shallow' (Sourced strictly from TRAIN split: MVI_9674.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "29. Door",
+      "video_path": "videos/class_29__door_MVI_4366.MOV",
+      "aliases": [
+        "Door",
+        "29  Door"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '29. Door' (Sourced strictly from TRAIN split: MVI_4366.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "29. Library",
+      "video_path": "videos/class_29__library_MVI_3311.MOV",
+      "aliases": [
+        "Library",
+        "29  Library"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.0,
+      "description": "Real ISL demonstration clip for '29. Library' (Sourced strictly from TRAIN split: MVI_3311.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "29. clean",
+      "video_path": "videos/class_29__clean_MVI_9679.MOV",
+      "aliases": [
+        "clean",
+        "29  clean"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '29. clean' (Sourced strictly from TRAIN split: MVI_9679.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "3. Fish",
+      "video_path": "videos/class_3__fish_MVI_2984.MOV",
+      "aliases": [
+        "Fish",
+        "3  Fish"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.92,
+      "description": "Real ISL demonstration clip for '3. Fish' (Sourced strictly from TRAIN split: MVI_2984.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "3. Medicine",
+      "video_path": "videos/class_3__medicine_MVI_4259.MOV",
+      "aliases": [
+        "Medicine",
+        "3  Medicine"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.72,
+      "description": "Real ISL demonstration clip for '3. Medicine' (Sourced strictly from TRAIN split: MVI_4259.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "3. happy",
-      "video_path": "videos/class_005_MVI_5183.MOV",
+      "video_path": "videos/class_3__happy_MVI_5183.MOV",
       "aliases": [
         "happy",
         "3  happy"
@@ -83,12 +966,446 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.84,
-      "description": "Controlled 42-class ISL demonstration clip for '3. happy' (Sourced strictly from TRAIN split: MVI_5183.MOV).",
+      "description": "Real ISL demonstration clip for '3. happy' (Sourced strictly from TRAIN split: MVI_5183.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "30. Bedroom",
+      "video_path": "videos/class_30__bedroom_MVI_4370.MOV",
+      "aliases": [
+        "Bedroom",
+        "30  Bedroom"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.32,
+      "description": "Real ISL demonstration clip for '30. Bedroom' (Sourced strictly from TRAIN split: MVI_4370.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "30. Hospital",
+      "video_path": "videos/class_30__hospital_MVI_3315.MOV",
+      "aliases": [
+        "Hospital",
+        "30  Hospital"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.24,
+      "description": "Real ISL demonstration clip for '30. Hospital' (Sourced strictly from TRAIN split: MVI_3315.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "30. dirty",
+      "video_path": "videos/class_30__dirty_MVI_9684.MOV",
+      "aliases": [
+        "dirty",
+        "30  dirty"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Real ISL demonstration clip for '30. dirty' (Sourced strictly from TRAIN split: MVI_9684.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "31. Kitchen",
+      "video_path": "videos/class_31__kitchen_MVI_4374.MOV",
+      "aliases": [
+        "Kitchen",
+        "31  Kitchen"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '31. Kitchen' (Sourced strictly from TRAIN split: MVI_4374.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "31. Temple",
+      "video_path": "videos/class_31__temple_MVI_3319.MOV",
+      "aliases": [
+        "Temple",
+        "31  Temple"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.12,
+      "description": "Real ISL demonstration clip for '31. Temple' (Sourced strictly from TRAIN split: MVI_3319.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "31. strong",
+      "video_path": "videos/class_31__strong_MVI_9690.MOV",
+      "aliases": [
+        "strong",
+        "31  strong"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.4,
+      "description": "Real ISL demonstration clip for '31. strong' (Sourced strictly from TRAIN split: MVI_9690.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "32. Bathroom",
+      "video_path": "videos/class_32__bathroom_MVI_4378.MOV",
+      "aliases": [
+        "Bathroom",
+        "32  Bathroom"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.4,
+      "description": "Real ISL demonstration clip for '32. Bathroom' (Sourced strictly from TRAIN split: MVI_4378.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "32. Market",
+      "video_path": "videos/class_32__market_MVI_3323.MOV",
+      "aliases": [
+        "Market",
+        "32  Market"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '32. Market' (Sourced strictly from TRAIN split: MVI_3323.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "32. weak",
+      "video_path": "videos/class_32__weak_MVI_9694.MOV",
+      "aliases": [
+        "weak",
+        "32  weak"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '32. weak' (Sourced strictly from TRAIN split: MVI_9694.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "33. India",
+      "video_path": "videos/class_33__india_MVI_3327.MOV",
+      "aliases": [
+        "India",
+        "33  India"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.8,
+      "description": "Real ISL demonstration clip for '33. India' (Sourced strictly from TRAIN split: MVI_3327.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "33. Pencil",
+      "video_path": "videos/class_33__pencil_MVI_4383.MOV",
+      "aliases": [
+        "Pencil",
+        "33  Pencil"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '33. Pencil' (Sourced strictly from TRAIN split: MVI_4383.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "33. dead",
+      "video_path": "videos/class_33__dead_MVI_9699.MOV",
+      "aliases": [
+        "dead",
+        "33  dead"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.96,
+      "description": "Real ISL demonstration clip for '33. dead' (Sourced strictly from TRAIN split: MVI_9699.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "34. Ground",
+      "video_path": "videos/class_34__ground_MVI_3331.MOV",
+      "aliases": [
+        "Ground",
+        "34  Ground"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.92,
+      "description": "Real ISL demonstration clip for '34. Ground' (Sourced strictly from TRAIN split: MVI_3331.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "34. Pen",
+      "video_path": "videos/class_34__pen_MVI_4387.MOV",
+      "aliases": [
+        "Pen",
+        "34  Pen"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Real ISL demonstration clip for '34. Pen' (Sourced strictly from TRAIN split: MVI_4387.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "34. alive",
+      "video_path": "videos/class_34__alive_MVI_9703.MOV",
+      "aliases": [
+        "alive",
+        "34  alive"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.76,
+      "description": "Real ISL demonstration clip for '34. alive' (Sourced strictly from TRAIN split: MVI_9703.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "35. Bank",
+      "video_path": "videos/class_35__bank_MVI_3335.MOV",
+      "aliases": [
+        "Bank",
+        "35  Bank"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.96,
+      "description": "Real ISL demonstration clip for '35. Bank' (Sourced strictly from TRAIN split: MVI_3335.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "35. Photograph",
+      "video_path": "videos/class_35__photograph_MVI_4391.MOV",
+      "aliases": [
+        "Photograph",
+        "35  Photograph"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '35. Photograph' (Sourced strictly from TRAIN split: MVI_4391.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "35. heavy",
+      "video_path": "videos/class_35__heavy_MVI_9707.MOV",
+      "aliases": [
+        "heavy",
+        "35  heavy"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '35. heavy' (Sourced strictly from TRAIN split: MVI_9707.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "36. Location",
+      "video_path": "videos/class_36__location_MVI_3341.MOV",
+      "aliases": [
+        "Location",
+        "36  Location"
+      ],
+      "category": "Places",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.8,
+      "description": "Real ISL demonstration clip for '36. Location' (Sourced strictly from TRAIN split: MVI_3341.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "36. Soap",
+      "video_path": "videos/class_36__soap_MVI_4395.MOV",
+      "aliases": [
+        "Soap",
+        "36  Soap"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '36. Soap' (Sourced strictly from TRAIN split: MVI_4395.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "36. light",
+      "video_path": "videos/class_36__light_MVI_9711.MOV",
+      "aliases": [
+        "light",
+        "36  light"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '36. light' (Sourced strictly from TRAIN split: MVI_9711.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "37. Book",
+      "video_path": "videos/class_37__book_MVI_4399.MOV",
+      "aliases": [
+        "Book",
+        "37  Book"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '37. Book' (Sourced strictly from TRAIN split: MVI_4399.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "37. Hat",
+      "video_path": "videos/class_37__hat_MVI_3688.MOV",
+      "aliases": [
+        "Hat",
+        "37  Hat"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '37. Hat' (Sourced strictly from TRAIN split: MVI_3688.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "38. Dress",
+      "video_path": "videos/class_38__dress_MVI_3693.MOV",
+      "aliases": [
+        "Dress",
+        "38  Dress"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '38. Dress' (Sourced strictly from TRAIN split: MVI_3693.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "38. Page",
+      "video_path": "videos/class_38__page_MVI_4403.MOV",
+      "aliases": [
+        "Page",
+        "38  Page"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.2,
+      "description": "Real ISL demonstration clip for '38. Page' (Sourced strictly from TRAIN split: MVI_4403.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "39. Key",
+      "video_path": "videos/class_39__key_MVI_4408.MOV",
+      "aliases": [
+        "Key",
+        "39  Key"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '39. Key' (Sourced strictly from TRAIN split: MVI_4408.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "39. Suit",
+      "video_path": "videos/class_39__suit_MVI_3697.MOV",
+      "aliases": [
+        "Suit",
+        "39  Suit"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.8,
+      "description": "Real ISL demonstration clip for '39. Suit' (Sourced strictly from TRAIN split: MVI_3697.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "39. famous",
+      "video_path": "videos/class_39__famous_MVI_9715.MOV",
+      "aliases": [
+        "famous",
+        "39  famous"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '39. famous' (Sourced strictly from TRAIN split: MVI_9715.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "4. Bird",
+      "video_path": "videos/class_4__bird_MVI_2987.MOV",
+      "aliases": [
+        "Bird",
+        "4  Bird"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.04,
+      "description": "Real ISL demonstration clip for '4. Bird' (Sourced strictly from TRAIN split: MVI_2987.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "4. Money",
+      "video_path": "videos/class_4__money_MVI_4263.MOV",
+      "aliases": [
+        "Money",
+        "4  Money"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.88,
+      "description": "Real ISL demonstration clip for '4. Money' (Sourced strictly from TRAIN split: MVI_4263.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "4. sad",
+      "video_path": "videos/class_4__sad_MVI_9565.MOV",
+      "aliases": [
+        "sad",
+        "4  sad"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.52,
+      "description": "Real ISL demonstration clip for '4. sad' (Sourced strictly from TRAIN split: MVI_9565.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "40. I",
-      "video_path": "videos/class_006_MVI_0001.MOV",
+      "video_path": "videos/class_40__i_MVI_0001.MOV",
       "aliases": [
         "I",
         "40  I"
@@ -97,12 +1414,68 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.64,
-      "description": "Controlled 42-class ISL demonstration clip for '40. I' (Sourced strictly from TRAIN split: MVI_0001.MOV).",
+      "description": "Real ISL demonstration clip for '40. I' (Sourced strictly from TRAIN split: MVI_0001.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "40. Paint",
+      "video_path": "videos/class_40__paint_MVI_4412.MOV",
+      "aliases": [
+        "Paint",
+        "40  Paint"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '40. Paint' (Sourced strictly from TRAIN split: MVI_4412.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "40. Skirt",
+      "video_path": "videos/class_40__skirt_MVI_3699.MOV",
+      "aliases": [
+        "Skirt",
+        "40  Skirt"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '40. Skirt' (Sourced strictly from TRAIN split: MVI_3699.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "41. Letter",
+      "video_path": "videos/class_41__letter_MVI_4416.MOV",
+      "aliases": [
+        "Letter",
+        "41  Letter"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Real ISL demonstration clip for '41. Letter' (Sourced strictly from TRAIN split: MVI_4416.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "41. Shirt",
+      "video_path": "videos/class_41__shirt_MVI_3701.MOV",
+      "aliases": [
+        "Shirt",
+        "41  Shirt"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.48,
+      "description": "Real ISL demonstration clip for '41. Shirt' (Sourced strictly from TRAIN split: MVI_3701.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "41. you",
-      "video_path": "videos/class_007_MVI_0015.MOV",
+      "video_path": "videos/class_41__you_MVI_0015.MOV",
       "aliases": [
         "you",
         "41  you"
@@ -111,12 +1484,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 1.84,
-      "description": "Controlled 42-class ISL demonstration clip for '41. you' (Sourced strictly from TRAIN split: MVI_0015.MOV).",
+      "description": "Real ISL demonstration clip for '41. you' (Sourced strictly from TRAIN split: MVI_0015.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "42. Paper",
+      "video_path": "videos/class_42__paper_MVI_4420.MOV",
+      "aliases": [
+        "Paper",
+        "42  Paper"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '42. Paper' (Sourced strictly from TRAIN split: MVI_4420.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "42. T-Shirt",
+      "video_path": "videos/class_42__t_shirt_MVI_3704.MOV",
+      "aliases": [
+        "T-Shirt",
+        "42  T-Shirt"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.36,
+      "description": "Real ISL demonstration clip for '42. T-Shirt' (Sourced strictly from TRAIN split: MVI_3704.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "42. he",
-      "video_path": "videos/class_008_MVI_0005.MOV",
+      "video_path": "videos/class_42__he_MVI_0005.MOV",
       "aliases": [
         "he",
         "42  he"
@@ -125,12 +1526,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.0,
-      "description": "Controlled 42-class ISL demonstration clip for '42. he' (Sourced strictly from TRAIN split: MVI_0005.MOV).",
+      "description": "Real ISL demonstration clip for '42. he' (Sourced strictly from TRAIN split: MVI_0005.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "43. Lock",
+      "video_path": "videos/class_43__lock_MVI_4424.MOV",
+      "aliases": [
+        "Lock",
+        "43  Lock"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.92,
+      "description": "Real ISL demonstration clip for '43. Lock' (Sourced strictly from TRAIN split: MVI_4424.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "43. Pant",
+      "video_path": "videos/class_43__pant_MVI_3707.MOV",
+      "aliases": [
+        "Pant",
+        "43  Pant"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.08,
+      "description": "Real ISL demonstration clip for '43. Pant' (Sourced strictly from TRAIN split: MVI_3707.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "43. she",
-      "video_path": "videos/class_009_MVI_0009.MOV",
+      "video_path": "videos/class_43__she_MVI_0009.MOV",
       "aliases": [
         "she",
         "43  she"
@@ -139,12 +1568,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.96,
-      "description": "Controlled 42-class ISL demonstration clip for '43. she' (Sourced strictly from TRAIN split: MVI_0009.MOV).",
+      "description": "Real ISL demonstration clip for '43. she' (Sourced strictly from TRAIN split: MVI_0009.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "44. Shoes",
+      "video_path": "videos/class_44__shoes_MVI_3710.MOV",
+      "aliases": [
+        "Shoes",
+        "44  Shoes"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '44. Shoes' (Sourced strictly from TRAIN split: MVI_3710.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "44. Telephone",
+      "video_path": "videos/class_44__telephone_MVI_4428.MOV",
+      "aliases": [
+        "Telephone",
+        "44  Telephone"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.64,
+      "description": "Real ISL demonstration clip for '44. Telephone' (Sourced strictly from TRAIN split: MVI_4428.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "44. it",
-      "video_path": "videos/class_010_MVI_0013.MOV",
+      "video_path": "videos/class_44__it_MVI_0013.MOV",
       "aliases": [
         "it",
         "44  it"
@@ -153,12 +1610,82 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.64,
-      "description": "Controlled 42-class ISL demonstration clip for '44. it' (Sourced strictly from TRAIN split: MVI_0013.MOV).",
+      "description": "Real ISL demonstration clip for '44. it' (Sourced strictly from TRAIN split: MVI_0013.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "45. Bag",
+      "video_path": "videos/class_45__bag_MVI_4432.MOV",
+      "aliases": [
+        "Bag",
+        "45  Bag"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '45. Bag' (Sourced strictly from TRAIN split: MVI_4432.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "45. Pocket",
+      "video_path": "videos/class_45__pocket_MVI_3713.MOV",
+      "aliases": [
+        "Pocket",
+        "45  Pocket"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Real ISL demonstration clip for '45. Pocket' (Sourced strictly from TRAIN split: MVI_3713.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "45. we",
+      "video_path": "videos/class_45__we_MVI_0017.MOV",
+      "aliases": [
+        "we",
+        "45  we"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.32,
+      "description": "Real ISL demonstration clip for '45. we' (Sourced strictly from TRAIN split: MVI_0017.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "46. Box",
+      "video_path": "videos/class_46__box_MVI_4437.MOV",
+      "aliases": [
+        "Box",
+        "46  Box"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '46. Box' (Sourced strictly from TRAIN split: MVI_4437.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "46. Clothing",
+      "video_path": "videos/class_46__clothing_MVI_3716.MOV",
+      "aliases": [
+        "Clothing",
+        "46  Clothing"
+      ],
+      "category": "Clothes",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.44,
+      "description": "Real ISL demonstration clip for '46. Clothing' (Sourced strictly from TRAIN split: MVI_3716.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "46. you (plural)",
-      "video_path": "videos/class_011_MVI_0021.MOV",
+      "video_path": "videos/class_46__you__plural__MVI_0021.MOV",
       "aliases": [
         "you (plural)",
         "46  you (plural)"
@@ -167,12 +1694,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.0,
-      "description": "Controlled 42-class ISL demonstration clip for '46. you (plural)' (Sourced strictly from TRAIN split: MVI_0021.MOV).",
+      "description": "Real ISL demonstration clip for '46. you (plural)' (Sourced strictly from TRAIN split: MVI_0021.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "47. Gift",
+      "video_path": "videos/class_47__gift_MVI_4441.MOV",
+      "aliases": [
+        "Gift",
+        "47  Gift"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.84,
+      "description": "Real ISL demonstration clip for '47. Gift' (Sourced strictly from TRAIN split: MVI_4441.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "47. Red",
+      "video_path": "videos/class_47__red_MVI_3719.MOV",
+      "aliases": [
+        "Red",
+        "47  Red"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '47. Red' (Sourced strictly from TRAIN split: MVI_3719.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "47. they",
-      "video_path": "videos/class_012_MVI_0025.MOV",
+      "video_path": "videos/class_47__they_MVI_0025.MOV",
       "aliases": [
         "they",
         "47  they"
@@ -181,12 +1736,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.04,
-      "description": "Controlled 42-class ISL demonstration clip for '47. they' (Sourced strictly from TRAIN split: MVI_0025.MOV).",
+      "description": "Real ISL demonstration clip for '47. they' (Sourced strictly from TRAIN split: MVI_0025.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "48. Card",
+      "video_path": "videos/class_48__card_MVI_4445.MOV",
+      "aliases": [
+        "Card",
+        "48  Card"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Real ISL demonstration clip for '48. Card' (Sourced strictly from TRAIN split: MVI_4445.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "48. Green",
+      "video_path": "videos/class_48__green_MVI_3722.MOV",
+      "aliases": [
+        "Green",
+        "48  Green"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Real ISL demonstration clip for '48. Green' (Sourced strictly from TRAIN split: MVI_3722.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "48. Hello",
-      "video_path": "videos/class_013_MVI_0029.MOV",
+      "video_path": "videos/class_48__hello_MVI_0029.MOV",
       "aliases": [
         "Hello",
         "48  Hello"
@@ -195,12 +1778,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.52,
-      "description": "Controlled 42-class ISL demonstration clip for '48. Hello' (Sourced strictly from TRAIN split: MVI_0029.MOV).",
+      "description": "Real ISL demonstration clip for '48. Hello' (Sourced strictly from TRAIN split: MVI_0029.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "49. Blue",
+      "video_path": "videos/class_49__blue_MVI_3725.MOV",
+      "aliases": [
+        "Blue",
+        "49  Blue"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '49. Blue' (Sourced strictly from TRAIN split: MVI_3725.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "49. How are you",
-      "video_path": "videos/class_014_MVI_0033.MOV",
+      "video_path": "videos/class_49__how_are_you_MVI_0033.MOV",
       "aliases": [
         "How are you",
         "49  How are you"
@@ -209,12 +1806,54 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.24,
-      "description": "Controlled 42-class ISL demonstration clip for '49. How are you' (Sourced strictly from TRAIN split: MVI_0033.MOV).",
+      "description": "Real ISL demonstration clip for '49. How are you' (Sourced strictly from TRAIN split: MVI_0033.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "49. Ring",
+      "video_path": "videos/class_49__ring_MVI_4449.MOV",
+      "aliases": [
+        "Ring",
+        "49  Ring"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '49. Ring' (Sourced strictly from TRAIN split: MVI_4449.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "5. Beautiful",
+      "video_path": "videos/class_5__beautiful_MVI_9569.MOV",
+      "aliases": [
+        "Beautiful",
+        "5  Beautiful"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '5. Beautiful' (Sourced strictly from TRAIN split: MVI_9569.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "5. Bill",
+      "video_path": "videos/class_5__bill_MVI_4267.MOV",
+      "aliases": [
+        "Bill",
+        "5  Bill"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Real ISL demonstration clip for '5. Bill' (Sourced strictly from TRAIN split: MVI_4267.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "5. Cow",
-      "video_path": "videos/class_015_MVI_2990.MOV",
+      "video_path": "videos/class_5__cow_MVI_2990.MOV",
       "aliases": [
         "Cow",
         "5  Cow"
@@ -223,12 +1862,12 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.92,
-      "description": "Controlled 42-class ISL demonstration clip for '5. Cow' (Sourced strictly from TRAIN split: MVI_2990.MOV).",
+      "description": "Real ISL demonstration clip for '5. Cow' (Sourced strictly from TRAIN split: MVI_2990.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "50. Alright",
-      "video_path": "videos/class_016_MVI_0037.MOV",
+      "video_path": "videos/class_50__alright_MVI_0037.MOV",
       "aliases": [
         "Alright",
         "50  Alright"
@@ -237,12 +1876,68 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.92,
-      "description": "Controlled 42-class ISL demonstration clip for '50. Alright' (Sourced strictly from TRAIN split: MVI_0037.MOV).",
+      "description": "Real ISL demonstration clip for '50. Alright' (Sourced strictly from TRAIN split: MVI_0037.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "50. Tool",
+      "video_path": "videos/class_50__tool_MVI_4454.MOV",
+      "aliases": [
+        "Tool",
+        "50  Tool"
+      ],
+      "category": "Home",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '50. Tool' (Sourced strictly from TRAIN split: MVI_4454.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "50. Yellow",
+      "video_path": "videos/class_50__yellow_MVI_3728.MOV",
+      "aliases": [
+        "Yellow",
+        "50  Yellow"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Real ISL demonstration clip for '50. Yellow' (Sourced strictly from TRAIN split: MVI_3728.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "51. Brown",
+      "video_path": "videos/class_51__brown_MVI_3731.MOV",
+      "aliases": [
+        "Brown",
+        "51  Brown"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Real ISL demonstration clip for '51. Brown' (Sourced strictly from TRAIN split: MVI_3731.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "51. Clock",
+      "video_path": "videos/class_51__clock_MVI_4524.MOV",
+      "aliases": [
+        "Clock",
+        "51  Clock"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.16,
+      "description": "Real ISL demonstration clip for '51. Clock' (Sourced strictly from TRAIN split: MVI_4524.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "51. Good Morning",
-      "video_path": "videos/class_017_MVI_0042.MOV",
+      "video_path": "videos/class_51__good_morning_MVI_0042.MOV",
       "aliases": [
         "Good Morning",
         "51  Good Morning"
@@ -251,12 +1946,12 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.4,
-      "description": "Controlled 42-class ISL demonstration clip for '51. Good Morning' (Sourced strictly from TRAIN split: MVI_0042.MOV).",
+      "description": "Real ISL demonstration clip for '51. Good Morning' (Sourced strictly from TRAIN split: MVI_0042.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "52. Good afternoon",
-      "video_path": "videos/class_018_MVI_0046.MOV",
+      "video_path": "videos/class_52__good_afternoon_MVI_0046.MOV",
       "aliases": [
         "Good afternoon",
         "52  Good afternoon"
@@ -265,12 +1960,54 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.64,
-      "description": "Controlled 42-class ISL demonstration clip for '52. Good afternoon' (Sourced strictly from TRAIN split: MVI_0046.MOV).",
+      "description": "Real ISL demonstration clip for '52. Good afternoon' (Sourced strictly from TRAIN split: MVI_0046.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "52. Lamp",
+      "video_path": "videos/class_52__lamp_MVI_4528.MOV",
+      "aliases": [
+        "Lamp",
+        "52  Lamp"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.12,
+      "description": "Real ISL demonstration clip for '52. Lamp' (Sourced strictly from TRAIN split: MVI_4528.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "52. Pink",
+      "video_path": "videos/class_52__pink_MVI_3734.MOV",
+      "aliases": [
+        "Pink",
+        "52  Pink"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Real ISL demonstration clip for '52. Pink' (Sourced strictly from TRAIN split: MVI_3734.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "53. Fan",
+      "video_path": "videos/class_53__fan_MVI_4533.MOV",
+      "aliases": [
+        "Fan",
+        "53  Fan"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '53. Fan' (Sourced strictly from TRAIN split: MVI_4533.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "53. Good evening",
-      "video_path": "videos/class_019_MVI_0001.MOV",
+      "video_path": "videos/class_53__good_evening_MVI_0001.MOV",
       "aliases": [
         "Good evening",
         "53  Good evening"
@@ -279,12 +2016,54 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.2,
-      "description": "Controlled 42-class ISL demonstration clip for '53. Good evening' (Sourced strictly from TRAIN split: MVI_0001.MOV).",
+      "description": "Real ISL demonstration clip for '53. Good evening' (Sourced strictly from TRAIN split: MVI_0001.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "53. Orange",
+      "video_path": "videos/class_53__orange_MVI_3737.MOV",
+      "aliases": [
+        "Orange",
+        "53  Orange"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.72,
+      "description": "Real ISL demonstration clip for '53. Orange' (Sourced strictly from TRAIN split: MVI_3737.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "54. Black",
+      "video_path": "videos/class_54__black_MVI_3740.MOV",
+      "aliases": [
+        "Black",
+        "54  Black"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.76,
+      "description": "Real ISL demonstration clip for '54. Black' (Sourced strictly from TRAIN split: MVI_3740.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "54. Cell phone",
+      "video_path": "videos/class_54__cell_phone_MVI_4537.MOV",
+      "aliases": [
+        "Cell phone",
+        "54  Cell phone"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.92,
+      "description": "Real ISL demonstration clip for '54. Cell phone' (Sourced strictly from TRAIN split: MVI_4537.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "54. Good night",
-      "video_path": "videos/class_020_MVI_0002.MOV",
+      "video_path": "videos/class_54__good_night_MVI_0002.MOV",
       "aliases": [
         "Good night",
         "54  Good night"
@@ -293,12 +2072,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.24,
-      "description": "Controlled 42-class ISL demonstration clip for '54. Good night' (Sourced strictly from TRAIN split: MVI_0002.MOV).",
+      "description": "Real ISL demonstration clip for '54. Good night' (Sourced strictly from TRAIN split: MVI_0002.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "55. Computer",
+      "video_path": "videos/class_55__computer_MVI_4541.MOV",
+      "aliases": [
+        "Computer",
+        "55  Computer"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.2,
+      "description": "Real ISL demonstration clip for '55. Computer' (Sourced strictly from TRAIN split: MVI_4541.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "55. Thank you",
-      "video_path": "videos/class_021_MVI_0006.MOV",
+      "video_path": "videos/class_55__thank_you_MVI_0006.MOV",
       "aliases": [
         "Thank you",
         "55  Thank you"
@@ -307,12 +2100,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.12,
-      "description": "Controlled 42-class ISL demonstration clip for '55. Thank you' (Sourced strictly from TRAIN split: MVI_0006.MOV).",
+      "description": "Real ISL demonstration clip for '55. Thank you' (Sourced strictly from TRAIN split: MVI_0006.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "55. White",
+      "video_path": "videos/class_55__white_MVI_3743.MOV",
+      "aliases": [
+        "White",
+        "55  White"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '55. White' (Sourced strictly from TRAIN split: MVI_3743.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "56. Grey",
-      "video_path": "videos/class_022_MVI_3746.MOV",
+      "video_path": "videos/class_56__grey_MVI_3746.MOV",
       "aliases": [
         "Grey",
         "56  Grey"
@@ -321,12 +2128,684 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.48,
-      "description": "Controlled 42-class ISL demonstration clip for '56. Grey' (Sourced strictly from TRAIN split: MVI_3746.MOV).",
+      "description": "Real ISL demonstration clip for '56. Grey' (Sourced strictly from TRAIN split: MVI_3746.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "56. Laptop",
+      "video_path": "videos/class_56__laptop_MVI_4545.MOV",
+      "aliases": [
+        "Laptop",
+        "56  Laptop"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Real ISL demonstration clip for '56. Laptop' (Sourced strictly from TRAIN split: MVI_4545.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "56. Pleased",
+      "video_path": "videos/class_56__pleased_MVI_0009.MOV",
+      "aliases": [
+        "Pleased",
+        "56  Pleased"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '56. Pleased' (Sourced strictly from TRAIN split: MVI_0009.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "57. Colour",
+      "video_path": "videos/class_57__colour_MVI_3750.MOV",
+      "aliases": [
+        "Colour",
+        "57  Colour"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '57. Colour' (Sourced strictly from TRAIN split: MVI_3750.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "57. Screen",
+      "video_path": "videos/class_57__screen_MVI_4549.MOV",
+      "aliases": [
+        "Screen",
+        "57  Screen"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Real ISL demonstration clip for '57. Screen' (Sourced strictly from TRAIN split: MVI_4549.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "58. Camera",
+      "video_path": "videos/class_58__camera_MVI_4553.MOV",
+      "aliases": [
+        "Camera",
+        "58  Camera"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.96,
+      "description": "Real ISL demonstration clip for '58. Camera' (Sourced strictly from TRAIN split: MVI_4553.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "58. Son",
+      "video_path": "videos/class_58__son_MVI_3753.MOV",
+      "aliases": [
+        "Son",
+        "58  Son"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '58. Son' (Sourced strictly from TRAIN split: MVI_3753.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "59. Daughter",
+      "video_path": "videos/class_59__daughter_MVI_3756.MOV",
+      "aliases": [
+        "Daughter",
+        "59  Daughter"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.08,
+      "description": "Real ISL demonstration clip for '59. Daughter' (Sourced strictly from TRAIN split: MVI_3756.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "59. Television",
+      "video_path": "videos/class_59__television_MVI_4557.MOV",
+      "aliases": [
+        "Television",
+        "59  Television"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '59. Television' (Sourced strictly from TRAIN split: MVI_4557.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "6. Marriage",
+      "video_path": "videos/class_6__marriage_MVI_4271.MOV",
+      "aliases": [
+        "Marriage",
+        "6  Marriage"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '6. Marriage' (Sourced strictly from TRAIN split: MVI_4271.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "6. Mouse",
+      "video_path": "videos/class_6__mouse_MVI_2993.MOV",
+      "aliases": [
+        "Mouse",
+        "6  Mouse"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.08,
+      "description": "Real ISL demonstration clip for '6. Mouse' (Sourced strictly from TRAIN split: MVI_2993.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "6. Ugly",
+      "video_path": "videos/class_6__ugly_MVI_9576.MOV",
+      "aliases": [
+        "Ugly",
+        "6  Ugly"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '6. Ugly' (Sourced strictly from TRAIN split: MVI_9576.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "60. Mother",
+      "video_path": "videos/class_60__mother_MVI_3760.MOV",
+      "aliases": [
+        "Mother",
+        "60  Mother"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '60. Mother' (Sourced strictly from TRAIN split: MVI_3760.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "60. Radio",
+      "video_path": "videos/class_60__radio_MVI_4561.MOV",
+      "aliases": [
+        "Radio",
+        "60  Radio"
+      ],
+      "category": "Electronics",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Real ISL demonstration clip for '60. Radio' (Sourced strictly from TRAIN split: MVI_4561.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "61. Father",
+      "video_path": "videos/class_61__father_MVI_3763.MOV",
+      "aliases": [
+        "Father",
+        "61  Father"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '61. Father' (Sourced strictly from TRAIN split: MVI_3763.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "61. Summer",
+      "video_path": "videos/class_61__summer_MVI_4565.MOV",
+      "aliases": [
+        "Summer",
+        "61  Summer"
+      ],
+      "category": "Seasons",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.12,
+      "description": "Real ISL demonstration clip for '61. Summer' (Sourced strictly from TRAIN split: MVI_4565.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "62. Parent",
+      "video_path": "videos/class_62__parent_MVI_3766.MOV",
+      "aliases": [
+        "Parent",
+        "62  Parent"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.96,
+      "description": "Real ISL demonstration clip for '62. Parent' (Sourced strictly from TRAIN split: MVI_3766.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "62. Spring",
+      "video_path": "videos/class_62__spring_MVI_4569.MOV",
+      "aliases": [
+        "Spring",
+        "62  Spring"
+      ],
+      "category": "Seasons",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.68,
+      "description": "Real ISL demonstration clip for '62. Spring' (Sourced strictly from TRAIN split: MVI_4569.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "63. Baby",
+      "video_path": "videos/class_63__baby_MVI_3769.MOV",
+      "aliases": [
+        "Baby",
+        "63  Baby"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '63. Baby' (Sourced strictly from TRAIN split: MVI_3769.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "63. Winter",
+      "video_path": "videos/class_63__winter_MVI_4573.MOV",
+      "aliases": [
+        "Winter",
+        "63  Winter"
+      ],
+      "category": "Seasons",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.52,
+      "description": "Real ISL demonstration clip for '63. Winter' (Sourced strictly from TRAIN split: MVI_4573.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "64. Fall",
+      "video_path": "videos/class_64__fall_MVI_4577.MOV",
+      "aliases": [
+        "Fall",
+        "64  Fall"
+      ],
+      "category": "Seasons",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.84,
+      "description": "Real ISL demonstration clip for '64. Fall' (Sourced strictly from TRAIN split: MVI_4577.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "64. Man",
+      "video_path": "videos/class_64__man_MVI_3772.MOV",
+      "aliases": [
+        "Man",
+        "64  Man"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Real ISL demonstration clip for '64. Man' (Sourced strictly from TRAIN split: MVI_3772.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "65. Season",
+      "video_path": "videos/class_65__season_MVI_4581.MOV",
+      "aliases": [
+        "Season",
+        "65  Season"
+      ],
+      "category": "Seasons",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 5.2,
+      "description": "Real ISL demonstration clip for '65. Season' (Sourced strictly from TRAIN split: MVI_4581.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "65. Woman",
+      "video_path": "videos/class_65__woman_MVI_3775.MOV",
+      "aliases": [
+        "Woman",
+        "65  Woman"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Real ISL demonstration clip for '65. Woman' (Sourced strictly from TRAIN split: MVI_3775.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "66. Brother",
+      "video_path": "videos/class_66__brother_MVI_3778.MOV",
+      "aliases": [
+        "Brother",
+        "66  Brother"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '66. Brother' (Sourced strictly from TRAIN split: MVI_3778.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "66. Sunday",
+      "video_path": "videos/class_66__sunday_MVI_4586.MOV",
+      "aliases": [
+        "Sunday",
+        "66  Sunday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.84,
+      "description": "Real ISL demonstration clip for '66. Sunday' (Sourced strictly from TRAIN split: MVI_4586.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "67. Monday",
+      "video_path": "videos/class_67__monday_MVI_4591.MOV",
+      "aliases": [
+        "Monday",
+        "67  Monday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '67. Monday' (Sourced strictly from TRAIN split: MVI_4591.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "67. Sister",
+      "video_path": "videos/class_67__sister_MVI_3782.MOV",
+      "aliases": [
+        "Sister",
+        "67  Sister"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Real ISL demonstration clip for '67. Sister' (Sourced strictly from TRAIN split: MVI_3782.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "68. Family",
+      "video_path": "videos/class_68__family_MVI_3787.MOV",
+      "aliases": [
+        "Family",
+        "68  Family"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '68. Family' (Sourced strictly from TRAIN split: MVI_3787.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "68. Tuesday",
+      "video_path": "videos/class_68__tuesday_MVI_4595.MOV",
+      "aliases": [
+        "Tuesday",
+        "68  Tuesday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Real ISL demonstration clip for '68. Tuesday' (Sourced strictly from TRAIN split: MVI_4595.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "69. Grandfather",
+      "video_path": "videos/class_69__grandfather_MVI_3790.MOV",
+      "aliases": [
+        "Grandfather",
+        "69  Grandfather"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.12,
+      "description": "Real ISL demonstration clip for '69. Grandfather' (Sourced strictly from TRAIN split: MVI_3790.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "69. Wednesday",
+      "video_path": "videos/class_69__wednesday_MVI_4599.MOV",
+      "aliases": [
+        "Wednesday",
+        "69  Wednesday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '69. Wednesday' (Sourced strictly from TRAIN split: MVI_4599.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "7. Deaf",
+      "video_path": "videos/class_7__deaf_MVI_9580.MOV",
+      "aliases": [
+        "Deaf",
+        "7  Deaf"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.44,
+      "description": "Real ISL demonstration clip for '7. Deaf' (Sourced strictly from TRAIN split: MVI_9580.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "7. Horse",
+      "video_path": "videos/class_7__horse_MVI_2996.MOV",
+      "aliases": [
+        "Horse",
+        "7  Horse"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.2,
+      "description": "Real ISL demonstration clip for '7. Horse' (Sourced strictly from TRAIN split: MVI_2996.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "7. Team",
+      "video_path": "videos/class_7__team_MVI_4275.MOV",
+      "aliases": [
+        "Team",
+        "7  Team"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '7. Team' (Sourced strictly from TRAIN split: MVI_4275.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "70. Grandmother",
+      "video_path": "videos/class_70__grandmother_MVI_3793.MOV",
+      "aliases": [
+        "Grandmother",
+        "70  Grandmother"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Real ISL demonstration clip for '70. Grandmother' (Sourced strictly from TRAIN split: MVI_3793.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "70. Thursday",
+      "video_path": "videos/class_70__thursday_MVI_4603.MOV",
+      "aliases": [
+        "Thursday",
+        "70  Thursday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '70. Thursday' (Sourced strictly from TRAIN split: MVI_4603.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "71. Friday",
+      "video_path": "videos/class_71__friday_MVI_4607.MOV",
+      "aliases": [
+        "Friday",
+        "71  Friday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '71. Friday' (Sourced strictly from TRAIN split: MVI_4607.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "71. Husband",
+      "video_path": "videos/class_71__husband_MVI_3796.MOV",
+      "aliases": [
+        "Husband",
+        "71  Husband"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '71. Husband' (Sourced strictly from TRAIN split: MVI_3796.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "72. Saturday",
+      "video_path": "videos/class_72__saturday_MVI_4611.MOV",
+      "aliases": [
+        "Saturday",
+        "72  Saturday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.44,
+      "description": "Real ISL demonstration clip for '72. Saturday' (Sourced strictly from TRAIN split: MVI_4611.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "72. Wife",
+      "video_path": "videos/class_72__wife_MVI_3799.MOV",
+      "aliases": [
+        "Wife",
+        "72  Wife"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Real ISL demonstration clip for '72. Wife' (Sourced strictly from TRAIN split: MVI_3799.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "73. King",
+      "video_path": "videos/class_73__king_MVI_3802.MOV",
+      "aliases": [
+        "King",
+        "73  King"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '73. King' (Sourced strictly from TRAIN split: MVI_3802.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "73. Today",
+      "video_path": "videos/class_73__today_MVI_4615.MOV",
+      "aliases": [
+        "Today",
+        "73  Today"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '73. Today' (Sourced strictly from TRAIN split: MVI_4615.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "74. Queen",
+      "video_path": "videos/class_74__queen_MVI_3805.MOV",
+      "aliases": [
+        "Queen",
+        "74  Queen"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '74. Queen' (Sourced strictly from TRAIN split: MVI_3805.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "74. Tomorrow",
+      "video_path": "videos/class_74__tomorrow_MVI_4619.MOV",
+      "aliases": [
+        "Tomorrow",
+        "74  Tomorrow"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Real ISL demonstration clip for '74. Tomorrow' (Sourced strictly from TRAIN split: MVI_4619.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "75. President",
+      "video_path": "videos/class_75__president_MVI_3808.MOV",
+      "aliases": [
+        "President",
+        "75  President"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.52,
+      "description": "Real ISL demonstration clip for '75. President' (Sourced strictly from TRAIN split: MVI_3808.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "75. Yesterday",
+      "video_path": "videos/class_75__yesterday_MVI_4623.MOV",
+      "aliases": [
+        "Yesterday",
+        "75  Yesterday"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.0,
+      "description": "Real ISL demonstration clip for '75. Yesterday' (Sourced strictly from TRAIN split: MVI_4623.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "76. Neighbour",
+      "video_path": "videos/class_76__neighbour_MVI_3811.MOV",
+      "aliases": [
+        "Neighbour",
+        "76  Neighbour"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.4,
+      "description": "Real ISL demonstration clip for '76. Neighbour' (Sourced strictly from TRAIN split: MVI_3811.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "76. Week",
+      "video_path": "videos/class_76__week_MVI_4627.MOV",
+      "aliases": [
+        "Week",
+        "76  Week"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.84,
+      "description": "Real ISL demonstration clip for '76. Week' (Sourced strictly from TRAIN split: MVI_4627.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "77. Boy",
-      "video_path": "videos/class_023_MVI_3814.MOV",
+      "video_path": "videos/class_77__boy_MVI_3814.MOV",
       "aliases": [
         "Boy",
         "77  Boy"
@@ -335,12 +2814,96 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.52,
-      "description": "Controlled 42-class ISL demonstration clip for '77. Boy' (Sourced strictly from TRAIN split: MVI_3814.MOV).",
+      "description": "Real ISL demonstration clip for '77. Boy' (Sourced strictly from TRAIN split: MVI_3814.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "77. Month",
+      "video_path": "videos/class_77__month_MVI_4631.MOV",
+      "aliases": [
+        "Month",
+        "77  Month"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '77. Month' (Sourced strictly from TRAIN split: MVI_4631.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "78. Girl",
+      "video_path": "videos/class_78__girl_MVI_3817.MOV",
+      "aliases": [
+        "Girl",
+        "78  Girl"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '78. Girl' (Sourced strictly from TRAIN split: MVI_3817.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "78. Year",
+      "video_path": "videos/class_78__year_MVI_4635.MOV",
+      "aliases": [
+        "Year",
+        "78  Year"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '78. Year' (Sourced strictly from TRAIN split: MVI_4635.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "78. long",
+      "video_path": "videos/class_78__long_MVI_5107.MOV",
+      "aliases": [
+        "long",
+        "78  long"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.84,
+      "description": "Real ISL demonstration clip for '78. long' (Sourced strictly from TRAIN split: MVI_5107.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "79. Child",
+      "video_path": "videos/class_79__child_MVI_3820.MOV",
+      "aliases": [
+        "Child",
+        "79  Child"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '79. Child' (Sourced strictly from TRAIN split: MVI_3820.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "79. Hour",
+      "video_path": "videos/class_79__hour_MVI_4639.MOV",
+      "aliases": [
+        "Hour",
+        "79  Hour"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Real ISL demonstration clip for '79. Hour' (Sourced strictly from TRAIN split: MVI_4639.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "79. short",
-      "video_path": "videos/class_024_MVI_5110.MOV",
+      "video_path": "videos/class_79__short_MVI_5110.MOV",
       "aliases": [
         "short",
         "79  short"
@@ -349,12 +2912,82 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.48,
-      "description": "Controlled 42-class ISL demonstration clip for '79. short' (Sourced strictly from TRAIN split: MVI_5110.MOV).",
+      "description": "Real ISL demonstration clip for '79. short' (Sourced strictly from TRAIN split: MVI_5110.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "8. Animal",
+      "video_path": "videos/class_8__animal_MVI_2999.MOV",
+      "aliases": [
+        "Animal",
+        "8  Animal"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.16,
+      "description": "Real ISL demonstration clip for '8. Animal' (Sourced strictly from TRAIN split: MVI_2999.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "8. Blind",
+      "video_path": "videos/class_8__blind_MVI_9584.MOV",
+      "aliases": [
+        "Blind",
+        "8  Blind"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '8. Blind' (Sourced strictly from TRAIN split: MVI_9584.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "8. Race (ethnicity)",
+      "video_path": "videos/class_8__race__ethnicity__MVI_4279.MOV",
+      "aliases": [
+        "Race (ethnicity)",
+        "8  Race (ethnicity)"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '8. Race (ethnicity)' (Sourced strictly from TRAIN split: MVI_4279.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "80. Adult",
+      "video_path": "videos/class_80__adult_MVI_3823.MOV",
+      "aliases": [
+        "Adult",
+        "80  Adult"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.88,
+      "description": "Real ISL demonstration clip for '80. Adult' (Sourced strictly from TRAIN split: MVI_3823.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "80. Minute",
+      "video_path": "videos/class_80__minute_MVI_4643.MOV",
+      "aliases": [
+        "Minute",
+        "80  Minute"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '80. Minute' (Sourced strictly from TRAIN split: MVI_4643.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "80. tall",
-      "video_path": "videos/class_025_MVI_5114.MOV",
+      "video_path": "videos/class_80__tall_MVI_5114.MOV",
       "aliases": [
         "tall",
         "80  tall"
@@ -363,12 +2996,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.56,
-      "description": "Controlled 42-class ISL demonstration clip for '80. tall' (Sourced strictly from TRAIN split: MVI_5114.MOV).",
+      "description": "Real ISL demonstration clip for '80. tall' (Sourced strictly from TRAIN split: MVI_5114.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "81. Friend",
+      "video_path": "videos/class_81__friend_MVI_3826.MOV",
+      "aliases": [
+        "Friend",
+        "81  Friend"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.44,
+      "description": "Real ISL demonstration clip for '81. Friend' (Sourced strictly from TRAIN split: MVI_3826.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "81. Second",
+      "video_path": "videos/class_81__second_MVI_5056.MOV",
+      "aliases": [
+        "Second",
+        "81  Second"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.92,
+      "description": "Real ISL demonstration clip for '81. Second' (Sourced strictly from TRAIN split: MVI_5056.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "81. wide",
-      "video_path": "videos/class_026_MVI_5117.MOV",
+      "video_path": "videos/class_81__wide_MVI_5117.MOV",
       "aliases": [
         "wide",
         "81  wide"
@@ -377,12 +3038,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.44,
-      "description": "Controlled 42-class ISL demonstration clip for '81. wide' (Sourced strictly from TRAIN split: MVI_5117.MOV).",
+      "description": "Real ISL demonstration clip for '81. wide' (Sourced strictly from TRAIN split: MVI_5117.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "82. Morning",
+      "video_path": "videos/class_82__morning_MVI_4651.MOV",
+      "aliases": [
+        "Morning",
+        "82  Morning"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Real ISL demonstration clip for '82. Morning' (Sourced strictly from TRAIN split: MVI_4651.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "82. Player",
+      "video_path": "videos/class_82__player_MVI_3829.MOV",
+      "aliases": [
+        "Player",
+        "82  Player"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Real ISL demonstration clip for '82. Player' (Sourced strictly from TRAIN split: MVI_3829.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "82. narrow",
-      "video_path": "videos/class_027_MVI_5120.MOV",
+      "video_path": "videos/class_82__narrow_MVI_5120.MOV",
       "aliases": [
         "narrow",
         "82  narrow"
@@ -391,12 +3080,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.08,
-      "description": "Controlled 42-class ISL demonstration clip for '82. narrow' (Sourced strictly from TRAIN split: MVI_5120.MOV).",
+      "description": "Real ISL demonstration clip for '82. narrow' (Sourced strictly from TRAIN split: MVI_5120.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "83. Afternoon",
+      "video_path": "videos/class_83__afternoon_MVI_4655.MOV",
+      "aliases": [
+        "Afternoon",
+        "83  Afternoon"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.84,
+      "description": "Real ISL demonstration clip for '83. Afternoon' (Sourced strictly from TRAIN split: MVI_4655.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "83. Crowd",
+      "video_path": "videos/class_83__crowd_MVI_3832.MOV",
+      "aliases": [
+        "Crowd",
+        "83  Crowd"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '83. Crowd' (Sourced strictly from TRAIN split: MVI_3832.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "83. big large",
-      "video_path": "videos/class_028_MVI_5123.MOV",
+      "video_path": "videos/class_83__big_large_MVI_5123.MOV",
       "aliases": [
         "big large",
         "83  big large"
@@ -405,12 +3122,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.16,
-      "description": "Controlled 42-class ISL demonstration clip for '83. big large' (Sourced strictly from TRAIN split: MVI_5123.MOV).",
+      "description": "Real ISL demonstration clip for '83. big large' (Sourced strictly from TRAIN split: MVI_5123.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "84. Evening",
+      "video_path": "videos/class_84__evening_MVI_4659.MOV",
+      "aliases": [
+        "Evening",
+        "84  Evening"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '84. Evening' (Sourced strictly from TRAIN split: MVI_4659.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "84. Teacher",
+      "video_path": "videos/class_84__teacher_MVI_4457.MOV",
+      "aliases": [
+        "Teacher",
+        "84  Teacher"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Real ISL demonstration clip for '84. Teacher' (Sourced strictly from TRAIN split: MVI_4457.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "84. small little",
-      "video_path": "videos/class_029_MVI_5126.MOV",
+      "video_path": "videos/class_84__small_little_MVI_5126.MOV",
       "aliases": [
         "small little",
         "84  small little"
@@ -419,12 +3164,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.32,
-      "description": "Controlled 42-class ISL demonstration clip for '84. small little' (Sourced strictly from TRAIN split: MVI_5126.MOV).",
+      "description": "Real ISL demonstration clip for '84. small little' (Sourced strictly from TRAIN split: MVI_5126.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "85. Night",
+      "video_path": "videos/class_85__night_MVI_4663.MOV",
+      "aliases": [
+        "Night",
+        "85  Night"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Real ISL demonstration clip for '85. Night' (Sourced strictly from TRAIN split: MVI_4663.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "85. Student",
+      "video_path": "videos/class_85__student_MVI_4462.MOV",
+      "aliases": [
+        "Student",
+        "85  Student"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.48,
+      "description": "Real ISL demonstration clip for '85. Student' (Sourced strictly from TRAIN split: MVI_4462.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "85. slow",
-      "video_path": "videos/class_030_MVI_5130.MOV",
+      "video_path": "videos/class_85__slow_MVI_5130.MOV",
       "aliases": [
         "slow",
         "85  slow"
@@ -433,12 +3206,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.68,
-      "description": "Controlled 42-class ISL demonstration clip for '85. slow' (Sourced strictly from TRAIN split: MVI_5130.MOV).",
+      "description": "Real ISL demonstration clip for '85. slow' (Sourced strictly from TRAIN split: MVI_5130.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "86. Lawyer",
+      "video_path": "videos/class_86__lawyer_MVI_4466.MOV",
+      "aliases": [
+        "Lawyer",
+        "86  Lawyer"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.72,
+      "description": "Real ISL demonstration clip for '86. Lawyer' (Sourced strictly from TRAIN split: MVI_4466.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "86. Time",
+      "video_path": "videos/class_86__time_MVI_4667.MOV",
+      "aliases": [
+        "Time",
+        "86  Time"
+      ],
+      "category": "Days_and_Time",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '86. Time' (Sourced strictly from TRAIN split: MVI_4667.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "86. fast",
-      "video_path": "videos/class_031_MVI_5133.MOV",
+      "video_path": "videos/class_86__fast_MVI_5133.MOV",
       "aliases": [
         "fast",
         "86  fast"
@@ -447,12 +3248,82 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.6,
-      "description": "Controlled 42-class ISL demonstration clip for '86. fast' (Sourced strictly from TRAIN split: MVI_5133.MOV).",
+      "description": "Real ISL demonstration clip for '86. fast' (Sourced strictly from TRAIN split: MVI_5133.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "87. Doctor",
+      "video_path": "videos/class_87__doctor_MVI_4470.MOV",
+      "aliases": [
+        "Doctor",
+        "87  Doctor"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '87. Doctor' (Sourced strictly from TRAIN split: MVI_4470.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "87. hot",
+      "video_path": "videos/class_87__hot_MVI_5136.MOV",
+      "aliases": [
+        "hot",
+        "87  hot"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.84,
+      "description": "Real ISL demonstration clip for '87. hot' (Sourced strictly from TRAIN split: MVI_5136.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "88. Patient",
+      "video_path": "videos/class_88__patient_MVI_4474.MOV",
+      "aliases": [
+        "Patient",
+        "88  Patient"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.84,
+      "description": "Real ISL demonstration clip for '88. Patient' (Sourced strictly from TRAIN split: MVI_4474.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "88. cold",
+      "video_path": "videos/class_88__cold_MVI_5139.MOV",
+      "aliases": [
+        "cold",
+        "88  cold"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '88. cold' (Sourced strictly from TRAIN split: MVI_5139.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "89. Waiter",
+      "video_path": "videos/class_89__waiter_MVI_4478.MOV",
+      "aliases": [
+        "Waiter",
+        "89  Waiter"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.64,
+      "description": "Real ISL demonstration clip for '89. Waiter' (Sourced strictly from TRAIN split: MVI_4478.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "89. warm",
-      "video_path": "videos/class_032_MVI_5141.MOV",
+      "video_path": "videos/class_89__warm_MVI_5141.MOV",
       "aliases": [
         "warm",
         "89  warm"
@@ -461,12 +3332,40 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.68,
-      "description": "Controlled 42-class ISL demonstration clip for '89. warm' (Sourced strictly from TRAIN split: MVI_5141.MOV).",
+      "description": "Real ISL demonstration clip for '89. warm' (Sourced strictly from TRAIN split: MVI_5141.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "9. Nice",
+      "video_path": "videos/class_9__nice_MVI_9588.MOV",
+      "aliases": [
+        "Nice",
+        "9  Nice"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for '9. Nice' (Sourced strictly from TRAIN split: MVI_9588.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "9. Technology",
+      "video_path": "videos/class_9__technology_MVI_4283.MOV",
+      "aliases": [
+        "Technology",
+        "9  Technology"
+      ],
+      "category": "Society",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.04,
+      "description": "Real ISL demonstration clip for '9. Technology' (Sourced strictly from TRAIN split: MVI_4283.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "9. Train",
-      "video_path": "videos/class_033_MVI_3110.MOV",
+      "video_path": "videos/class_9__train_MVI_3110.MOV",
       "aliases": [
         "Train",
         "9  Train"
@@ -475,12 +3374,82 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.08,
-      "description": "Controlled 42-class ISL demonstration clip for '9. Train' (Sourced strictly from TRAIN split: MVI_3110.MOV).",
+      "description": "Real ISL demonstration clip for '9. Train' (Sourced strictly from TRAIN split: MVI_3110.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "90. Secretary",
+      "video_path": "videos/class_90__secretary_MVI_4482.MOV",
+      "aliases": [
+        "Secretary",
+        "90  Secretary"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '90. Secretary' (Sourced strictly from TRAIN split: MVI_4482.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "90. cool",
+      "video_path": "videos/class_90__cool_MVI_5145.MOV",
+      "aliases": [
+        "cool",
+        "90  cool"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.0,
+      "description": "Real ISL demonstration clip for '90. cool' (Sourced strictly from TRAIN split: MVI_5145.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "91. Priest",
+      "video_path": "videos/class_91__priest_MVI_4486.MOV",
+      "aliases": [
+        "Priest",
+        "91  Priest"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.16,
+      "description": "Real ISL demonstration clip for '91. Priest' (Sourced strictly from TRAIN split: MVI_4486.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "91. new",
+      "video_path": "videos/class_91__new_MVI_5148.MOV",
+      "aliases": [
+        "new",
+        "91  new"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.28,
+      "description": "Real ISL demonstration clip for '91. new' (Sourced strictly from TRAIN split: MVI_5148.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "92. Police",
+      "video_path": "videos/class_92__police_MVI_4491.MOV",
+      "aliases": [
+        "Police",
+        "92  Police"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.96,
+      "description": "Real ISL demonstration clip for '92. Police' (Sourced strictly from TRAIN split: MVI_4491.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "92. old",
-      "video_path": "videos/class_034_MVI_5152.MOV",
+      "video_path": "videos/class_92__old_MVI_5152.MOV",
       "aliases": [
         "old",
         "92  old"
@@ -489,12 +3458,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.68,
-      "description": "Controlled 42-class ISL demonstration clip for '92. old' (Sourced strictly from TRAIN split: MVI_5152.MOV).",
+      "description": "Real ISL demonstration clip for '92. old' (Sourced strictly from TRAIN split: MVI_5152.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "93. Soldier",
+      "video_path": "videos/class_93__soldier_MVI_4495.MOV",
+      "aliases": [
+        "Soldier",
+        "93  Soldier"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.72,
+      "description": "Real ISL demonstration clip for '93. Soldier' (Sourced strictly from TRAIN split: MVI_4495.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "93. young",
-      "video_path": "videos/class_035_MVI_5155.MOV",
+      "video_path": "videos/class_93__young_MVI_5155.MOV",
       "aliases": [
         "young",
         "93  young"
@@ -503,12 +3486,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.64,
-      "description": "Controlled 42-class ISL demonstration clip for '93. young' (Sourced strictly from TRAIN split: MVI_5155.MOV).",
+      "description": "Real ISL demonstration clip for '93. young' (Sourced strictly from TRAIN split: MVI_5155.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "94. Artist",
+      "video_path": "videos/class_94__artist_MVI_4500.MOV",
+      "aliases": [
+        "Artist",
+        "94  Artist"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.76,
+      "description": "Real ISL demonstration clip for '94. Artist' (Sourced strictly from TRAIN split: MVI_4500.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "94. good",
-      "video_path": "videos/class_036_MVI_5158.MOV",
+      "video_path": "videos/class_94__good_MVI_5158.MOV",
       "aliases": [
         "good",
         "94  good"
@@ -517,12 +3514,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.92,
-      "description": "Controlled 42-class ISL demonstration clip for '94. good' (Sourced strictly from TRAIN split: MVI_5158.MOV).",
+      "description": "Real ISL demonstration clip for '94. good' (Sourced strictly from TRAIN split: MVI_5158.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "95. Author",
+      "video_path": "videos/class_95__author_MVI_4504.MOV",
+      "aliases": [
+        "Author",
+        "95  Author"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.4,
+      "description": "Real ISL demonstration clip for '95. Author' (Sourced strictly from TRAIN split: MVI_4504.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "95. bad",
-      "video_path": "videos/class_037_MVI_5161.MOV",
+      "video_path": "videos/class_95__bad_MVI_5161.MOV",
       "aliases": [
         "bad",
         "95  bad"
@@ -531,12 +3542,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.36,
-      "description": "Controlled 42-class ISL demonstration clip for '95. bad' (Sourced strictly from TRAIN split: MVI_5161.MOV).",
+      "description": "Real ISL demonstration clip for '95. bad' (Sourced strictly from TRAIN split: MVI_5161.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "96. Manager",
+      "video_path": "videos/class_96__manager_MVI_4508.MOV",
+      "aliases": [
+        "Manager",
+        "96  Manager"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.0,
+      "description": "Real ISL demonstration clip for '96. Manager' (Sourced strictly from TRAIN split: MVI_4508.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "96. wet",
-      "video_path": "videos/class_038_MVI_5164.MOV",
+      "video_path": "videos/class_96__wet_MVI_5164.MOV",
       "aliases": [
         "wet",
         "96  wet"
@@ -545,12 +3570,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 3.32,
-      "description": "Controlled 42-class ISL demonstration clip for '96. wet' (Sourced strictly from TRAIN split: MVI_5164.MOV).",
+      "description": "Real ISL demonstration clip for '96. wet' (Sourced strictly from TRAIN split: MVI_5164.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "97. Reporter",
+      "video_path": "videos/class_97__reporter_MVI_4512.MOV",
+      "aliases": [
+        "Reporter",
+        "97  Reporter"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.32,
+      "description": "Real ISL demonstration clip for '97. Reporter' (Sourced strictly from TRAIN split: MVI_4512.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "97. dry",
-      "video_path": "videos/class_039_MVI_5167.MOV",
+      "video_path": "videos/class_97__dry_MVI_5167.MOV",
       "aliases": [
         "dry",
         "97  dry"
@@ -559,12 +3598,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.72,
-      "description": "Controlled 42-class ISL demonstration clip for '97. dry' (Sourced strictly from TRAIN split: MVI_5167.MOV).",
+      "description": "Real ISL demonstration clip for '97. dry' (Sourced strictly from TRAIN split: MVI_5167.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "98. Actor",
+      "video_path": "videos/class_98__actor_MVI_4516.MOV",
+      "aliases": [
+        "Actor",
+        "98  Actor"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Real ISL demonstration clip for '98. Actor' (Sourced strictly from TRAIN split: MVI_4516.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "98. sick",
-      "video_path": "videos/class_040_MVI_5170.MOV",
+      "video_path": "videos/class_98__sick_MVI_5170.MOV",
       "aliases": [
         "sick",
         "98  sick"
@@ -573,12 +3626,26 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.8,
-      "description": "Controlled 42-class ISL demonstration clip for '98. sick' (Sourced strictly from TRAIN split: MVI_5170.MOV).",
+      "description": "Real ISL demonstration clip for '98. sick' (Sourced strictly from TRAIN split: MVI_5170.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "99. Job",
+      "video_path": "videos/class_99__job_MVI_4520.MOV",
+      "aliases": [
+        "Job",
+        "99  Job"
+      ],
+      "category": "Jobs",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Real ISL demonstration clip for '99. Job' (Sourced strictly from TRAIN split: MVI_4520.MOV).",
       "fingerspelling_available": true
     },
     {
       "gloss": "99. healthy",
-      "video_path": "videos/class_041_MVI_5173.MOV",
+      "video_path": "videos/class_99__healthy_MVI_5173.MOV",
       "aliases": [
         "healthy",
         "99  healthy"
@@ -587,7 +3654,20 @@
       "source": "INCLUDE_TRAIN",
       "license": "Academic Open Research",
       "duration_sec": 2.68,
-      "description": "Controlled 42-class ISL demonstration clip for '99. healthy' (Sourced strictly from TRAIN split: MVI_5173.MOV).",
+      "description": "Real ISL demonstration clip for '99. healthy' (Sourced strictly from TRAIN split: MVI_5173.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "Ex. Monsoon",
+      "video_path": "videos/class_ex__monsoon_MVI_4671.MOV",
+      "aliases": [
+        "Ex  Monsoon"
+      ],
+      "category": "Seasons",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.32,
+      "description": "Real ISL demonstration clip for 'Ex. Monsoon' (Sourced strictly from TRAIN split: MVI_4671.MOV).",
       "fingerspelling_available": true
     }
   ]

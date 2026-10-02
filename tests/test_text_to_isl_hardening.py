@@ -34,3 +34,20 @@ def test_convert_text_to_isl_partial_translation() -> None:
     assert res.dictionary_count == 1
     assert res.unknown_count == 1
     assert "world" in res.skipped_tokens
+
+
+def test_cat_real_train_asset_translation() -> None:
+    dict_dir = Path("data/external/isl_dictionary")
+    if not dict_dir.exists() or not (dict_dir / "index.json").exists():
+        pytest.skip("ISL dictionary assets missing")
+        
+    index = ISLDictionaryIndex.load(dict_dir)
+    converter = TextToISLConverter(dictionary=index)
+    res = converter.convert("cat")
+
+    assert len(res.demonstrations) == 1
+    demo = res.demonstrations[0]
+    assert demo.source == DemonstrationSource.DICTIONARY
+    assert "2. Cat" in demo.dictionary_gloss
+    assert demo.video_path is not None
+    assert (dict_dir / demo.video_path).exists()

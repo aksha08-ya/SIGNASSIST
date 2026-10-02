@@ -81,7 +81,8 @@ def test_video_url_valid_input_delegates_to_service_and_stores_state() -> None:
 
         render_mode_video_url({})
 
-        mock_service.assert_called_once_with(url="https://youtube.com/watch?v=demo")
+        mock_service.assert_called_once()
+        assert mock_service.call_args[1]["url"] == "https://youtube.com/watch?v=demo"
         assert state["latest_video_result"] is mock_result
         assert state["last_processed_url"] == "https://youtube.com/watch?v=demo"
         assert state["processing"] is False
@@ -215,5 +216,6 @@ def test_video_url_explicit_second_button_click_reprocesses() -> None:
         render_mode_video_url({})
 
         # Service MUST be invoked again because button was clicked
-        mock_service.assert_called_once_with(url="https://youtube.com/watch?v=demo")
+        mock_service.assert_called_once()
+        assert mock_service.call_args[1]["url"] == "https://youtube.com/watch?v=demo"
         assert state["latest_video_result"] is mock_result_2

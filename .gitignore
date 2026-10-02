@@ -22,3 +22,5 @@ data/processed/include/features/
 models/checkpoints/
 reports/training/
 wget-log*
+scratch/
+

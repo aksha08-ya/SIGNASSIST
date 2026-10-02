@@ -103,7 +103,7 @@ def test_upload_video_temp_file_cleanup() -> None:
     dummy_file = DummyUploadedFile(name="temp_test.mp4", content=b"video_data")
     created_temp_paths = []
 
-    def mock_process_side_effect(path: Path):
+    def mock_process_side_effect(path: Path, *args, **kwargs):
         created_temp_paths.append(Path(path))
         assert Path(path).exists()
         return VideoProcessingResult(

@@ -506,10 +506,11 @@ def render_video_processing_result(result: Any) -> None:
     """Displays VideoProcessingResult fields in a structured Streamlit summary layout."""
     st.markdown("### 📊 Processing Results")
 
+    selected_b = st.session_state.get("selected_backend", "experimental_42")
+
     # 1. Recognition status banner
     rec_avail = getattr(result, "recognition_available", False)
     if rec_avail:
-        selected_b = st.session_state.get("selected_backend", "experimental_42")
         if selected_b == "experimental_42":
             st.success(
                 "🎯 **Experimental 42-Class Backend — Demo Mode** Active\n\n"
@@ -566,13 +567,15 @@ def render_video_processing_result(result: Any) -> None:
         st.markdown("#### 📝 Sentence Transcript")
         st.success(f"**Transcript**: {transcript.text}")
         if hasattr(transcript, "mean_confidence") and transcript.mean_confidence > 0:
-            st.caption(f"Mean Raw Softmax Confidence (UNCALIBRATED): {transcript.mean_confidence:.2%}")
+            conf_label = "Mean Calibrated Confidence ($T=0.68$)" if selected_b == "experimental_42" else "Mean Raw Softmax Confidence (UNCALIBRATED)"
+            st.caption(f"{conf_label}: {transcript.mean_confidence:.2%}")
 
     # 6. Timeline & Diagnostic Entries
     timeline = getattr(result, "timeline", []) or []
     if timeline:
         st.markdown("#### ⏱️ Sign Recognition Timeline & Diagnostics")
         timeline_data = []
+        conf_type_str = "Calibrated Confidence ($T=0.68$)" if selected_b == "experimental_42" else "Raw Softmax Confidence (UNCALIBRATED)"
         for idx, entry in enumerate(timeline, start=1):
             conf = getattr(entry, "confidence", 0.0)
             is_acc = getattr(entry, "is_accepted", conf >= 0.70)
@@ -585,10 +588,11 @@ def render_video_processing_result(result: Any) -> None:
             if not is_acc:
                 st.warning(
                     f"⚠️ **Segment {idx} ({getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')})**: "
-                    f"**Prediction rejected: confidence below threshold** (0.70 threshold).\n\n"
+                    f"**[MODEL PREDICTION | REJECTED BY CONFIDENCE POLICY (<0.70) | NOT USER-VERIFIED]**\n\n"
                     f"- **Predicted Gloss**: `{gloss}`\n"
                     f"- **Class ID**: `{cls_id}`\n"
-                    f"- **Raw Softmax Confidence (UNCALIBRATED)**: `{conf:.4f}` ({conf * 100:.2f}%)\n"
+                    f"- **{conf_type_str}**: `{conf:.4f}` ({conf * 100:.2f}%)\n"
+                    f"- **Acceptance Threshold**: `0.70` (Rejection Policy Active)\n"
                 )
                 if top_3:
                     top_3_str = ", ".join([f"`{g}` ({p * 100:.1f}%)" for g, p in top_3])
@@ -596,7 +600,9 @@ def render_video_processing_result(result: Any) -> None:
             else:
                 st.success(
                     f"✅ **Segment {idx} ({getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')})**: "
-                    f"**Accepted** (`{gloss}`, Class ID `{cls_id}`, Confidence: `{conf * 100:.2f}%`)"
+                    f"**[MODEL PREDICTION | ACCEPTED BY CONFIDENCE POLICY (≥0.70) | NOT USER-VERIFIED]**\n\n"
+                    f"- **Accepted Gloss**: `{gloss}` (Class ID `{cls_id}`)\n"
+                    f"- **{conf_type_str}**: `{conf * 100:.2f}%` (Acceptance Threshold: `0.70`)\n"
                 )
 
             timeline_data.append(
@@ -605,7 +611,8 @@ def render_video_processing_result(result: Any) -> None:
                     "Timestamp": f"{getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')}",
                     "Predicted Gloss": gloss,
                     "Class ID": cls_id,
-                    "Raw Softmax Confidence": f"{conf * 100:.2f}%",
+                    "Confidence Score": f"{conf * 100:.2f}%",
+                    "Confidence Type": "Calibrated (T=0.68)" if selected_b == "experimental_42" else "Raw Softmax",
                     "Status": status_str,
                 }
             )
@@ -771,6 +778,16 @@ def render_mode_video_url(status_info: dict) -> None:
         page_icon="🔗",
         description="Process external public video URLs (e.g. YouTube or HTTP video streams) for ISL recognition.",
     )
+
+    st.info(
+        "ℹ️ **Model Verification & Domain Constraint Notice**:\n"
+        "- **MODEL PREDICTION**: Unverified automated output from recognition model.\n"
+        "- **ACCEPTED BY CONFIDENCE POLICY**: Inferences passing the mandatory **0.70 threshold** using calibrated confidence ($T=0.68$).\n"
+        "- **NOT USER-VERIFIED**: Automated model outputs require domain expert verification.\n\n"
+        "⚠️ **Domain Constraint**: Recognition is strictly limited to the supported 42-class controlled vocabulary. "
+        "Arbitrary public internet videos may contain unsupported signs, complex background clutter, distribution shifts, or non-standard camera angles, resulting in low confidence or rejection."
+    )
+
     url_input = st.text_input(
         "Enter Video URL",
         placeholder="https://www.youtube.com/watch?v=...",
