@@ -32,6 +32,13 @@ class WebcamSessionResult:
     last_latency_ms: float
     latest_prediction: Optional[BoundedSignPrediction]
     prediction_history: List[BoundedSignPrediction]
+    frames_converted: int = 0
+    frames_valid_landmarks: int = 0
+    frames_rejected_landmarks: int = 0
+    current_buffer_count: int = 0
+    window_size: int = 60
+    inference_errors: int = 0
+    rejection_reason: str = "N/A"
 
 
 class WebcamRecognitionSession:
@@ -64,13 +71,18 @@ class WebcamRecognitionSession:
         # Session state variables
         self._frame_buffer: List[np.ndarray] = []
         self._total_frames_received = 0
+        self._frames_converted = 0
+        self._frames_valid_landmarks = 0
+        self._frames_rejected_landmarks = 0
         self._processed_windows = 0
+        self._inference_errors = 0
         self._processing_fps = 0.0
         self._last_latency_ms = 0.0
         self._prediction_history: List[BoundedSignPrediction] = []
         self._latest_prediction: Optional[BoundedSignPrediction] = None
         self._start_time: Optional[float] = None
         self._status = "idle"
+        self._rejection_reason = "No frames received yet"
 
         self.reset()
 
@@ -79,17 +91,23 @@ class WebcamRecognitionSession:
         with self._lock:
             self._frame_buffer.clear()
             self._total_frames_received = 0
+            self._frames_converted = 0
+            self._frames_valid_landmarks = 0
+            self._frames_rejected_landmarks = 0
             self._processed_windows = 0
+            self._inference_errors = 0
             self._processing_fps = 0.0
             self._last_latency_ms = 0.0
             self._prediction_history.clear()
             self._latest_prediction = None
             self._start_time = None
+            self._rejection_reason = "No inference windows evaluated yet"
 
             if self._check_pipeline_available():
                 self._status = "ready"
             else:
                 self._status = "unavailable"
+                self._rejection_reason = "Recognition pipeline in standby mode (no checkpoint loaded)"
 
     def _check_pipeline_available(self) -> bool:
         """Checks if the injected recognition pipeline is present and available."""
@@ -130,8 +148,10 @@ class WebcamRecognitionSession:
             rec_avail = self._check_pipeline_available()
             if not rec_avail:
                 self._status = "unavailable"
+                self._rejection_reason = "Recognition pipeline in standby mode (no checkpoint loaded)"
 
             self._total_frames_received += 1
+            self._frames_converted += 1
             if self._start_time is None:
                 self._start_time = time.perf_counter()
 
@@ -175,8 +195,13 @@ class WebcamRecognitionSession:
                             raw_preds = self.pipeline(decoded_frames, primary_tracks)
                         else:
                             raw_preds = []
+
+                        self._frames_valid_landmarks += len(decoded_frames)
                     except Exception as e:
                         logger.warning(f"Error executing recognition pipeline chunk: {e}")
+                        self._inference_errors += 1
+                        self._rejection_reason = f"Pipeline execution exception: {e}"
+                        self._frames_rejected_landmarks += len(decoded_frames)
                         raw_preds = []
                     t1 = time.perf_counter()
 
@@ -187,9 +212,20 @@ class WebcamRecognitionSession:
                     if raw_preds:
                         for pred in raw_preds:
                             if isinstance(pred, BoundedSignPrediction):
+                                is_acc = bool(getattr(pred.prediction, "is_accepted", True)) if pred.prediction else False
+                                conf_val = getattr(pred.prediction, "confidence", 0.0) if pred.prediction else 0.0
+                                conf_float = float(conf_val.item()) if hasattr(conf_val, "item") else float(conf_val)
+                                if not is_acc:
+                                    self._rejection_reason = f"Confidence {conf_float * 100:.1f}% below 0.70 threshold"
+                                else:
+                                    self._rejection_reason = f"Accepted by confidence policy (≥0.70)"
+
                                 if not self._is_duplicate(pred):
                                     self._prediction_history.append(pred)
                                     self._latest_prediction = pred
+                    else:
+                        if self._status != "unavailable":
+                            self._rejection_reason = "No valid sign segment or prediction generated for window"
 
                     self._status = "ready"
                 else:
@@ -258,9 +294,16 @@ class WebcamRecognitionSession:
             status=self._status,
             recognition_available=rec_avail,
             total_frames_received=self._total_frames_received,
+            frames_converted=self._frames_converted,
+            frames_valid_landmarks=self._frames_valid_landmarks,
+            frames_rejected_landmarks=self._frames_rejected_landmarks,
+            current_buffer_count=len(self._frame_buffer),
+            window_size=self.window_size,
             processed_windows=self._processed_windows,
+            inference_errors=self._inference_errors,
             processing_fps=self._processing_fps,
             last_latency_ms=self._last_latency_ms,
             latest_prediction=self._latest_prediction,
             prediction_history=list(self._prediction_history),
+            rejection_reason=self._rejection_reason,
         )

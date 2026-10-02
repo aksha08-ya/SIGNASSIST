@@ -116,7 +116,9 @@ def test_continuous_sentence_renderer_uses_stable_webrtc_key(monkeypatch):
 
     fake_session.get_result.return_value = fake_result
 
-    monkeypatch.setattr(app, "get_or_create_continuous_sentence_session", lambda: fake_session)
+    monkeypatch.setattr(
+        app, "get_or_create_continuous_sentence_session", lambda *args, **kwargs: fake_session
+    )
 
     captured = {}
 

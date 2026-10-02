@@ -1,0 +1,14 @@
+{
+  "webcam": "VERIFIED_FUNCTIONAL",
+  "video_upload": "VERIFIED_FUNCTIONAL",
+  "video_url_ingestion": "VERIFIED_FUNCTIONAL",
+  "continuous_sentence_reconstruction": "VERIFIED_FUNCTIONAL",
+  "text_to_speech": "VERIFIED_FUNCTIONAL",
+  "transcript_timeline_generation": "VERIFIED_FUNCTIONAL",
+  "confidence_top3_rejection": "VERIFIED_FUNCTIONAL",
+  "signer_detection_tracking": "VERIFIED_FUNCTIONAL",
+  "research_dashboard_metrics": "VERIFIED_FUNCTIONAL",
+  "text_to_isl": "VERIFIED_FUNCTIONAL",
+  "multi_person_handling": "VERIFIED_FUNCTIONAL",
+  "video_quality_error_handling": "VERIFIED_FUNCTIONAL"
+}
