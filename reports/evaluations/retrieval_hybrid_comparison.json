@@ -1,0 +1,48 @@
+{
+  "validation": {
+    "Model-Only": {
+      "top1": 2.380952380952381,
+      "top3": 7.142857142857142,
+      "ece": 0.7553890631312415,
+      "acceptance_rate": 100.0,
+      "accepted_precision": 2.380952380952381
+    },
+    "Retrieval-Only": {
+      "top1": 2.380952380952381,
+      "top3": 7.142857142857142,
+      "ece": 3.281803356847135e-09,
+      "acceptance_rate": 0.0,
+      "accepted_precision": 0.0
+    },
+    "Hybrid (alpha=0.8)": {
+      "top1": 2.380952380952381,
+      "top3": 7.142857142857142,
+      "ece": 0.6043112561816261,
+      "acceptance_rate": 0.0,
+      "accepted_precision": 0.0
+    }
+  },
+  "test": {
+    "Model-Only": {
+      "top1": 2.380952380952381,
+      "top3": 7.142857142857142,
+      "ece": 0.7553890631312415,
+      "acceptance_rate": 100.0,
+      "accepted_precision": 2.380952380952381
+    },
+    "Retrieval-Only": {
+      "top1": 2.380952380952381,
+      "top3": 7.142857142857142,
+      "ece": 3.281803356847135e-09,
+      "acceptance_rate": 0.0,
+      "accepted_precision": 0.0
+    },
+    "Hybrid (alpha=0.8)": {
+      "top1": 2.380952380952381,
+      "top3": 7.142857142857142,
+      "ece": 0.6043112561816261,
+      "acceptance_rate": 0.0,
+      "accepted_precision": 0.0
+    }
+  }
+}

@@ -52,6 +52,8 @@ class ConfidenceOutput:
     is_accepted: Any  # torch.Tensor shaped [B] (bool)
     is_rejected: Any  # torch.Tensor shaped [B] (bool)
     probabilities: Optional[Any] = None  # torch.Tensor shaped [B, num_classes]
+    predicted_gloss: Optional[Any] = None  # Resolved gloss string or List[str]
+    top_k_glosses: Optional[Any] = None  # List of top-K gloss strings
 
 
 if _TORCH_AVAILABLE:

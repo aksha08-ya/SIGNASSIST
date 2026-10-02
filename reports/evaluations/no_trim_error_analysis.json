@@ -1,0 +1,1090 @@
+{
+  "metadata": {
+    "evaluation_report": "reports/evaluations/real_video_test_eval_no_trim.json",
+    "backend": "experimental_42",
+    "checkpoint_path": "models/checkpoints/experimental/controlled_stgcn_best.pt",
+    "vocabulary_path": "data/processed/include/vocabulary_initial.json",
+    "calibration_temperature": 1.0,
+    "confidence_threshold": 0.7,
+    "use_boundary_trimming": false,
+    "total_samples": 126
+  },
+  "summary": {
+    "top1_accuracy": 0.5158730158730159,
+    "top1_correct_samples": 65,
+    "top3_accuracy": 0.7619047619047619,
+    "top3_correct_samples": 96,
+    "accepted_samples_ge_70": 9,
+    "acceptance_rate": 0.07142857142857142,
+    "mean_confidence_all": 0.40662833350518396,
+    "mean_confidence_correct": 0.4647523201428927,
+    "mean_confidence_incorrect": 0.3446929379076254,
+    "confidence_separation_margin": 0.1200593822352673
+  },
+  "quantifications": {
+    "correct_predictions": {
+      "total": 65,
+      "confidence_ge_0_70_accepted": 9,
+      "confidence_lt_0_70_rejected": 56,
+      "bins": {
+        "ge_0_70": {
+          "count": 9,
+          "percentage": 13.846153846153847
+        },
+        "bin_0_50_to_0_70": {
+          "count": 13,
+          "percentage": 20.0
+        },
+        "bin_0_30_to_0_50": {
+          "count": 31,
+          "percentage": 47.69230769230769
+        },
+        "lt_0_30": {
+          "count": 12,
+          "percentage": 18.461538461538463
+        }
+      }
+    },
+    "incorrect_predictions": {
+      "total": 61,
+      "confidence_ge_0_70_accepted": 0,
+      "confidence_lt_0_70_rejected": 61,
+      "bins": {
+        "ge_0_70": {
+          "count": 0,
+          "percentage": 0.0
+        },
+        "bin_0_50_to_0_70": {
+          "count": 14,
+          "percentage": 22.950819672131146
+        },
+        "bin_0_30_to_0_50": {
+          "count": 15,
+          "percentage": 24.59016393442623
+        },
+        "lt_0_30": {
+          "count": 32,
+          "percentage": 52.459016393442624
+        }
+      }
+    }
+  },
+  "top3_recoverability": {
+    "top1_correct": 65,
+    "top3_correct": 96,
+    "recoverable_misses_top3_match": 31,
+    "unrecoverable_misses": 30,
+    "percentage_of_top1_errors_recovered_in_top3": 50.81967213114754
+  },
+  "confidence_assessment": {
+    "classification": "SYSTEMATICALLY_UNDER_CONFIDENT",
+    "reasoning": "Model confidence is systematically under-confident. 86.15% of correct predictions (56/65) fail the 0.70 threshold because raw uncalibrated softmax probabilities across 42 classes yield an average correct confidence of only 46.48%."
+  },
+  "strongest_classes_by_recall_top10": [
+    {
+      "controlled_class_id": 1,
+      "label": "12. Truck",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.6567165652910868
+    },
+    {
+      "controlled_class_id": 11,
+      "label": "46. you (plural)",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.8884755969047546
+    },
+    {
+      "controlled_class_id": 12,
+      "label": "47. they",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.4333098332087199
+    },
+    {
+      "controlled_class_id": 15,
+      "label": "5. Cow",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.7486886084079742
+    },
+    {
+      "controlled_class_id": 24,
+      "label": "79. short",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.3665221432844798
+    },
+    {
+      "controlled_class_id": 25,
+      "label": "80. tall",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.4561111529668172
+    },
+    {
+      "controlled_class_id": 27,
+      "label": "82. narrow",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.38214953740437824
+    },
+    {
+      "controlled_class_id": 29,
+      "label": "84. small little",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.41337551673253375
+    },
+    {
+      "controlled_class_id": 30,
+      "label": "85. slow",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.7173689007759094
+    },
+    {
+      "controlled_class_id": 39,
+      "label": "97. dry",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.2319857825835546
+    }
+  ],
+  "weakest_classes_by_recall_bottom10": [
+    {
+      "controlled_class_id": 41,
+      "label": "99. healthy",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 6,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5902156432469686
+    },
+    {
+      "controlled_class_id": 38,
+      "label": "96. wet",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.18495356539885202
+    },
+    {
+      "controlled_class_id": 37,
+      "label": "95. bad",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.19386995335419974
+    },
+    {
+      "controlled_class_id": 36,
+      "label": "94. good",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 1,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.19276302556196848
+    },
+    {
+      "controlled_class_id": 35,
+      "label": "93. young",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5669204394022623
+    },
+    {
+      "controlled_class_id": 31,
+      "label": "86. fast",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.2586233764886856
+    },
+    {
+      "controlled_class_id": 23,
+      "label": "77. Boy",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 2,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.22589788834253946
+    },
+    {
+      "controlled_class_id": 16,
+      "label": "50. Alright",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 3,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.46413753430048627
+    },
+    {
+      "controlled_class_id": 13,
+      "label": "48. Hello",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 3,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.177218496799469
+    },
+    {
+      "controlled_class_id": 9,
+      "label": "43. she",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 2,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.34263421098391217
+    }
+  ],
+  "top_confusion_pairs": [
+    {
+      "true_class_id": 4,
+      "true_label": "17. Transportation",
+      "pred_class_id": 41,
+      "pred_label": "99. healthy",
+      "count": 3
+    },
+    {
+      "true_class_id": 7,
+      "true_label": "41. you",
+      "pred_class_id": 6,
+      "pred_label": "40. I",
+      "count": 3
+    },
+    {
+      "true_class_id": 9,
+      "true_label": "43. she",
+      "pred_class_id": 8,
+      "pred_label": "42. he",
+      "count": 3
+    },
+    {
+      "true_class_id": 16,
+      "true_label": "50. Alright",
+      "pred_class_id": 2,
+      "pred_label": "15. Boat",
+      "count": 3
+    },
+    {
+      "true_class_id": 35,
+      "true_label": "93. young",
+      "pred_class_id": 6,
+      "pred_label": "40. I",
+      "count": 3
+    },
+    {
+      "true_class_id": 41,
+      "true_label": "99. healthy",
+      "pred_class_id": 14,
+      "pred_label": "49. How are you",
+      "count": 3
+    },
+    {
+      "true_class_id": 5,
+      "true_label": "3. happy",
+      "pred_class_id": 41,
+      "pred_label": "99. healthy",
+      "count": 2
+    },
+    {
+      "true_class_id": 13,
+      "true_label": "48. Hello",
+      "pred_class_id": 7,
+      "pred_label": "41. you",
+      "count": 2
+    },
+    {
+      "true_class_id": 18,
+      "true_label": "52. Good afternoon",
+      "pred_class_id": 32,
+      "pred_label": "89. warm",
+      "count": 2
+    },
+    {
+      "true_class_id": 31,
+      "true_label": "86. fast",
+      "pred_class_id": 6,
+      "pred_label": "40. I",
+      "count": 2
+    },
+    {
+      "true_class_id": 37,
+      "true_label": "95. bad",
+      "pred_class_id": 6,
+      "pred_label": "40. I",
+      "count": 2
+    },
+    {
+      "true_class_id": 38,
+      "true_label": "96. wet",
+      "pred_class_id": 13,
+      "pred_label": "48. Hello",
+      "count": 2
+    },
+    {
+      "true_class_id": 0,
+      "true_label": "10. Plane",
+      "pred_class_id": 7,
+      "pred_label": "41. you",
+      "count": 1
+    },
+    {
+      "true_class_id": 0,
+      "true_label": "10. Plane",
+      "pred_class_id": 36,
+      "pred_label": "94. good",
+      "count": 1
+    },
+    {
+      "true_class_id": 2,
+      "true_label": "15. Boat",
+      "pred_class_id": 4,
+      "pred_label": "17. Transportation",
+      "count": 1
+    }
+  ],
+  "specific_confusion_pairs_audit": [
+    {
+      "true_label": "40. I",
+      "pred_label": "41. you",
+      "count": 0
+    },
+    {
+      "true_label": "41. you",
+      "pred_label": "40. I",
+      "count": 3
+    },
+    {
+      "true_label": "42. he",
+      "pred_label": "43. she",
+      "count": 0
+    },
+    {
+      "true_label": "43. she",
+      "pred_label": "42. he",
+      "count": 3
+    },
+    {
+      "true_label": "15. Boat",
+      "pred_label": "50. Alright",
+      "count": 1
+    },
+    {
+      "true_label": "50. Alright",
+      "pred_label": "15. Boat",
+      "count": 3
+    },
+    {
+      "true_label": "52. Good afternoon",
+      "pred_label": "89. warm",
+      "count": 2
+    },
+    {
+      "true_label": "89. warm",
+      "pred_label": "52. Good afternoon",
+      "count": 0
+    },
+    {
+      "true_label": "77. Boy",
+      "pred_label": "42. he",
+      "count": 1
+    },
+    {
+      "true_label": "77. Boy",
+      "pred_label": "43. she",
+      "count": 1
+    },
+    {
+      "true_label": "77. Boy",
+      "pred_label": "9. Train",
+      "count": 1
+    },
+    {
+      "true_label": "94. good",
+      "pred_label": "95. bad",
+      "count": 0
+    },
+    {
+      "true_label": "95. bad",
+      "pred_label": "94. good",
+      "count": 0
+    },
+    {
+      "true_label": "96. wet",
+      "pred_label": "92. old",
+      "count": 0
+    },
+    {
+      "true_label": "99. healthy",
+      "pred_label": "3. happy",
+      "count": 0
+    }
+  ],
+  "offline_benchmark_comparison": {
+    "no_trim_top1": 0.5158730158730159,
+    "offline_npz_top1": 0.5079365079365079,
+    "top1_delta": 0.00793650793650802,
+    "no_trim_top3": 0.7619047619047619,
+    "offline_npz_top3": 0.7936507936507936,
+    "top3_delta": -0.031746031746031744,
+    "no_trim_mean_conf": 10.023121572252835,
+    "no_trim_acceptance_rate": 0.07142857142857142,
+    "offline_npz_acceptance_rate": 0.0873015873015873
+  },
+  "per_class_metrics": [
+    {
+      "controlled_class_id": 0,
+      "label": "10. Plane",
+      "support": 3,
+      "true_positives": 1,
+      "false_negatives": 2,
+      "false_positives": 0,
+      "recall": 0.3333333333333333,
+      "precision": 1.0,
+      "f1_score": 0.5,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.3865686406691869
+    },
+    {
+      "controlled_class_id": 1,
+      "label": "12. Truck",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.6567165652910868
+    },
+    {
+      "controlled_class_id": 2,
+      "label": "15. Boat",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 3,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.4554507335027059
+    },
+    {
+      "controlled_class_id": 3,
+      "label": "16. train ticket",
+      "support": 3,
+      "true_positives": 1,
+      "false_negatives": 2,
+      "false_positives": 0,
+      "recall": 0.3333333333333333,
+      "precision": 1.0,
+      "f1_score": 0.5,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.3886880377928416
+    },
+    {
+      "controlled_class_id": 4,
+      "label": "17. Transportation",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 1,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5649028917153677
+    },
+    {
+      "controlled_class_id": 5,
+      "label": "3. happy",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.3120886981487274
+    },
+    {
+      "controlled_class_id": 6,
+      "label": "40. I",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 14,
+      "recall": 1.0,
+      "precision": 0.17647058823529413,
+      "f1_score": 0.3,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.4260713557402293
+    },
+    {
+      "controlled_class_id": 7,
+      "label": "41. you",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 4,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.5761082470417023
+    },
+    {
+      "controlled_class_id": 8,
+      "label": "42. he",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 4,
+      "recall": 1.0,
+      "precision": 0.42857142857142855,
+      "f1_score": 0.6,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.33466605345408124
+    },
+    {
+      "controlled_class_id": 9,
+      "label": "43. she",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 2,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.34263421098391217
+    },
+    {
+      "controlled_class_id": 10,
+      "label": "44. it",
+      "support": 3,
+      "true_positives": 1,
+      "false_negatives": 2,
+      "false_positives": 2,
+      "recall": 0.3333333333333333,
+      "precision": 0.3333333333333333,
+      "f1_score": 0.3333333333333333,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.33005452156066895
+    },
+    {
+      "controlled_class_id": 11,
+      "label": "46. you (plural)",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.8884755969047546
+    },
+    {
+      "controlled_class_id": 12,
+      "label": "47. they",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.4333098332087199
+    },
+    {
+      "controlled_class_id": 13,
+      "label": "48. Hello",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 3,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.177218496799469
+    },
+    {
+      "controlled_class_id": 14,
+      "label": "49. How are you",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 3,
+      "recall": 0.6666666666666666,
+      "precision": 0.4,
+      "f1_score": 0.5,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.3443545500437419
+    },
+    {
+      "controlled_class_id": 15,
+      "label": "5. Cow",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.7486886084079742
+    },
+    {
+      "controlled_class_id": 16,
+      "label": "50. Alright",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 3,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.46413753430048627
+    },
+    {
+      "controlled_class_id": 17,
+      "label": "51. Good Morning",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 3,
+      "recall": 0.6666666666666666,
+      "precision": 0.4,
+      "f1_score": 0.5,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.24009225269158682
+    },
+    {
+      "controlled_class_id": 18,
+      "label": "52. Good afternoon",
+      "support": 3,
+      "true_positives": 1,
+      "false_negatives": 2,
+      "false_positives": 0,
+      "recall": 0.3333333333333333,
+      "precision": 1.0,
+      "f1_score": 0.5,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.4635333816210429
+    },
+    {
+      "controlled_class_id": 19,
+      "label": "53. Good evening",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 1,
+      "recall": 1.0,
+      "precision": 0.75,
+      "f1_score": 0.8571428571428571,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.25003697474797565
+    },
+    {
+      "controlled_class_id": 20,
+      "label": "54. Good night",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 1,
+      "recall": 0.6666666666666666,
+      "precision": 0.6666666666666666,
+      "f1_score": 0.6666666666666666,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.4011033276716868
+    },
+    {
+      "controlled_class_id": 21,
+      "label": "55. Thank you",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 3,
+      "recall": 0.6666666666666666,
+      "precision": 0.4,
+      "f1_score": 0.5,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.3545604646205902
+    },
+    {
+      "controlled_class_id": 22,
+      "label": "56. Grey",
+      "support": 3,
+      "true_positives": 1,
+      "false_negatives": 2,
+      "false_positives": 0,
+      "recall": 0.3333333333333333,
+      "precision": 1.0,
+      "f1_score": 0.5,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.2906348804632823
+    },
+    {
+      "controlled_class_id": 23,
+      "label": "77. Boy",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 2,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.22589788834253946
+    },
+    {
+      "controlled_class_id": 24,
+      "label": "79. short",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.3665221432844798
+    },
+    {
+      "controlled_class_id": 25,
+      "label": "80. tall",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.4561111529668172
+    },
+    {
+      "controlled_class_id": 26,
+      "label": "81. wide",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 1,
+      "recall": 0.6666666666666666,
+      "precision": 0.6666666666666666,
+      "f1_score": 0.6666666666666666,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5321702758471171
+    },
+    {
+      "controlled_class_id": 27,
+      "label": "82. narrow",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.38214953740437824
+    },
+    {
+      "controlled_class_id": 28,
+      "label": "83. big large",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 0,
+      "recall": 0.6666666666666666,
+      "precision": 1.0,
+      "f1_score": 0.8,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5924200614293417
+    },
+    {
+      "controlled_class_id": 29,
+      "label": "84. small little",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.41337551673253375
+    },
+    {
+      "controlled_class_id": 30,
+      "label": "85. slow",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.7173689007759094
+    },
+    {
+      "controlled_class_id": 31,
+      "label": "86. fast",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.2586233764886856
+    },
+    {
+      "controlled_class_id": 32,
+      "label": "89. warm",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 2,
+      "recall": 1.0,
+      "precision": 0.6,
+      "f1_score": 0.7499999999999999,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.47583187619845074
+    },
+    {
+      "controlled_class_id": 33,
+      "label": "9. Train",
+      "support": 3,
+      "true_positives": 1,
+      "false_negatives": 2,
+      "false_positives": 1,
+      "recall": 0.3333333333333333,
+      "precision": 0.5,
+      "f1_score": 0.4,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.2969392736752828
+    },
+    {
+      "controlled_class_id": 34,
+      "label": "92. old",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 1,
+      "recall": 1.0,
+      "precision": 0.75,
+      "f1_score": 0.8571428571428571,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.2702973534663518
+    },
+    {
+      "controlled_class_id": 35,
+      "label": "93. young",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5669204394022623
+    },
+    {
+      "controlled_class_id": 36,
+      "label": "94. good",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 1,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.19276302556196848
+    },
+    {
+      "controlled_class_id": 37,
+      "label": "95. bad",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.3333333333333333,
+      "mean_confidence": 0.19386995335419974
+    },
+    {
+      "controlled_class_id": 38,
+      "label": "96. wet",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 0,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 0.0,
+      "mean_confidence": 0.18495356539885202
+    },
+    {
+      "controlled_class_id": 39,
+      "label": "97. dry",
+      "support": 3,
+      "true_positives": 3,
+      "false_negatives": 0,
+      "false_positives": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "f1_score": 1.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.2319857825835546
+    },
+    {
+      "controlled_class_id": 40,
+      "label": "98. sick",
+      "support": 3,
+      "true_positives": 2,
+      "false_negatives": 1,
+      "false_positives": 0,
+      "recall": 0.6666666666666666,
+      "precision": 1.0,
+      "f1_score": 0.8,
+      "top3_recall": 0.6666666666666666,
+      "mean_confidence": 0.29987838367621106
+    },
+    {
+      "controlled_class_id": 41,
+      "label": "99. healthy",
+      "support": 3,
+      "true_positives": 0,
+      "false_negatives": 3,
+      "false_positives": 6,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1_score": 0.0,
+      "top3_recall": 1.0,
+      "mean_confidence": 0.5902156432469686
+    }
+  ]
+}

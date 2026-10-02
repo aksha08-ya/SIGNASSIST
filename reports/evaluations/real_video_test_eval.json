@@ -1,0 +1,4059 @@
+{
+  "metadata": {
+    "evaluation_timestamp": "2026-10-01 18:59:21",
+    "backend": "experimental_42",
+    "checkpoint_path": "models/checkpoints/experimental/controlled_stgcn_best.pt",
+    "vocabulary_path": "data/processed/include/vocabulary_initial.json",
+    "calibration_temperature": 1.0,
+    "confidence_threshold": 0.7
+  },
+  "summary": {
+    "total_test_manifest_samples": 126,
+    "evaluated_videos": 126,
+    "application_top1_accuracy": 0.3888888888888889,
+    "application_top3_accuracy": 0.6111111111111112,
+    "acceptance_rate_at_0_70": 0.07142857142857142,
+    "samples_above_0_70": 9,
+    "offline_benchmark_top1": 0.5079365079365079,
+    "offline_benchmark_top3": 0.7936507936507936,
+    "top1_discrepancy_vs_offline": -0.11904761904761901,
+    "top3_discrepancy_vs_offline": -0.18253968253968245,
+    "avg_processing_time_sec_per_video": 6.374219179153442,
+    "avg_processing_fps": 9.7100298904235,
+    "total_evaluation_seconds": 804.4109840393066
+  },
+  "samples": [
+    {
+      "sample_index": 1,
+      "video_path": "Means_of_Transportation/10. Plane/MVI_4175.MOV",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/10. Plane/MVI_4175.MOV",
+      "video_exists": true,
+      "true_label": "10. Plane",
+      "true_class_id": 0,
+      "processed": true,
+      "frames_processed": 53,
+      "processing_fps": 8.935966125702551,
+      "execution_seconds": 5.931151866912842,
+      "predicted_gloss": "10. Plane",
+      "predicted_class_id": 0,
+      "confidence": 0.7827613949775696,
+      "top3_candidates": [
+        [
+          "10. Plane",
+          0.7827613949775696
+        ],
+        [
+          "9. Train",
+          0.06724518537521362
+        ],
+        [
+          "41. you",
+          0.04949042201042175
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 2,
+      "video_path": "Means_of_Transportation/10. Plane/MVI_8581.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/10. Plane/MVI_8581.MP4",
+      "video_exists": true,
+      "true_label": "10. Plane",
+      "true_class_id": 0,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 8.436667541299096,
+      "execution_seconds": 7.348904848098755,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.16187533736228943,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.16187533736228943
+        ],
+        [
+          "41. you",
+          0.12797467410564423
+        ],
+        [
+          "95. bad",
+          0.10144321620464325
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 3,
+      "video_path": "Means_of_Transportation/10. Plane/MVI_8582.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/10. Plane/MVI_8582.MP4",
+      "video_exists": true,
+      "true_label": "10. Plane",
+      "true_class_id": 0,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 8.476311575003267,
+      "execution_seconds": 6.9624550342559814,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.15341706573963165,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.15341706573963165
+        ],
+        [
+          "94. good",
+          0.1413928121328354
+        ],
+        [
+          "40. I",
+          0.1351751685142517
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 4,
+      "video_path": "Means_of_Transportation/12. Truck/MVI_4181.MOV",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/12. Truck/MVI_4181.MOV",
+      "video_exists": true,
+      "true_label": "12. Truck",
+      "true_class_id": 1,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 10.36827540832016,
+      "execution_seconds": 5.692168951034546,
+      "predicted_gloss": "12. Truck",
+      "predicted_class_id": 1,
+      "confidence": 0.6667440533638,
+      "top3_candidates": [
+        [
+          "12. Truck",
+          0.6667440533638
+        ],
+        [
+          "17. Transportation",
+          0.17594465613365173
+        ],
+        [
+          "49. How are you",
+          0.03857407346367836
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 5,
+      "video_path": "Means_of_Transportation/12. Truck/MVI_8585.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/12. Truck/MVI_8585.MP4",
+      "video_exists": true,
+      "true_label": "12. Truck",
+      "true_class_id": 1,
+      "processed": true,
+      "frames_processed": 73,
+      "processing_fps": 8.544963475427362,
+      "execution_seconds": 8.544496059417725,
+      "predicted_gloss": "12. Truck",
+      "predicted_class_id": 1,
+      "confidence": 0.6120919585227966,
+      "top3_candidates": [
+        [
+          "12. Truck",
+          0.6120919585227966
+        ],
+        [
+          "17. Transportation",
+          0.2698328495025635
+        ],
+        [
+          "83. big large",
+          0.02062847465276718
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 6,
+      "video_path": "Means_of_Transportation/12. Truck/MVI_8586.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/12. Truck/MVI_8586.MP4",
+      "video_exists": true,
+      "true_label": "12. Truck",
+      "true_class_id": 1,
+      "processed": true,
+      "frames_processed": 76,
+      "processing_fps": 8.829458779794896,
+      "execution_seconds": 8.609517574310303,
+      "predicted_gloss": "12. Truck",
+      "predicted_class_id": 1,
+      "confidence": 0.6913136839866638,
+      "top3_candidates": [
+        [
+          "12. Truck",
+          0.6913136839866638
+        ],
+        [
+          "17. Transportation",
+          0.18013954162597656
+        ],
+        [
+          "83. big large",
+          0.03606942668557167
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 7,
+      "video_path": "Means_of_Transportation/15. Boat/MVI_4190.MOV",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/15. Boat/MVI_4190.MOV",
+      "video_exists": true,
+      "true_label": "15. Boat",
+      "true_class_id": 2,
+      "processed": true,
+      "frames_processed": 77,
+      "processing_fps": 10.495535986633483,
+      "execution_seconds": 7.3403120040893555,
+      "predicted_gloss": "17. Transportation",
+      "predicted_class_id": 4,
+      "confidence": 0.5822890996932983,
+      "top3_candidates": [
+        [
+          "17. Transportation",
+          0.5822890996932983
+        ],
+        [
+          "12. Truck",
+          0.13067537546157837
+        ],
+        [
+          "15. Boat",
+          0.07151712477207184
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 8,
+      "video_path": "Means_of_Transportation/15. Boat/MVI_8594.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/15. Boat/MVI_8594.MP4",
+      "video_exists": true,
+      "true_label": "15. Boat",
+      "true_class_id": 2,
+      "processed": true,
+      "frames_processed": 95,
+      "processing_fps": 8.969994637026561,
+      "execution_seconds": 10.594425916671753,
+      "predicted_gloss": "99. healthy",
+      "predicted_class_id": 41,
+      "confidence": 0.5320616364479065,
+      "top3_candidates": [
+        [
+          "99. healthy",
+          0.5320616364479065
+        ],
+        [
+          "55. Thank you",
+          0.22047294676303864
+        ],
+        [
+          "50. Alright",
+          0.05945713073015213
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 9,
+      "video_path": "Means_of_Transportation/15. Boat/MVI_8595.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/15. Boat/MVI_8595.MP4",
+      "video_exists": true,
+      "true_label": "15. Boat",
+      "true_class_id": 2,
+      "processed": true,
+      "frames_processed": 98,
+      "processing_fps": 8.781165554554837,
+      "execution_seconds": 11.164787530899048,
+      "predicted_gloss": "50. Alright",
+      "predicted_class_id": 16,
+      "confidence": 0.26746511459350586,
+      "top3_candidates": [
+        [
+          "50. Alright",
+          0.26746511459350586
+        ],
+        [
+          "85. slow",
+          0.19191719591617584
+        ],
+        [
+          "15. Boat",
+          0.16516610980033875
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 10,
+      "video_path": "Means_of_Transportation/16. train ticket/MVI_4193.MOV",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/16. train ticket/MVI_4193.MOV",
+      "video_exists": true,
+      "true_label": "16. train ticket",
+      "true_class_id": 3,
+      "processed": true,
+      "frames_processed": 76,
+      "processing_fps": 9.899912705800315,
+      "execution_seconds": 7.678684234619141,
+      "predicted_gloss": "15. Boat",
+      "predicted_class_id": 2,
+      "confidence": 0.27578940987586975,
+      "top3_candidates": [
+        [
+          "15. Boat",
+          0.27578940987586975
+        ],
+        [
+          "85. slow",
+          0.19521686434745789
+        ],
+        [
+          "50. Alright",
+          0.18094180524349213
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 11,
+      "video_path": "Means_of_Transportation/16. train ticket/MVI_8596.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/16. train ticket/MVI_8596.MP4",
+      "video_exists": true,
+      "true_label": "16. train ticket",
+      "true_class_id": 3,
+      "processed": true,
+      "frames_processed": 101,
+      "processing_fps": 9.066517835401731,
+      "execution_seconds": 11.144877195358276,
+      "predicted_gloss": "55. Thank you",
+      "predicted_class_id": 21,
+      "confidence": 0.3548460602760315,
+      "top3_candidates": [
+        [
+          "55. Thank you",
+          0.3548460602760315
+        ],
+        [
+          "50. Alright",
+          0.23897267878055573
+        ],
+        [
+          "99. healthy",
+          0.09532524645328522
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 12,
+      "video_path": "Means_of_Transportation/16. train ticket/MVI_8597.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/16. train ticket/MVI_8597.MP4",
+      "video_exists": true,
+      "true_label": "16. train ticket",
+      "true_class_id": 3,
+      "processed": true,
+      "frames_processed": 87,
+      "processing_fps": 8.972113823454515,
+      "execution_seconds": 9.699443578720093,
+      "predicted_gloss": "50. Alright",
+      "predicted_class_id": 16,
+      "confidence": 0.2583360970020294,
+      "top3_candidates": [
+        [
+          "50. Alright",
+          0.2583360970020294
+        ],
+        [
+          "55. Thank you",
+          0.24363338947296143
+        ],
+        [
+          "99. healthy",
+          0.09456945955753326
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 13,
+      "video_path": "Means_of_Transportation/17. Transportation/MVI_4196.MOV",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/17. Transportation/MVI_4196.MOV",
+      "video_exists": true,
+      "true_label": "17. Transportation",
+      "true_class_id": 4,
+      "processed": true,
+      "frames_processed": 52,
+      "processing_fps": 10.406961551686143,
+      "execution_seconds": 4.99672532081604,
+      "predicted_gloss": "15. Boat",
+      "predicted_class_id": 2,
+      "confidence": 0.25882798433303833,
+      "top3_candidates": [
+        [
+          "15. Boat",
+          0.25882798433303833
+        ],
+        [
+          "99. healthy",
+          0.21722224354743958
+        ],
+        [
+          "17. Transportation",
+          0.18472623825073242
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 14,
+      "video_path": "Means_of_Transportation/17. Transportation/MVI_8598.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/17. Transportation/MVI_8598.MP4",
+      "video_exists": true,
+      "true_label": "17. Transportation",
+      "true_class_id": 4,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 8.788610969483324,
+      "execution_seconds": 7.624865770339966,
+      "predicted_gloss": "99. healthy",
+      "predicted_class_id": 41,
+      "confidence": 0.649631917476654,
+      "top3_candidates": [
+        [
+          "99. healthy",
+          0.649631917476654
+        ],
+        [
+          "17. Transportation",
+          0.11782985180616379
+        ],
+        [
+          "49. How are you",
+          0.053308065980672836
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 15,
+      "video_path": "Means_of_Transportation/17. Transportation/MVI_8599.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/17. Transportation/MVI_8599.MP4",
+      "video_exists": true,
+      "true_label": "17. Transportation",
+      "true_class_id": 4,
+      "processed": true,
+      "frames_processed": 69,
+      "processing_fps": 8.695273026039152,
+      "execution_seconds": 7.936370372772217,
+      "predicted_gloss": "99. healthy",
+      "predicted_class_id": 41,
+      "confidence": 0.6981192827224731,
+      "top3_candidates": [
+        [
+          "99. healthy",
+          0.6981192827224731
+        ],
+        [
+          "17. Transportation",
+          0.11571479588747025
+        ],
+        [
+          "49. How are you",
+          0.06515814363956451
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 16,
+      "video_path": "Adjectives/3. happy/MVI_9540.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/3. happy/MVI_9540.MOV",
+      "video_exists": true,
+      "true_label": "3. happy",
+      "true_class_id": 5,
+      "processed": true,
+      "frames_processed": 50,
+      "processing_fps": 9.275458123730276,
+      "execution_seconds": 5.390640497207642,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.23083701729774475,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.23083701729774475
+        ],
+        [
+          "85. slow",
+          0.22209453582763672
+        ],
+        [
+          "82. narrow",
+          0.12628450989723206
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 17,
+      "video_path": "Adjectives/3. happy/MVI_9541.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/3. happy/MVI_9541.MOV",
+      "video_exists": true,
+      "true_label": "3. happy",
+      "true_class_id": 5,
+      "processed": true,
+      "frames_processed": 57,
+      "processing_fps": 9.618597457340424,
+      "execution_seconds": 5.927825927734375,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.41907963156700134,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.41907963156700134
+        ],
+        [
+          "82. narrow",
+          0.10509289056062698
+        ],
+        [
+          "85. slow",
+          0.08758607506752014
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 18,
+      "video_path": "Adjectives/3. happy/MVI_9542.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/3. happy/MVI_9542.MOV",
+      "video_exists": true,
+      "true_label": "3. happy",
+      "true_class_id": 5,
+      "processed": true,
+      "frames_processed": 58,
+      "processing_fps": 9.350314451446275,
+      "execution_seconds": 6.203096151351929,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.3029671907424927,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.3029671907424927
+        ],
+        [
+          "82. narrow",
+          0.15202473104000092
+        ],
+        [
+          "85. slow",
+          0.13666588068008423
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 19,
+      "video_path": "Pronouns/40. I/MVI_9958.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/40. I/MVI_9958.MOV",
+      "video_exists": true,
+      "true_label": "40. I",
+      "true_class_id": 6,
+      "processed": true,
+      "frames_processed": 47,
+      "processing_fps": 9.232899779664734,
+      "execution_seconds": 5.090566873550415,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.2282758504152298,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.2282758504152298
+        ],
+        [
+          "94. good",
+          0.21191799640655518
+        ],
+        [
+          "95. bad",
+          0.1811157613992691
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 20,
+      "video_path": "Pronouns/40. I/MVI_9959.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/40. I/MVI_9959.MOV",
+      "video_exists": true,
+      "true_label": "40. I",
+      "true_class_id": 6,
+      "processed": true,
+      "frames_processed": 50,
+      "processing_fps": 9.386623509865421,
+      "execution_seconds": 5.3268163204193115,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.2699282169342041,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.2699282169342041
+        ],
+        [
+          "94. good",
+          0.18370015919208527
+        ],
+        [
+          "95. bad",
+          0.14794012904167175
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 21,
+      "video_path": "Pronouns/40. I/MVI_9995.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/40. I/MVI_9995.MOV",
+      "video_exists": true,
+      "true_label": "40. I",
+      "true_class_id": 6,
+      "processed": true,
+      "frames_processed": 74,
+      "processing_fps": 9.750613155383832,
+      "execution_seconds": 7.5908989906311035,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.22095942497253418,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.22095942497253418
+        ],
+        [
+          "94. good",
+          0.21888527274131775
+        ],
+        [
+          "40. I",
+          0.1677018105983734
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 22,
+      "video_path": "Pronouns/41. you/MVI_9997.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/41. you/MVI_9997.MOV",
+      "video_exists": true,
+      "true_label": "41. you",
+      "true_class_id": 7,
+      "processed": true,
+      "frames_processed": 64,
+      "processing_fps": 9.568867901667547,
+      "execution_seconds": 6.689207077026367,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.2784007787704468,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.2784007787704468
+        ],
+        [
+          "94. good",
+          0.19172079861164093
+        ],
+        [
+          "95. bad",
+          0.16481134295463562
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 23,
+      "video_path": "Pronouns/41. you/MVI_9998.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/41. you/MVI_9998.MOV",
+      "video_exists": true,
+      "true_label": "41. you",
+      "true_class_id": 7,
+      "processed": true,
+      "frames_processed": 69,
+      "processing_fps": 9.793888381236654,
+      "execution_seconds": 7.0465004444122314,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.3048821687698364,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.3048821687698364
+        ],
+        [
+          "94. good",
+          0.17846201360225677
+        ],
+        [
+          "95. bad",
+          0.14806531369686127
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 24,
+      "video_path": "Pronouns/41. you/MVI_9999.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/41. you/MVI_9999.MOV",
+      "video_exists": true,
+      "true_label": "41. you",
+      "true_class_id": 7,
+      "processed": true,
+      "frames_processed": 71,
+      "processing_fps": 10.444139079653926,
+      "execution_seconds": 6.799494743347168,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.3885849118232727,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.3885849118232727
+        ],
+        [
+          "41. you",
+          0.170884370803833
+        ],
+        [
+          "86. fast",
+          0.07896164804697037
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 25,
+      "video_path": "Pronouns/42. he/MVI_9963.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/42. he/MVI_9963.MOV",
+      "video_exists": true,
+      "true_label": "42. he",
+      "true_class_id": 8,
+      "processed": true,
+      "frames_processed": 51,
+      "processing_fps": 9.560002911106633,
+      "execution_seconds": 5.334793329238892,
+      "predicted_gloss": "43. she",
+      "predicted_class_id": 9,
+      "confidence": 0.3140314221382141,
+      "top3_candidates": [
+        [
+          "43. she",
+          0.3140314221382141
+        ],
+        [
+          "42. he",
+          0.2828625738620758
+        ],
+        [
+          "46. you (plural)",
+          0.15353913605213165
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 26,
+      "video_path": "Pronouns/42. he/MVI_9964.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/42. he/MVI_9964.MOV",
+      "video_exists": true,
+      "true_label": "42. he",
+      "true_class_id": 8,
+      "processed": true,
+      "frames_processed": 61,
+      "processing_fps": 10.058919590522732,
+      "execution_seconds": 6.064308404922485,
+      "predicted_gloss": "42. he",
+      "predicted_class_id": 8,
+      "confidence": 0.3256440758705139,
+      "top3_candidates": [
+        [
+          "42. he",
+          0.3256440758705139
+        ],
+        [
+          "43. she",
+          0.21759438514709473
+        ],
+        [
+          "46. you (plural)",
+          0.1459970772266388
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 27,
+      "video_path": "Pronouns/42. he/MVI_9965.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/42. he/MVI_9965.MOV",
+      "video_exists": true,
+      "true_label": "42. he",
+      "true_class_id": 8,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 9.959338145823754,
+      "execution_seconds": 5.622954368591309,
+      "predicted_gloss": "42. he",
+      "predicted_class_id": 8,
+      "confidence": 0.3231940269470215,
+      "top3_candidates": [
+        [
+          "42. he",
+          0.3231940269470215
+        ],
+        [
+          "43. she",
+          0.2743588984012604
+        ],
+        [
+          "46. you (plural)",
+          0.2266141027212143
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 28,
+      "video_path": "Pronouns/43. she/MVI_9966.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/43. she/MVI_9966.MOV",
+      "video_exists": true,
+      "true_label": "43. she",
+      "true_class_id": 9,
+      "processed": true,
+      "frames_processed": 48,
+      "processing_fps": 9.89790607440051,
+      "execution_seconds": 4.849577903747559,
+      "predicted_gloss": "43. she",
+      "predicted_class_id": 9,
+      "confidence": 0.3564481735229492,
+      "top3_candidates": [
+        [
+          "43. she",
+          0.3564481735229492
+        ],
+        [
+          "42. he",
+          0.19138197600841522
+        ],
+        [
+          "46. you (plural)",
+          0.18997658789157867
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 29,
+      "video_path": "Pronouns/43. she/MVI_9967.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/43. she/MVI_9967.MOV",
+      "video_exists": true,
+      "true_label": "43. she",
+      "true_class_id": 9,
+      "processed": true,
+      "frames_processed": 51,
+      "processing_fps": 9.760669387563434,
+      "execution_seconds": 5.225116729736328,
+      "predicted_gloss": "42. he",
+      "predicted_class_id": 8,
+      "confidence": 0.34155982732772827,
+      "top3_candidates": [
+        [
+          "42. he",
+          0.34155982732772827
+        ],
+        [
+          "43. she",
+          0.2903190553188324
+        ],
+        [
+          "46. you (plural)",
+          0.11176002025604248
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 30,
+      "video_path": "Pronouns/43. she/MVI_9968.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/43. she/MVI_9968.MOV",
+      "video_exists": true,
+      "true_label": "43. she",
+      "true_class_id": 9,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 10.37725188025706,
+      "execution_seconds": 5.2037553787231445,
+      "predicted_gloss": "43. she",
+      "predicted_class_id": 9,
+      "confidence": 0.3443586528301239,
+      "top3_candidates": [
+        [
+          "43. she",
+          0.3443586528301239
+        ],
+        [
+          "42. he",
+          0.27870842814445496
+        ],
+        [
+          "46. you (plural)",
+          0.21969391405582428
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 31,
+      "video_path": "Pronouns/44. it/MVI_9969.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/44. it/MVI_9969.MOV",
+      "video_exists": true,
+      "true_label": "44. it",
+      "true_class_id": 10,
+      "processed": true,
+      "frames_processed": 44,
+      "processing_fps": 9.88401092068647,
+      "execution_seconds": 4.451707124710083,
+      "predicted_gloss": "44. it",
+      "predicted_class_id": 10,
+      "confidence": 0.5482304096221924,
+      "top3_candidates": [
+        [
+          "44. it",
+          0.5482304096221924
+        ],
+        [
+          "94. good",
+          0.08129214495420456
+        ],
+        [
+          "86. fast",
+          0.08058776706457138
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 32,
+      "video_path": "Pronouns/44. it/MVI_9970.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/44. it/MVI_9970.MOV",
+      "video_exists": true,
+      "true_label": "44. it",
+      "true_class_id": 10,
+      "processed": true,
+      "frames_processed": 48,
+      "processing_fps": 9.857630133529984,
+      "execution_seconds": 4.86938738822937,
+      "predicted_gloss": "44. it",
+      "predicted_class_id": 10,
+      "confidence": 0.46753737330436707,
+      "top3_candidates": [
+        [
+          "44. it",
+          0.46753737330436707
+        ],
+        [
+          "86. fast",
+          0.11496899276971817
+        ],
+        [
+          "94. good",
+          0.09095069766044617
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 33,
+      "video_path": "Pronouns/44. it/MVI_9971.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/44. it/MVI_9971.MOV",
+      "video_exists": true,
+      "true_label": "44. it",
+      "true_class_id": 10,
+      "processed": true,
+      "frames_processed": 47,
+      "processing_fps": 9.800721050558751,
+      "execution_seconds": 4.79563307762146,
+      "predicted_gloss": "44. it",
+      "predicted_class_id": 10,
+      "confidence": 0.5004289746284485,
+      "top3_candidates": [
+        [
+          "44. it",
+          0.5004289746284485
+        ],
+        [
+          "86. fast",
+          0.0990605503320694
+        ],
+        [
+          "94. good",
+          0.08460887521505356
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 34,
+      "video_path": "Pronouns/46. you (plural)/MVI_9975.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/46. you (plural)/MVI_9975.MOV",
+      "video_exists": true,
+      "true_label": "46. you (plural)",
+      "true_class_id": 11,
+      "processed": true,
+      "frames_processed": 73,
+      "processing_fps": 10.478301811217618,
+      "execution_seconds": 6.96821141242981,
+      "predicted_gloss": "46. you (plural)",
+      "predicted_class_id": 11,
+      "confidence": 0.9116606116294861,
+      "top3_candidates": [
+        [
+          "46. you (plural)",
+          0.9116606116294861
+        ],
+        [
+          "43. she",
+          0.0373210534453392
+        ],
+        [
+          "42. he",
+          0.02078857086598873
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 35,
+      "video_path": "Pronouns/46. you (plural)/MVI_9976.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/46. you (plural)/MVI_9976.MOV",
+      "video_exists": true,
+      "true_label": "46. you (plural)",
+      "true_class_id": 11,
+      "processed": true,
+      "frames_processed": 74,
+      "processing_fps": 9.8188315814604,
+      "execution_seconds": 7.538196325302124,
+      "predicted_gloss": "46. you (plural)",
+      "predicted_class_id": 11,
+      "confidence": 0.8718070983886719,
+      "top3_candidates": [
+        [
+          "46. you (plural)",
+          0.8718070983886719
+        ],
+        [
+          "53. Good evening",
+          0.0349394753575325
+        ],
+        [
+          "43. she",
+          0.02283487096428871
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 36,
+      "video_path": "Pronouns/46. you (plural)/MVI_9977.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/46. you (plural)/MVI_9977.MOV",
+      "video_exists": true,
+      "true_label": "46. you (plural)",
+      "true_class_id": 11,
+      "processed": true,
+      "frames_processed": 80,
+      "processing_fps": 10.432068069377701,
+      "execution_seconds": 7.670968055725098,
+      "predicted_gloss": "46. you (plural)",
+      "predicted_class_id": 11,
+      "confidence": 0.8780946135520935,
+      "top3_candidates": [
+        [
+          "46. you (plural)",
+          0.8780946135520935
+        ],
+        [
+          "97. dry",
+          0.044713184237480164
+        ],
+        [
+          "53. Good evening",
+          0.022542227059602737
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 37,
+      "video_path": "Pronouns/47. they/MVI_9979.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/47. they/MVI_9979.MOV",
+      "video_exists": true,
+      "true_label": "47. they",
+      "true_class_id": 12,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 10.201586238778258,
+      "execution_seconds": 5.489409923553467,
+      "predicted_gloss": "47. they",
+      "predicted_class_id": 12,
+      "confidence": 0.244075745344162,
+      "top3_candidates": [
+        [
+          "47. they",
+          0.244075745344162
+        ],
+        [
+          "56. Grey",
+          0.14944374561309814
+        ],
+        [
+          "42. he",
+          0.10839012265205383
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 38,
+      "video_path": "Pronouns/47. they/MVI_9980.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/47. they/MVI_9980.MOV",
+      "video_exists": true,
+      "true_label": "47. they",
+      "true_class_id": 12,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 9.466382319845382,
+      "execution_seconds": 5.704480409622192,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.21431885659694672,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.21431885659694672
+        ],
+        [
+          "94. good",
+          0.1358841359615326
+        ],
+        [
+          "40. I",
+          0.12205340713262558
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 39,
+      "video_path": "Pronouns/47. they/MVI_9981.MOV",
+      "resolved_video_path": "data/raw/include/videos/Pronouns/47. they/MVI_9981.MOV",
+      "video_exists": true,
+      "true_label": "47. they",
+      "true_class_id": 12,
+      "processed": true,
+      "frames_processed": 55,
+      "processing_fps": 9.507742681680785,
+      "execution_seconds": 5.78564715385437,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.2393604964017868,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.2393604964017868
+        ],
+        [
+          "95. bad",
+          0.1756724715232849
+        ],
+        [
+          "86. fast",
+          0.10558753460645676
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 40,
+      "video_path": "Greetings/48. Hello/MVI_9982.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/48. Hello/MVI_9982.MOV",
+      "video_exists": true,
+      "true_label": "48. Hello",
+      "true_class_id": 13,
+      "processed": true,
+      "frames_processed": 51,
+      "processing_fps": 10.330983860375616,
+      "execution_seconds": 4.936682462692261,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.24202880263328552,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.24202880263328552
+        ],
+        [
+          "41. you",
+          0.14011341333389282
+        ],
+        [
+          "94. good",
+          0.1246231347322464
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 41,
+      "video_path": "Greetings/48. Hello/MVI_9983.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/48. Hello/MVI_9983.MOV",
+      "video_exists": true,
+      "true_label": "48. Hello",
+      "true_class_id": 13,
+      "processed": true,
+      "frames_processed": 53,
+      "processing_fps": 10.001157558506817,
+      "execution_seconds": 5.299452781677246,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.21774792671203613,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.21774792671203613
+        ],
+        [
+          "40. I",
+          0.1629818081855774
+        ],
+        [
+          "94. good",
+          0.10251583158969879
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 42,
+      "video_path": "Greetings/48. Hello/MVI_9984.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/48. Hello/MVI_9984.MOV",
+      "video_exists": true,
+      "true_label": "48. Hello",
+      "true_class_id": 13,
+      "processed": true,
+      "frames_processed": 47,
+      "processing_fps": 9.993526848203155,
+      "execution_seconds": 4.7031121253967285,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.2058415561914444,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.2058415561914444
+        ],
+        [
+          "41. you",
+          0.20413178205490112
+        ],
+        [
+          "94. good",
+          0.13013868033885956
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 43,
+      "video_path": "Greetings/49. How are you/MVI_9985.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/49. How are you/MVI_9985.MOV",
+      "video_exists": true,
+      "true_label": "49. How are you",
+      "true_class_id": 14,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 10.528568827112426,
+      "execution_seconds": 6.365054130554199,
+      "predicted_gloss": "49. How are you",
+      "predicted_class_id": 14,
+      "confidence": 0.42436477541923523,
+      "top3_candidates": [
+        [
+          "49. How are you",
+          0.42436477541923523
+        ],
+        [
+          "55. Thank you",
+          0.2181890606880188
+        ],
+        [
+          "99. healthy",
+          0.13369575142860413
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 44,
+      "video_path": "Greetings/49. How are you/MVI_9986.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/49. How are you/MVI_9986.MOV",
+      "video_exists": true,
+      "true_label": "49. How are you",
+      "true_class_id": 14,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 10.481519635372123,
+      "execution_seconds": 6.393501281738281,
+      "predicted_gloss": "49. How are you",
+      "predicted_class_id": 14,
+      "confidence": 0.359365850687027,
+      "top3_candidates": [
+        [
+          "49. How are you",
+          0.359365850687027
+        ],
+        [
+          "55. Thank you",
+          0.21683858335018158
+        ],
+        [
+          "99. healthy",
+          0.16231779754161835
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 45,
+      "video_path": "Greetings/49. How are you/MVI_9987.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/49. How are you/MVI_9987.MOV",
+      "video_exists": true,
+      "true_label": "49. How are you",
+      "true_class_id": 14,
+      "processed": true,
+      "frames_processed": 68,
+      "processing_fps": 10.64039772786464,
+      "execution_seconds": 6.392134189605713,
+      "predicted_gloss": "49. How are you",
+      "predicted_class_id": 14,
+      "confidence": 0.25396397709846497,
+      "top3_candidates": [
+        [
+          "49. How are you",
+          0.25396397709846497
+        ],
+        [
+          "55. Thank you",
+          0.2418103665113449
+        ],
+        [
+          "99. healthy",
+          0.21661920845508575
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 46,
+      "video_path": "Animals/5. Cow/MVI_4160.MOV",
+      "resolved_video_path": "data/raw/include/videos/Animals/5. Cow/MVI_4160.MOV",
+      "video_exists": true,
+      "true_label": "5. Cow",
+      "true_class_id": 15,
+      "processed": true,
+      "frames_processed": 57,
+      "processing_fps": 10.466604623841919,
+      "execution_seconds": 5.445953845977783,
+      "predicted_gloss": "5. Cow",
+      "predicted_class_id": 15,
+      "confidence": 0.3929821252822876,
+      "top3_candidates": [
+        [
+          "5. Cow",
+          0.3929821252822876
+        ],
+        [
+          "98. sick",
+          0.18309196829795837
+        ],
+        [
+          "89. warm",
+          0.05624385178089142
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 47,
+      "video_path": "Animals/5. Cow/MVI_8569.MP4",
+      "resolved_video_path": "data/raw/include/videos/Animals/5. Cow/MVI_8569.MP4",
+      "video_exists": true,
+      "true_label": "5. Cow",
+      "true_class_id": 15,
+      "processed": true,
+      "frames_processed": 80,
+      "processing_fps": 8.805483496942202,
+      "execution_seconds": 9.087523460388184,
+      "predicted_gloss": "5. Cow",
+      "predicted_class_id": 15,
+      "confidence": 0.8689696192741394,
+      "top3_candidates": [
+        [
+          "5. Cow",
+          0.8689696192741394
+        ],
+        [
+          "99. healthy",
+          0.026117077097296715
+        ],
+        [
+          "80. tall",
+          0.020928366109728813
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 48,
+      "video_path": "Animals/5. Cow/MVI_8570.MP4",
+      "resolved_video_path": "data/raw/include/videos/Animals/5. Cow/MVI_8570.MP4",
+      "video_exists": true,
+      "true_label": "5. Cow",
+      "true_class_id": 15,
+      "processed": true,
+      "frames_processed": 75,
+      "processing_fps": 8.891662719872393,
+      "execution_seconds": 8.436633348464966,
+      "predicted_gloss": "5. Cow",
+      "predicted_class_id": 15,
+      "confidence": 0.9527876973152161,
+      "top3_candidates": [
+        [
+          "5. Cow",
+          0.9527876973152161
+        ],
+        [
+          "99. healthy",
+          0.015877144411206245
+        ],
+        [
+          "80. tall",
+          0.005982455797493458
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 49,
+      "video_path": "Greetings/50. Alright/MVI_9988.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/50. Alright/MVI_9988.MOV",
+      "video_exists": true,
+      "true_label": "50. Alright",
+      "true_class_id": 16,
+      "processed": true,
+      "frames_processed": 53,
+      "processing_fps": 9.630093220029792,
+      "execution_seconds": 5.50368595123291,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.19401653110980988,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.19401653110980988
+        ],
+        [
+          "40. I",
+          0.17983666062355042
+        ],
+        [
+          "85. slow",
+          0.13638125360012054
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 50,
+      "video_path": "Greetings/50. Alright/MVI_9989.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/50. Alright/MVI_9989.MOV",
+      "video_exists": true,
+      "true_label": "50. Alright",
+      "true_class_id": 16,
+      "processed": true,
+      "frames_processed": 60,
+      "processing_fps": 10.010164210627217,
+      "execution_seconds": 5.993985176086426,
+      "predicted_gloss": "15. Boat",
+      "predicted_class_id": 2,
+      "confidence": 0.6221812963485718,
+      "top3_candidates": [
+        [
+          "15. Boat",
+          0.6221812963485718
+        ],
+        [
+          "50. Alright",
+          0.11218998581171036
+        ],
+        [
+          "16. train ticket",
+          0.0914899930357933
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 51,
+      "video_path": "Greetings/50. Alright/MVI_9990.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/50. Alright/MVI_9990.MOV",
+      "video_exists": true,
+      "true_label": "50. Alright",
+      "true_class_id": 16,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 10.21407256672249,
+      "execution_seconds": 5.286892652511597,
+      "predicted_gloss": "15. Boat",
+      "predicted_class_id": 2,
+      "confidence": 0.517002522945404,
+      "top3_candidates": [
+        [
+          "15. Boat",
+          0.517002522945404
+        ],
+        [
+          "50. Alright",
+          0.20303675532341003
+        ],
+        [
+          "85. slow",
+          0.08094232529401779
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 52,
+      "video_path": "Greetings/51. Good Morning/MVI_9991.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/51. Good Morning/MVI_9991.MOV",
+      "video_exists": true,
+      "true_label": "51. Good Morning",
+      "true_class_id": 17,
+      "processed": true,
+      "frames_processed": 58,
+      "processing_fps": 10.316042981098386,
+      "execution_seconds": 5.6223907470703125,
+      "predicted_gloss": "54. Good night",
+      "predicted_class_id": 20,
+      "confidence": 0.23286215960979462,
+      "top3_candidates": [
+        [
+          "54. Good night",
+          0.23286215960979462
+        ],
+        [
+          "51. Good Morning",
+          0.2235049158334732
+        ],
+        [
+          "95. bad",
+          0.12824101746082306
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 53,
+      "video_path": "Greetings/51. Good Morning/MVI_9992.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/51. Good Morning/MVI_9992.MOV",
+      "video_exists": true,
+      "true_label": "51. Good Morning",
+      "true_class_id": 17,
+      "processed": true,
+      "frames_processed": 58,
+      "processing_fps": 10.283827569925085,
+      "execution_seconds": 5.639991283416748,
+      "predicted_gloss": "51. Good Morning",
+      "predicted_class_id": 17,
+      "confidence": 0.1781555563211441,
+      "top3_candidates": [
+        [
+          "51. Good Morning",
+          0.1781555563211441
+        ],
+        [
+          "95. bad",
+          0.17755962908267975
+        ],
+        [
+          "94. good",
+          0.11420243233442307
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 54,
+      "video_path": "Greetings/51. Good Morning/MVI_9993.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/51. Good Morning/MVI_9993.MOV",
+      "video_exists": true,
+      "true_label": "51. Good Morning",
+      "true_class_id": 17,
+      "processed": true,
+      "frames_processed": 64,
+      "processing_fps": 10.08548854369175,
+      "execution_seconds": 6.347195386886597,
+      "predicted_gloss": "54. Good night",
+      "predicted_class_id": 20,
+      "confidence": 0.265940397977829,
+      "top3_candidates": [
+        [
+          "54. Good night",
+          0.265940397977829
+        ],
+        [
+          "51. Good Morning",
+          0.2524568736553192
+        ],
+        [
+          "53. Good evening",
+          0.0742667019367218
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 55,
+      "video_path": "Greetings/52. Good afternoon/MVI_9994.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/52. Good afternoon/MVI_9994.MOV",
+      "video_exists": true,
+      "true_label": "52. Good afternoon",
+      "true_class_id": 18,
+      "processed": true,
+      "frames_processed": 55,
+      "processing_fps": 10.089932668762094,
+      "execution_seconds": 5.451046466827393,
+      "predicted_gloss": "89. warm",
+      "predicted_class_id": 32,
+      "confidence": 0.5072160959243774,
+      "top3_candidates": [
+        [
+          "89. warm",
+          0.5072160959243774
+        ],
+        [
+          "52. Good afternoon",
+          0.36305370926856995
+        ],
+        [
+          "51. Good Morning",
+          0.06756547093391418
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 56,
+      "video_path": "Greetings/52. Good afternoon/MVI_9995.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/52. Good afternoon/MVI_9995.MOV",
+      "video_exists": true,
+      "true_label": "52. Good afternoon",
+      "true_class_id": 18,
+      "processed": true,
+      "frames_processed": 63,
+      "processing_fps": 10.303395817954547,
+      "execution_seconds": 6.115350008010864,
+      "predicted_gloss": "52. Good afternoon",
+      "predicted_class_id": 18,
+      "confidence": 0.4629972279071808,
+      "top3_candidates": [
+        [
+          "52. Good afternoon",
+          0.4629972279071808
+        ],
+        [
+          "89. warm",
+          0.4477246403694153
+        ],
+        [
+          "51. Good Morning",
+          0.04309544339776039
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 57,
+      "video_path": "Greetings/52. Good afternoon/MVI_9996.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/52. Good afternoon/MVI_9996.MOV",
+      "video_exists": true,
+      "true_label": "52. Good afternoon",
+      "true_class_id": 18,
+      "processed": true,
+      "frames_processed": 60,
+      "processing_fps": 9.923498169811385,
+      "execution_seconds": 6.046328544616699,
+      "predicted_gloss": "89. warm",
+      "predicted_class_id": 32,
+      "confidence": 0.48310887813568115,
+      "top3_candidates": [
+        [
+          "89. warm",
+          0.48310887813568115
+        ],
+        [
+          "52. Good afternoon",
+          0.4110177755355835
+        ],
+        [
+          "51. Good Morning",
+          0.06295349448919296
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 58,
+      "video_path": "Greetings/53. Good evening/MVI_9979.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/53. Good evening/MVI_9979.MOV",
+      "video_exists": true,
+      "true_label": "53. Good evening",
+      "true_class_id": 19,
+      "processed": true,
+      "frames_processed": 74,
+      "processing_fps": 10.005656390910568,
+      "execution_seconds": 7.3976311683654785,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.1575154960155487,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.1575154960155487
+        ],
+        [
+          "40. I",
+          0.1537436693906784
+        ],
+        [
+          "94. good",
+          0.1536278873682022
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 59,
+      "video_path": "Greetings/53. Good evening/MVI_9998.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/53. Good evening/MVI_9998.MOV",
+      "video_exists": true,
+      "true_label": "53. Good evening",
+      "true_class_id": 19,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 9.960751595152361,
+      "execution_seconds": 5.421352386474609,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.20675581693649292,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.20675581693649292
+        ],
+        [
+          "94. good",
+          0.1469794511795044
+        ],
+        [
+          "40. I",
+          0.10561215132474899
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 60,
+      "video_path": "Greetings/53. Good evening/MVI_9999.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/53. Good evening/MVI_9999.MOV",
+      "video_exists": true,
+      "true_label": "53. Good evening",
+      "true_class_id": 19,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 10.230088841134876,
+      "execution_seconds": 5.474131107330322,
+      "predicted_gloss": "54. Good night",
+      "predicted_class_id": 20,
+      "confidence": 0.2795848846435547,
+      "top3_candidates": [
+        [
+          "54. Good night",
+          0.2795848846435547
+        ],
+        [
+          "53. Good evening",
+          0.2271312028169632
+        ],
+        [
+          "51. Good Morning",
+          0.10851529985666275
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 61,
+      "video_path": "Greetings/54. Good night/MVI_9981.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/54. Good night/MVI_9981.MOV",
+      "video_exists": true,
+      "true_label": "54. Good night",
+      "true_class_id": 20,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 9.856237516837766,
+      "execution_seconds": 6.800110578536987,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.23460653424263,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.23460653424263
+        ],
+        [
+          "92. old",
+          0.16370809078216553
+        ],
+        [
+          "94. good",
+          0.1511840671300888
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 62,
+      "video_path": "Greetings/54. Good night/MVI_9982.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/54. Good night/MVI_9982.MOV",
+      "video_exists": true,
+      "true_label": "54. Good night",
+      "true_class_id": 20,
+      "processed": true,
+      "frames_processed": 84,
+      "processing_fps": 10.743013119217347,
+      "execution_seconds": 7.821990013122559,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.19908210635185242,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.19908210635185242
+        ],
+        [
+          "95. bad",
+          0.18090322613716125
+        ],
+        [
+          "40. I",
+          0.1692875772714615
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 63,
+      "video_path": "Greetings/54. Good night/MVI_9983.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/54. Good night/MVI_9983.MOV",
+      "video_exists": true,
+      "true_label": "54. Good night",
+      "true_class_id": 20,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 9.679802844803413,
+      "execution_seconds": 6.922922611236572,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.27462366223335266,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.27462366223335266
+        ],
+        [
+          "94. good",
+          0.2093106508255005
+        ],
+        [
+          "41. you",
+          0.13068550825119019
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 64,
+      "video_path": "Greetings/55. Thank you/MVI_9985.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/55. Thank you/MVI_9985.MOV",
+      "video_exists": true,
+      "true_label": "55. Thank you",
+      "true_class_id": 21,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 9.579709922737692,
+      "execution_seconds": 6.995187282562256,
+      "predicted_gloss": "85. slow",
+      "predicted_class_id": 30,
+      "confidence": 0.21171268820762634,
+      "top3_candidates": [
+        [
+          "85. slow",
+          0.21171268820762634
+        ],
+        [
+          "3. happy",
+          0.1418989896774292
+        ],
+        [
+          "94. good",
+          0.10046162456274033
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 65,
+      "video_path": "Greetings/55. Thank you/MVI_9986.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/55. Thank you/MVI_9986.MOV",
+      "video_exists": true,
+      "true_label": "55. Thank you",
+      "true_class_id": 21,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 8.921073415713876,
+      "execution_seconds": 6.2773518562316895,
+      "predicted_gloss": "85. slow",
+      "predicted_class_id": 30,
+      "confidence": 0.32383161783218384,
+      "top3_candidates": [
+        [
+          "85. slow",
+          0.32383161783218384
+        ],
+        [
+          "94. good",
+          0.11881951987743378
+        ],
+        [
+          "40. I",
+          0.09062863141298294
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 66,
+      "video_path": "Greetings/55. Thank you/MVI_9987.MOV",
+      "resolved_video_path": "data/raw/include/videos/Greetings/55. Thank you/MVI_9987.MOV",
+      "video_exists": true,
+      "true_label": "55. Thank you",
+      "true_class_id": 21,
+      "processed": true,
+      "frames_processed": 63,
+      "processing_fps": 9.826669781596319,
+      "execution_seconds": 6.412802457809448,
+      "predicted_gloss": "85. slow",
+      "predicted_class_id": 30,
+      "confidence": 0.29502207040786743,
+      "top3_candidates": [
+        [
+          "85. slow",
+          0.29502207040786743
+        ],
+        [
+          "41. you",
+          0.12989597022533417
+        ],
+        [
+          "40. I",
+          0.1100023090839386
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 67,
+      "video_path": "Colours/56. Grey/MVI_5213.MOV",
+      "resolved_video_path": "data/raw/include/videos/Colours/56. Grey/MVI_5213.MOV",
+      "video_exists": true,
+      "true_label": "56. Grey",
+      "true_class_id": 22,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 10.125067337274873,
+      "execution_seconds": 5.829107999801636,
+      "predicted_gloss": "51. Good Morning",
+      "predicted_class_id": 17,
+      "confidence": 0.18933074176311493,
+      "top3_candidates": [
+        [
+          "51. Good Morning",
+          0.18933074176311493
+        ],
+        [
+          "54. Good night",
+          0.13899004459381104
+        ],
+        [
+          "48. Hello",
+          0.11307848989963531
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 68,
+      "video_path": "Colours/56. Grey/MVI_5214.MOV",
+      "resolved_video_path": "data/raw/include/videos/Colours/56. Grey/MVI_5214.MOV",
+      "video_exists": true,
+      "true_label": "56. Grey",
+      "true_class_id": 22,
+      "processed": true,
+      "frames_processed": 66,
+      "processing_fps": 10.33889854389328,
+      "execution_seconds": 6.384665012359619,
+      "predicted_gloss": "56. Grey",
+      "predicted_class_id": 22,
+      "confidence": 0.47035837173461914,
+      "top3_candidates": [
+        [
+          "56. Grey",
+          0.47035837173461914
+        ],
+        [
+          "77. Boy",
+          0.11492129415273666
+        ],
+        [
+          "89. warm",
+          0.08548372238874435
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 69,
+      "video_path": "Colours/56. Grey/MVI_8621.MP4",
+      "resolved_video_path": "data/raw/include/videos/Colours/56. Grey/MVI_8621.MP4",
+      "video_exists": true,
+      "true_label": "56. Grey",
+      "true_class_id": 22,
+      "processed": true,
+      "frames_processed": 74,
+      "processing_fps": 8.727456861430596,
+      "execution_seconds": 8.481545686721802,
+      "predicted_gloss": "92. old",
+      "predicted_class_id": 34,
+      "confidence": 0.23261147737503052,
+      "top3_candidates": [
+        [
+          "92. old",
+          0.23261147737503052
+        ],
+        [
+          "89. warm",
+          0.12578529119491577
+        ],
+        [
+          "51. Good Morning",
+          0.10742224007844925
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 70,
+      "video_path": "People/77. Boy/MVI_5286.MOV",
+      "resolved_video_path": "data/raw/include/videos/People/77. Boy/MVI_5286.MOV",
+      "video_exists": true,
+      "true_label": "77. Boy",
+      "true_class_id": 23,
+      "processed": true,
+      "frames_processed": 52,
+      "processing_fps": 9.96751335526138,
+      "execution_seconds": 5.217020511627197,
+      "predicted_gloss": "43. she",
+      "predicted_class_id": 9,
+      "confidence": 0.16248223185539246,
+      "top3_candidates": [
+        [
+          "43. she",
+          0.16248223185539246
+        ],
+        [
+          "48. Hello",
+          0.15248778462409973
+        ],
+        [
+          "42. he",
+          0.12403824925422668
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 71,
+      "video_path": "People/77. Boy/MVI_5287.MOV",
+      "resolved_video_path": "data/raw/include/videos/People/77. Boy/MVI_5287.MOV",
+      "video_exists": true,
+      "true_label": "77. Boy",
+      "true_class_id": 23,
+      "processed": true,
+      "frames_processed": 52,
+      "processing_fps": 10.04432913224946,
+      "execution_seconds": 5.177152872085571,
+      "predicted_gloss": "43. she",
+      "predicted_class_id": 9,
+      "confidence": 0.1500057578086853,
+      "top3_candidates": [
+        [
+          "43. she",
+          0.1500057578086853
+        ],
+        [
+          "48. Hello",
+          0.12273332476615906
+        ],
+        [
+          "41. you",
+          0.10684219002723694
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 72,
+      "video_path": "People/77. Boy/MVI_8644.MP4",
+      "resolved_video_path": "data/raw/include/videos/People/77. Boy/MVI_8644.MP4",
+      "video_exists": true,
+      "true_label": "77. Boy",
+      "true_class_id": 23,
+      "processed": true,
+      "frames_processed": 68,
+      "processing_fps": 8.45315772987127,
+      "execution_seconds": 8.045644044876099,
+      "predicted_gloss": "9. Train",
+      "predicted_class_id": 33,
+      "confidence": 0.24285392463207245,
+      "top3_candidates": [
+        [
+          "9. Train",
+          0.24285392463207245
+        ],
+        [
+          "41. you",
+          0.20572075247764587
+        ],
+        [
+          "40. I",
+          0.09525474905967712
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 73,
+      "video_path": "Adjectives/79. short/MVI_9461.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/79. short/MVI_9461.MOV",
+      "video_exists": true,
+      "true_label": "79. short",
+      "true_class_id": 24,
+      "processed": true,
+      "frames_processed": 57,
+      "processing_fps": 9.516582842278225,
+      "execution_seconds": 5.991722345352173,
+      "predicted_gloss": "84. small little",
+      "predicted_class_id": 29,
+      "confidence": 0.2210637927055359,
+      "top3_candidates": [
+        [
+          "84. small little",
+          0.2210637927055359
+        ],
+        [
+          "79. short",
+          0.2114763855934143
+        ],
+        [
+          "82. narrow",
+          0.18001246452331543
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 74,
+      "video_path": "Adjectives/79. short/MVI_9462.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/79. short/MVI_9462.MOV",
+      "video_exists": true,
+      "true_label": "79. short",
+      "true_class_id": 24,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 9.991630727006982,
+      "execution_seconds": 5.404592752456665,
+      "predicted_gloss": "79. short",
+      "predicted_class_id": 24,
+      "confidence": 0.35696253180503845,
+      "top3_candidates": [
+        [
+          "79. short",
+          0.35696253180503845
+        ],
+        [
+          "84. small little",
+          0.2784031331539154
+        ],
+        [
+          "85. slow",
+          0.11924469470977783
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 75,
+      "video_path": "Adjectives/79. short/MVI_9463.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/79. short/MVI_9463.MOV",
+      "video_exists": true,
+      "true_label": "79. short",
+      "true_class_id": 24,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 10.247426382743813,
+      "execution_seconds": 5.464855432510376,
+      "predicted_gloss": "79. short",
+      "predicted_class_id": 24,
+      "confidence": 0.41163170337677,
+      "top3_candidates": [
+        [
+          "79. short",
+          0.41163170337677
+        ],
+        [
+          "84. small little",
+          0.30692797899246216
+        ],
+        [
+          "3. happy",
+          0.09807237982749939
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 76,
+      "video_path": "Adjectives/80. tall/MVI_9464.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/80. tall/MVI_9464.MOV",
+      "video_exists": true,
+      "true_label": "80. tall",
+      "true_class_id": 25,
+      "processed": true,
+      "frames_processed": 58,
+      "processing_fps": 9.603885505291581,
+      "execution_seconds": 6.041389226913452,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.28499606251716614,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.28499606251716614
+        ],
+        [
+          "95. bad",
+          0.25417467951774597
+        ],
+        [
+          "86. fast",
+          0.12354448437690735
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 77,
+      "video_path": "Adjectives/80. tall/MVI_9465.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/80. tall/MVI_9465.MOV",
+      "video_exists": true,
+      "true_label": "80. tall",
+      "true_class_id": 25,
+      "processed": true,
+      "frames_processed": 50,
+      "processing_fps": 9.485447157678879,
+      "execution_seconds": 5.271304130554199,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.26530301570892334,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.26530301570892334
+        ],
+        [
+          "95. bad",
+          0.17006069421768188
+        ],
+        [
+          "44. it",
+          0.13799521327018738
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 78,
+      "video_path": "Adjectives/80. tall/MVI_9466.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/80. tall/MVI_9466.MOV",
+      "video_exists": true,
+      "true_label": "80. tall",
+      "true_class_id": 25,
+      "processed": true,
+      "frames_processed": 50,
+      "processing_fps": 9.258299737646787,
+      "execution_seconds": 5.400630712509155,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.2423778772354126,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.2423778772354126
+        ],
+        [
+          "44. it",
+          0.15016387403011322
+        ],
+        [
+          "95. bad",
+          0.14423295855522156
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 79,
+      "video_path": "Adjectives/81. wide/MVI_9467.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/81. wide/MVI_9467.MOV",
+      "video_exists": true,
+      "true_label": "81. wide",
+      "true_class_id": 26,
+      "processed": true,
+      "frames_processed": 61,
+      "processing_fps": 10.194147079921018,
+      "execution_seconds": 5.983863115310669,
+      "predicted_gloss": "81. wide",
+      "predicted_class_id": 26,
+      "confidence": 0.8519595265388489,
+      "top3_candidates": [
+        [
+          "81. wide",
+          0.8519595265388489
+        ],
+        [
+          "82. narrow",
+          0.06790894269943237
+        ],
+        [
+          "44. it",
+          0.03135523945093155
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 80,
+      "video_path": "Adjectives/81. wide/MVI_9468.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/81. wide/MVI_9468.MOV",
+      "video_exists": true,
+      "true_label": "81. wide",
+      "true_class_id": 26,
+      "processed": true,
+      "frames_processed": 53,
+      "processing_fps": 9.079610420586778,
+      "execution_seconds": 5.837336301803589,
+      "predicted_gloss": "44. it",
+      "predicted_class_id": 10,
+      "confidence": 0.4288277328014374,
+      "top3_candidates": [
+        [
+          "44. it",
+          0.4288277328014374
+        ],
+        [
+          "82. narrow",
+          0.22133685648441315
+        ],
+        [
+          "94. good",
+          0.0822637751698494
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 81,
+      "video_path": "Adjectives/81. wide/MVI_9469.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/81. wide/MVI_9469.MOV",
+      "video_exists": true,
+      "true_label": "81. wide",
+      "true_class_id": 26,
+      "processed": true,
+      "frames_processed": 55,
+      "processing_fps": 9.541391512863745,
+      "execution_seconds": 5.764437913894653,
+      "predicted_gloss": "44. it",
+      "predicted_class_id": 10,
+      "confidence": 0.5351343154907227,
+      "top3_candidates": [
+        [
+          "44. it",
+          0.5351343154907227
+        ],
+        [
+          "82. narrow",
+          0.2444554567337036
+        ],
+        [
+          "94. good",
+          0.053930800408124924
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 82,
+      "video_path": "Adjectives/82. narrow/MVI_9471.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/82. narrow/MVI_9471.MOV",
+      "video_exists": true,
+      "true_label": "82. narrow",
+      "true_class_id": 27,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 10.179418387791989,
+      "execution_seconds": 5.798086166381836,
+      "predicted_gloss": "82. narrow",
+      "predicted_class_id": 27,
+      "confidence": 0.3485174775123596,
+      "top3_candidates": [
+        [
+          "82. narrow",
+          0.3485174775123596
+        ],
+        [
+          "84. small little",
+          0.18407988548278809
+        ],
+        [
+          "81. wide",
+          0.15089274942874908
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 83,
+      "video_path": "Adjectives/82. narrow/MVI_9472.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/82. narrow/MVI_9472.MOV",
+      "video_exists": true,
+      "true_label": "82. narrow",
+      "true_class_id": 27,
+      "processed": true,
+      "frames_processed": 57,
+      "processing_fps": 10.1022453676971,
+      "execution_seconds": 5.652821063995361,
+      "predicted_gloss": "82. narrow",
+      "predicted_class_id": 27,
+      "confidence": 0.4255784749984741,
+      "top3_candidates": [
+        [
+          "82. narrow",
+          0.4255784749984741
+        ],
+        [
+          "81. wide",
+          0.25806915760040283
+        ],
+        [
+          "84. small little",
+          0.10987508296966553
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 84,
+      "video_path": "Adjectives/82. narrow/MVI_9474.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/82. narrow/MVI_9474.MOV",
+      "video_exists": true,
+      "true_label": "82. narrow",
+      "true_class_id": 27,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 10.299892476161025,
+      "execution_seconds": 5.242855072021484,
+      "predicted_gloss": "82. narrow",
+      "predicted_class_id": 27,
+      "confidence": 0.4502261281013489,
+      "top3_candidates": [
+        [
+          "82. narrow",
+          0.4502261281013489
+        ],
+        [
+          "84. small little",
+          0.12804055213928223
+        ],
+        [
+          "44. it",
+          0.0981924757361412
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 85,
+      "video_path": "Adjectives/83. big large/MVI_9475.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/83. big large/MVI_9475.MOV",
+      "video_exists": true,
+      "true_label": "83. big large",
+      "true_class_id": 28,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 10.613805370591685,
+      "execution_seconds": 5.087785243988037,
+      "predicted_gloss": "81. wide",
+      "predicted_class_id": 26,
+      "confidence": 0.6153151392936707,
+      "top3_candidates": [
+        [
+          "81. wide",
+          0.6153151392936707
+        ],
+        [
+          "83. big large",
+          0.3255521357059479
+        ],
+        [
+          "47. they",
+          0.037392571568489075
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 86,
+      "video_path": "Adjectives/83. big large/MVI_9476.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/83. big large/MVI_9476.MOV",
+      "video_exists": true,
+      "true_label": "83. big large",
+      "true_class_id": 28,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 10.374686851196419,
+      "execution_seconds": 5.205047845840454,
+      "predicted_gloss": "83. big large",
+      "predicted_class_id": 28,
+      "confidence": 0.6300890445709229,
+      "top3_candidates": [
+        [
+          "83. big large",
+          0.6300890445709229
+        ],
+        [
+          "81. wide",
+          0.3198162913322449
+        ],
+        [
+          "47. they",
+          0.015077682211995125
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 87,
+      "video_path": "Adjectives/83. big large/MVI_9477.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/83. big large/MVI_9477.MOV",
+      "video_exists": true,
+      "true_label": "83. big large",
+      "true_class_id": 28,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 9.958356829824028,
+      "execution_seconds": 5.623578786849976,
+      "predicted_gloss": "83. big large",
+      "predicted_class_id": 28,
+      "confidence": 0.5714812278747559,
+      "top3_candidates": [
+        [
+          "83. big large",
+          0.5714812278747559
+        ],
+        [
+          "81. wide",
+          0.3558800220489502
+        ],
+        [
+          "47. they",
+          0.04757590591907501
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 88,
+      "video_path": "Adjectives/84. small little/MVI_9478.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/84. small little/MVI_9478.MOV",
+      "video_exists": true,
+      "true_label": "84. small little",
+      "true_class_id": 29,
+      "processed": true,
+      "frames_processed": 54,
+      "processing_fps": 9.359583680226923,
+      "execution_seconds": 5.769613981246948,
+      "predicted_gloss": "82. narrow",
+      "predicted_class_id": 27,
+      "confidence": 0.2570328712463379,
+      "top3_candidates": [
+        [
+          "82. narrow",
+          0.2570328712463379
+        ],
+        [
+          "84. small little",
+          0.22627992928028107
+        ],
+        [
+          "79. short",
+          0.16243287920951843
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 89,
+      "video_path": "Adjectives/84. small little/MVI_9479.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/84. small little/MVI_9479.MOV",
+      "video_exists": true,
+      "true_label": "84. small little",
+      "true_class_id": 29,
+      "processed": true,
+      "frames_processed": 52,
+      "processing_fps": 9.43321478627416,
+      "execution_seconds": 5.512511968612671,
+      "predicted_gloss": "82. narrow",
+      "predicted_class_id": 27,
+      "confidence": 0.23654930293560028,
+      "top3_candidates": [
+        [
+          "82. narrow",
+          0.23654930293560028
+        ],
+        [
+          "84. small little",
+          0.23110640048980713
+        ],
+        [
+          "85. slow",
+          0.22458647191524506
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 90,
+      "video_path": "Adjectives/84. small little/MVI_9480.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/84. small little/MVI_9480.MOV",
+      "video_exists": true,
+      "true_label": "84. small little",
+      "true_class_id": 29,
+      "processed": true,
+      "frames_processed": 55,
+      "processing_fps": 10.081576803571801,
+      "execution_seconds": 5.455629348754883,
+      "predicted_gloss": "84. small little",
+      "predicted_class_id": 29,
+      "confidence": 0.36264222860336304,
+      "top3_candidates": [
+        [
+          "84. small little",
+          0.36264222860336304
+        ],
+        [
+          "79. short",
+          0.2520725429058075
+        ],
+        [
+          "82. narrow",
+          0.19280840456485748
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 91,
+      "video_path": "Adjectives/85. slow/MVI_9481.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/85. slow/MVI_9481.MOV",
+      "video_exists": true,
+      "true_label": "85. slow",
+      "true_class_id": 30,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.674726869290387,
+      "execution_seconds": 6.411241054534912,
+      "predicted_gloss": "85. slow",
+      "predicted_class_id": 30,
+      "confidence": 0.6840457320213318,
+      "top3_candidates": [
+        [
+          "85. slow",
+          0.6840457320213318
+        ],
+        [
+          "40. I",
+          0.06514424085617065
+        ],
+        [
+          "82. narrow",
+          0.06355581432580948
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 92,
+      "video_path": "Adjectives/85. slow/MVI_9482.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/85. slow/MVI_9482.MOV",
+      "video_exists": true,
+      "true_label": "85. slow",
+      "true_class_id": 30,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 10.472204762157858,
+      "execution_seconds": 5.635807037353516,
+      "predicted_gloss": "85. slow",
+      "predicted_class_id": 30,
+      "confidence": 0.7551476955413818,
+      "top3_candidates": [
+        [
+          "85. slow",
+          0.7551476955413818
+        ],
+        [
+          "50. Alright",
+          0.13659735023975372
+        ],
+        [
+          "82. narrow",
+          0.034557655453681946
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 93,
+      "video_path": "Adjectives/85. slow/MVI_9483.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/85. slow/MVI_9483.MOV",
+      "video_exists": true,
+      "true_label": "85. slow",
+      "true_class_id": 30,
+      "processed": true,
+      "frames_processed": 65,
+      "processing_fps": 9.785300003983883,
+      "execution_seconds": 6.644137859344482,
+      "predicted_gloss": "85. slow",
+      "predicted_class_id": 30,
+      "confidence": 0.7872473001480103,
+      "top3_candidates": [
+        [
+          "85. slow",
+          0.7872473001480103
+        ],
+        [
+          "82. narrow",
+          0.06778206676244736
+        ],
+        [
+          "40. I",
+          0.02414717525243759
+        ]
+      ],
+      "is_accepted": true,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 94,
+      "video_path": "Adjectives/86. fast/MVI_9484.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/86. fast/MVI_9484.MOV",
+      "video_exists": true,
+      "true_label": "86. fast",
+      "true_class_id": 31,
+      "processed": true,
+      "frames_processed": 61,
+      "processing_fps": 9.477832310671374,
+      "execution_seconds": 6.436108589172363,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.2007119059562683,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.2007119059562683
+        ],
+        [
+          "40. I",
+          0.19006460905075073
+        ],
+        [
+          "95. bad",
+          0.18056505918502808
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 95,
+      "video_path": "Adjectives/86. fast/MVI_9485.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/86. fast/MVI_9485.MOV",
+      "video_exists": true,
+      "true_label": "86. fast",
+      "true_class_id": 31,
+      "processed": true,
+      "frames_processed": 67,
+      "processing_fps": 9.342562447138807,
+      "execution_seconds": 7.172224998474121,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.2150324136018753,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.2150324136018753
+        ],
+        [
+          "94. good",
+          0.19045397639274597
+        ],
+        [
+          "95. bad",
+          0.1880897730588913
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 96,
+      "video_path": "Adjectives/86. fast/MVI_9486.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/86. fast/MVI_9486.MOV",
+      "video_exists": true,
+      "true_label": "86. fast",
+      "true_class_id": 31,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.951248280932827,
+      "execution_seconds": 6.230959177017212,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.17893430590629578,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.17893430590629578
+        ],
+        [
+          "40. I",
+          0.17170366644859314
+        ],
+        [
+          "95. bad",
+          0.16401569545269012
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 97,
+      "video_path": "Adjectives/89. warm/MVI_9493.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/89. warm/MVI_9493.MOV",
+      "video_exists": true,
+      "true_label": "89. warm",
+      "true_class_id": 32,
+      "processed": true,
+      "frames_processed": 71,
+      "processing_fps": 9.988932684652983,
+      "execution_seconds": 7.111900806427002,
+      "predicted_gloss": "89. warm",
+      "predicted_class_id": 32,
+      "confidence": 0.26842162013053894,
+      "top3_candidates": [
+        [
+          "89. warm",
+          0.26842162013053894
+        ],
+        [
+          "48. Hello",
+          0.09195485711097717
+        ],
+        [
+          "94. good",
+          0.08948490023612976
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 98,
+      "video_path": "Adjectives/89. warm/MVI_9494.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/89. warm/MVI_9494.MOV",
+      "video_exists": true,
+      "true_label": "89. warm",
+      "true_class_id": 32,
+      "processed": true,
+      "frames_processed": 66,
+      "processing_fps": 9.667324574341349,
+      "execution_seconds": 6.8283467292785645,
+      "predicted_gloss": "89. warm",
+      "predicted_class_id": 32,
+      "confidence": 0.3786359131336212,
+      "top3_candidates": [
+        [
+          "89. warm",
+          0.3786359131336212
+        ],
+        [
+          "51. Good Morning",
+          0.09545034170150757
+        ],
+        [
+          "52. Good afternoon",
+          0.09502769261598587
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 99,
+      "video_path": "Adjectives/89. warm/MVI_9495.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/89. warm/MVI_9495.MOV",
+      "video_exists": true,
+      "true_label": "89. warm",
+      "true_class_id": 32,
+      "processed": true,
+      "frames_processed": 70,
+      "processing_fps": 9.80372069945282,
+      "execution_seconds": 7.141789674758911,
+      "predicted_gloss": "89. warm",
+      "predicted_class_id": 32,
+      "confidence": 0.41936060786247253,
+      "top3_candidates": [
+        [
+          "89. warm",
+          0.41936060786247253
+        ],
+        [
+          "52. Good afternoon",
+          0.10768269002437592
+        ],
+        [
+          "51. Good Morning",
+          0.08170288801193237
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 100,
+      "video_path": "Means_of_Transportation/9. Train/MVI_4172.MOV",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/9. Train/MVI_4172.MOV",
+      "video_exists": true,
+      "true_label": "9. Train",
+      "true_class_id": 33,
+      "processed": true,
+      "frames_processed": 52,
+      "processing_fps": 9.429658962641476,
+      "execution_seconds": 5.5146143436431885,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.2131243795156479,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.2131243795156479
+        ],
+        [
+          "94. good",
+          0.189479798078537
+        ],
+        [
+          "41. you",
+          0.12913237512111664
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 101,
+      "video_path": "Means_of_Transportation/9. Train/MVI_8579.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/9. Train/MVI_8579.MP4",
+      "video_exists": true,
+      "true_label": "9. Train",
+      "true_class_id": 33,
+      "processed": true,
+      "frames_processed": 69,
+      "processing_fps": 8.600150547629365,
+      "execution_seconds": 8.024581670761108,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.15128670632839203,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.15128670632839203
+        ],
+        [
+          "40. I",
+          0.14513251185417175
+        ],
+        [
+          "94. good",
+          0.13133670389652252
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 102,
+      "video_path": "Means_of_Transportation/9. Train/MVI_8580.MP4",
+      "resolved_video_path": "data/raw/include/videos/Means_of_Transportation/9. Train/MVI_8580.MP4",
+      "video_exists": true,
+      "true_label": "9. Train",
+      "true_class_id": 33,
+      "processed": true,
+      "frames_processed": 57,
+      "processing_fps": 8.488548263872259,
+      "execution_seconds": 6.714993715286255,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.1920839250087738,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.1920839250087738
+        ],
+        [
+          "94. good",
+          0.17050454020500183
+        ],
+        [
+          "95. bad",
+          0.16434431076049805
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 103,
+      "video_path": "Adjectives/92. old/MVI_9504.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/92. old/MVI_9504.MOV",
+      "video_exists": true,
+      "true_label": "92. old",
+      "true_class_id": 34,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 9.23030166773226,
+      "execution_seconds": 6.392071485519409,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.17169134318828583,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.17169134318828583
+        ],
+        [
+          "41. you",
+          0.16123837232589722
+        ],
+        [
+          "94. good",
+          0.15346276760101318
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 104,
+      "video_path": "Adjectives/92. old/MVI_9505.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/92. old/MVI_9505.MOV",
+      "video_exists": true,
+      "true_label": "92. old",
+      "true_class_id": 34,
+      "processed": true,
+      "frames_processed": 63,
+      "processing_fps": 9.558943444282022,
+      "execution_seconds": 6.59072732925415,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.19142436981201172,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.19142436981201172
+        ],
+        [
+          "95. bad",
+          0.1737419068813324
+        ],
+        [
+          "86. fast",
+          0.11748912185430527
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 105,
+      "video_path": "Adjectives/92. old/MVI_9506.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/92. old/MVI_9506.MOV",
+      "video_exists": true,
+      "true_label": "92. old",
+      "true_class_id": 34,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.550942371996868,
+      "execution_seconds": 6.49243426322937,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.22511737048625946,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.22511737048625946
+        ],
+        [
+          "94. good",
+          0.19880980253219604
+        ],
+        [
+          "92. old",
+          0.16678406298160553
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 106,
+      "video_path": "Adjectives/93. young/MVI_9507.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/93. young/MVI_9507.MOV",
+      "video_exists": true,
+      "true_label": "93. young",
+      "true_class_id": 35,
+      "processed": true,
+      "frames_processed": 58,
+      "processing_fps": 9.808121188604263,
+      "execution_seconds": 5.915172338485718,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.4087337553501129,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.4087337553501129
+        ],
+        [
+          "93. young",
+          0.1295080929994583
+        ],
+        [
+          "94. good",
+          0.11373778432607651
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 107,
+      "video_path": "Adjectives/93. young/MVI_9508.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/93. young/MVI_9508.MOV",
+      "video_exists": true,
+      "true_label": "93. young",
+      "true_class_id": 35,
+      "processed": true,
+      "frames_processed": 55,
+      "processing_fps": 9.031207038383716,
+      "execution_seconds": 6.090069770812988,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.4445224404335022,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.4445224404335022
+        ],
+        [
+          "93. young",
+          0.1216566264629364
+        ],
+        [
+          "41. you",
+          0.11596887558698654
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 108,
+      "video_path": "Adjectives/93. young/MVI_9509.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/93. young/MVI_9509.MOV",
+      "video_exists": true,
+      "true_label": "93. young",
+      "true_class_id": 35,
+      "processed": true,
+      "frames_processed": 51,
+      "processing_fps": 9.146251263924329,
+      "execution_seconds": 5.576157569885254,
+      "predicted_gloss": "40. I",
+      "predicted_class_id": 6,
+      "confidence": 0.4046894907951355,
+      "top3_candidates": [
+        [
+          "40. I",
+          0.4046894907951355
+        ],
+        [
+          "93. young",
+          0.12667196989059448
+        ],
+        [
+          "94. good",
+          0.12010300904512405
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 109,
+      "video_path": "Adjectives/94. good/MVI_9510.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/94. good/MVI_9510.MOV",
+      "video_exists": true,
+      "true_label": "94. good",
+      "true_class_id": 36,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.653940181217333,
+      "execution_seconds": 6.422991514205933,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.22903354465961456,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.22903354465961456
+        ],
+        [
+          "94. good",
+          0.20883524417877197
+        ],
+        [
+          "40. I",
+          0.18344135582447052
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 110,
+      "video_path": "Adjectives/94. good/MVI_9511.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/94. good/MVI_9511.MOV",
+      "video_exists": true,
+      "true_label": "94. good",
+      "true_class_id": 36,
+      "processed": true,
+      "frames_processed": 56,
+      "processing_fps": 9.653807521867588,
+      "execution_seconds": 5.800895929336548,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.27023839950561523,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.27023839950561523
+        ],
+        [
+          "94. good",
+          0.250922292470932
+        ],
+        [
+          "40. I",
+          0.1276031732559204
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 111,
+      "video_path": "Adjectives/94. good/MVI_9512.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/94. good/MVI_9512.MOV",
+      "video_exists": true,
+      "true_label": "94. good",
+      "true_class_id": 36,
+      "processed": true,
+      "frames_processed": 50,
+      "processing_fps": 9.481248826299874,
+      "execution_seconds": 5.273676633834839,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.21087394654750824,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.21087394654750824
+        ],
+        [
+          "94. good",
+          0.20661327242851257
+        ],
+        [
+          "40. I",
+          0.20124846696853638
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 112,
+      "video_path": "Adjectives/95. bad/MVI_9513.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/95. bad/MVI_9513.MOV",
+      "video_exists": true,
+      "true_label": "95. bad",
+      "true_class_id": 37,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.620697390379256,
+      "execution_seconds": 6.444476842880249,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.31638896465301514,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.31638896465301514
+        ],
+        [
+          "94. good",
+          0.2458164393901825
+        ],
+        [
+          "86. fast",
+          0.09497087448835373
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 113,
+      "video_path": "Adjectives/95. bad/MVI_9514.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/95. bad/MVI_9514.MOV",
+      "video_exists": true,
+      "true_label": "95. bad",
+      "true_class_id": 37,
+      "processed": true,
+      "frames_processed": 59,
+      "processing_fps": 9.293719201781403,
+      "execution_seconds": 6.350051164627075,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.25180965662002563,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.25180965662002563
+        ],
+        [
+          "94. good",
+          0.2341127246618271
+        ],
+        [
+          "40. I",
+          0.1257457435131073
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 114,
+      "video_path": "Adjectives/95. bad/MVI_9516.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/95. bad/MVI_9516.MOV",
+      "video_exists": true,
+      "true_label": "95. bad",
+      "true_class_id": 37,
+      "processed": true,
+      "frames_processed": 58,
+      "processing_fps": 9.116807410060812,
+      "execution_seconds": 6.362061500549316,
+      "predicted_gloss": "95. bad",
+      "predicted_class_id": 37,
+      "confidence": 0.2558250427246094,
+      "top3_candidates": [
+        [
+          "95. bad",
+          0.2558250427246094
+        ],
+        [
+          "94. good",
+          0.23748213052749634
+        ],
+        [
+          "40. I",
+          0.14852997660636902
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 115,
+      "video_path": "Adjectives/96. wet/MVI_9517.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/96. wet/MVI_9517.MOV",
+      "video_exists": true,
+      "true_label": "96. wet",
+      "true_class_id": 38,
+      "processed": true,
+      "frames_processed": 68,
+      "processing_fps": 9.552913558699654,
+      "execution_seconds": 7.120718479156494,
+      "predicted_gloss": "92. old",
+      "predicted_class_id": 34,
+      "confidence": 0.21272772550582886,
+      "top3_candidates": [
+        [
+          "92. old",
+          0.21272772550582886
+        ],
+        [
+          "41. you",
+          0.14698393642902374
+        ],
+        [
+          "48. Hello",
+          0.1407005786895752
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 116,
+      "video_path": "Adjectives/96. wet/MVI_9518.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/96. wet/MVI_9518.MOV",
+      "video_exists": true,
+      "true_label": "96. wet",
+      "true_class_id": 38,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.512012308259557,
+      "execution_seconds": 6.518800735473633,
+      "predicted_gloss": "92. old",
+      "predicted_class_id": 34,
+      "confidence": 0.1594582200050354,
+      "top3_candidates": [
+        [
+          "92. old",
+          0.1594582200050354
+        ],
+        [
+          "41. you",
+          0.14378835260868073
+        ],
+        [
+          "95. bad",
+          0.0927322655916214
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 117,
+      "video_path": "Adjectives/96. wet/MVI_9520.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/96. wet/MVI_9520.MOV",
+      "video_exists": true,
+      "true_label": "96. wet",
+      "true_class_id": 38,
+      "processed": true,
+      "frames_processed": 66,
+      "processing_fps": 9.861590020055218,
+      "execution_seconds": 6.69376802444458,
+      "predicted_gloss": "41. you",
+      "predicted_class_id": 7,
+      "confidence": 0.17746886610984802,
+      "top3_candidates": [
+        [
+          "41. you",
+          0.17746886610984802
+        ],
+        [
+          "92. old",
+          0.1548711508512497
+        ],
+        [
+          "86. fast",
+          0.09686633199453354
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 118,
+      "video_path": "Adjectives/97. dry/MVI_9521.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/97. dry/MVI_9521.MOV",
+      "video_exists": true,
+      "true_label": "97. dry",
+      "true_class_id": 39,
+      "processed": true,
+      "frames_processed": 63,
+      "processing_fps": 9.603381197963126,
+      "execution_seconds": 6.5611817836761475,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.18181583285331726,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.18181583285331726
+        ],
+        [
+          "82. narrow",
+          0.11517253518104553
+        ],
+        [
+          "79. short",
+          0.07234718650579453
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 119,
+      "video_path": "Adjectives/97. dry/MVI_9522.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/97. dry/MVI_9522.MOV",
+      "video_exists": true,
+      "true_label": "97. dry",
+      "true_class_id": 39,
+      "processed": true,
+      "frames_processed": 64,
+      "processing_fps": 10.207725375598157,
+      "execution_seconds": 6.270789623260498,
+      "predicted_gloss": "97. dry",
+      "predicted_class_id": 39,
+      "confidence": 0.26505354046821594,
+      "top3_candidates": [
+        [
+          "97. dry",
+          0.26505354046821594
+        ],
+        [
+          "96. wet",
+          0.1823047399520874
+        ],
+        [
+          "46. you (plural)",
+          0.06630191951990128
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 120,
+      "video_path": "Adjectives/97. dry/MVI_9523.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/97. dry/MVI_9523.MOV",
+      "video_exists": true,
+      "true_label": "97. dry",
+      "true_class_id": 39,
+      "processed": true,
+      "frames_processed": 66,
+      "processing_fps": 10.30889886967416,
+      "execution_seconds": 6.4032347202301025,
+      "predicted_gloss": "97. dry",
+      "predicted_class_id": 39,
+      "confidence": 0.23571111261844635,
+      "top3_candidates": [
+        [
+          "97. dry",
+          0.23571111261844635
+        ],
+        [
+          "96. wet",
+          0.1680261790752411
+        ],
+        [
+          "83. big large",
+          0.16582415997982025
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": true,
+      "top3_match": true
+    },
+    {
+      "sample_index": 121,
+      "video_path": "Adjectives/98. sick/MVI_9527.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/98. sick/MVI_9527.MOV",
+      "video_exists": true,
+      "true_label": "98. sick",
+      "true_class_id": 40,
+      "processed": true,
+      "frames_processed": 64,
+      "processing_fps": 9.957157487833904,
+      "execution_seconds": 6.428651571273804,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.20635026693344116,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.20635026693344116
+        ],
+        [
+          "95. bad",
+          0.11309251189231873
+        ],
+        [
+          "93. young",
+          0.10931800305843353
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 122,
+      "video_path": "Adjectives/98. sick/MVI_9528.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/98. sick/MVI_9528.MOV",
+      "video_exists": true,
+      "true_label": "98. sick",
+      "true_class_id": 40,
+      "processed": true,
+      "frames_processed": 69,
+      "processing_fps": 9.969115564397542,
+      "execution_seconds": 6.922759056091309,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.14182330667972565,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.14182330667972565
+        ],
+        [
+          "82. narrow",
+          0.1269257515668869
+        ],
+        [
+          "41. you",
+          0.10982930660247803
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 123,
+      "video_path": "Adjectives/98. sick/MVI_9529.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/98. sick/MVI_9529.MOV",
+      "video_exists": true,
+      "true_label": "98. sick",
+      "true_class_id": 40,
+      "processed": true,
+      "frames_processed": 64,
+      "processing_fps": 9.587035553922513,
+      "execution_seconds": 6.676506519317627,
+      "predicted_gloss": "94. good",
+      "predicted_class_id": 36,
+      "confidence": 0.22215807437896729,
+      "top3_candidates": [
+        [
+          "94. good",
+          0.22215807437896729
+        ],
+        [
+          "95. bad",
+          0.1355520486831665
+        ],
+        [
+          "41. you",
+          0.11312740296125412
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 124,
+      "video_path": "Adjectives/99. healthy/MVI_9530.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/99. healthy/MVI_9530.MOV",
+      "video_exists": true,
+      "true_label": "99. healthy",
+      "true_class_id": 41,
+      "processed": true,
+      "frames_processed": 61,
+      "processing_fps": 9.73977329591928,
+      "execution_seconds": 6.2630181312561035,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.4949553906917572,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.4949553906917572
+        ],
+        [
+          "55. Thank you",
+          0.09604623168706894
+        ],
+        [
+          "99. healthy",
+          0.0789787694811821
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": true
+    },
+    {
+      "sample_index": 125,
+      "video_path": "Adjectives/99. healthy/MVI_9531.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/99. healthy/MVI_9531.MOV",
+      "video_exists": true,
+      "true_label": "99. healthy",
+      "true_class_id": 41,
+      "processed": true,
+      "frames_processed": 60,
+      "processing_fps": 9.702283008979188,
+      "execution_seconds": 6.1841888427734375,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.4577522277832031,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.4577522277832031
+        ],
+        [
+          "55. Thank you",
+          0.0992700532078743
+        ],
+        [
+          "82. narrow",
+          0.05585483834147453
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    },
+    {
+      "sample_index": 126,
+      "video_path": "Adjectives/99. healthy/MVI_9532.MOV",
+      "resolved_video_path": "data/raw/include/videos/Adjectives/99. healthy/MVI_9532.MOV",
+      "video_exists": true,
+      "true_label": "99. healthy",
+      "true_class_id": 41,
+      "processed": true,
+      "frames_processed": 62,
+      "processing_fps": 9.706139052185698,
+      "execution_seconds": 6.388535976409912,
+      "predicted_gloss": "3. happy",
+      "predicted_class_id": 5,
+      "confidence": 0.48860567808151245,
+      "top3_candidates": [
+        [
+          "3. happy",
+          0.48860567808151245
+        ],
+        [
+          "55. Thank you",
+          0.07964140176773071
+        ],
+        [
+          "84. small little",
+          0.054168861359357834
+        ]
+      ],
+      "is_accepted": false,
+      "top1_match": false,
+      "top3_match": false
+    }
+  ]
+}

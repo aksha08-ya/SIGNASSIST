@@ -166,3 +166,16 @@ def test_invalid_file_handling(tmp_path: Path):
 
     with pytest.raises(VideoProcessingError):
         processor.process_file(missing_path)
+
+
+def test_video_processing_result_canonical_transcript_attribute():
+    """Regression test: verify VideoProcessingResult exposes canonical 'transcript' attribute with 'text'."""
+    transcript = SentenceTranscript(text="Test sentence")
+    res = VideoProcessingResult(
+        video_metadata=None,
+        quality_report=None,
+        transcript=transcript,
+    )
+    assert hasattr(res, "transcript")
+    assert res.transcript.text == "Test sentence"
+

@@ -43,6 +43,8 @@ class TimestampedSignEntry:
     confidence: float
     top_3_candidates: List[Tuple[str, float]] = field(default_factory=list)
     primary_signer_track_id: Optional[int] = None
+    class_index: Optional[int] = None
+    is_accepted: bool = False
 
     def __post_init__(self) -> None:
         self.start_frame = int(self.start_frame)
@@ -50,6 +52,9 @@ class TimestampedSignEntry:
         self.start_timestamp_sec = float(self.start_timestamp_sec)
         self.end_timestamp_sec = float(self.end_timestamp_sec)
         self.confidence = float(self.confidence)
+        self.is_accepted = bool(self.is_accepted)
+        if self.class_index is not None:
+            self.class_index = int(self.class_index)
         if self.primary_signer_track_id is not None:
             self.primary_signer_track_id = int(self.primary_signer_track_id)
 
@@ -247,18 +252,38 @@ class VideoProcessor:
         start_ts = format_timestamp(start_sec)
         end_ts = format_timestamp(end_sec)
 
-        gloss = str(p.predicted_class)
+        cls_val = getattr(p, "predicted_class", 0)
+        if hasattr(cls_val, "item"):
+            cls_idx = int(cls_val.item())
+        elif isinstance(cls_val, (list, tuple, np.ndarray)) and len(cls_val) > 0:
+            cls_idx = int(cls_val[0])
+        else:
+            cls_idx = int(cls_val)
+
+        gloss = getattr(p, "predicted_gloss", None) or str(cls_idx)
+        conf_val = getattr(p, "confidence", 0.0)
+        conf = float(conf_val.item()) if hasattr(conf_val, "item") else float(conf_val)
+
+        acc_val = getattr(p, "is_accepted", conf >= 0.70)
+        is_accepted = bool(acc_val.item()) if hasattr(acc_val, "item") else bool(acc_val)
 
         top_3: List[Tuple[str, float]] = []
         if p.top_k_indices is not None and p.top_k_probabilities is not None:
             indices = p.top_k_indices
             probs = p.top_k_probabilities
+            glosses = getattr(p, "top_k_glosses", None)
             if hasattr(indices, "tolist"):
                 indices = indices.tolist()
             if hasattr(probs, "tolist"):
                 probs = probs.tolist()
-            for idx, prob in zip(indices[:3], probs[:3]):
-                top_3.append((str(idx), float(prob)))
+            if indices and isinstance(indices[0], (list, tuple)):
+                indices = indices[0]
+            if probs and isinstance(probs[0], (list, tuple)):
+                probs = probs[0]
+
+            for idx, (cid, prob) in enumerate(zip(indices[:3], probs[:3])):
+                g_label = glosses[idx] if (glosses and idx < len(glosses)) else str(cid)
+                top_3.append((g_label, float(prob)))
 
         primary_id = (
             tracker_output.primary_track.track_id
@@ -274,7 +299,9 @@ class VideoProcessor:
             start_timestamp=start_ts,
             end_timestamp=end_ts,
             recognized_gloss=gloss,
-            confidence=float(p.confidence),
+            confidence=conf,
             top_3_candidates=top_3,
             primary_signer_track_id=primary_id,
+            class_index=cls_idx,
+            is_accepted=is_accepted,
         )

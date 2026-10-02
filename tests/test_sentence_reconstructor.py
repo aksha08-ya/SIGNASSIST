@@ -245,3 +245,11 @@ def test_no_recurrent_modules():
         if isinstance(attr, type) and issubclass(attr, nn.Module if hasattr(nn, 'Module') else object):
             for module in attr().modules():
                 assert not isinstance(module, (nn.LSTM, nn.GRU, nn.RNN, nn.LSTMCell, nn.GRUCell, nn.RNNCell))
+
+
+def test_sentence_transcript_canonical_text_attribute():
+    """Regression test: verify SentenceTranscript exposes canonical 'text' attribute."""
+    transcript = SentenceTranscript(text="Hello world.")
+    assert hasattr(transcript, "text")
+    assert transcript.text == "Hello world."
+

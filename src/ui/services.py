@@ -26,14 +26,53 @@ from src.utils.metrics import EvaluationResult, MetricsEvaluator
 
 # --- Private Helper: Default VideoProcessor Factory ---
 
-def get_default_recognition_pipeline() -> RecognitionPipeline:
+# --- Private Helper: Default VideoProcessor Factory ---
+
+def get_default_recognition_pipeline(
+    mode: str = "dynamic_only",
+    backend: str = "experimental_42",
+    models_dir: Optional[Union[str, Path]] = None,
+    dynamic_checkpoint_path: Optional[Union[str, Path]] = None,
+    class_mapping_path: Optional[Union[str, Path]] = None,
+    calibration_path: Optional[Union[str, Path]] = None,
+    use_boundary_trimming: Optional[bool] = None,
+) -> RecognitionPipeline:
     """Instantiates and returns the default RecognitionPipeline adapter."""
-    return RecognitionPipeline()
+    if use_boundary_trimming is None:
+        eff_trimming = False if backend == "experimental_42" else True
+    else:
+        eff_trimming = bool(use_boundary_trimming)
+
+    return RecognitionPipeline(
+        mode=mode,
+        backend=backend,
+        models_dir=models_dir,
+        dynamic_checkpoint_path=dynamic_checkpoint_path,
+        class_mapping_path=class_mapping_path,
+        calibration_path=calibration_path,
+        use_boundary_trimming=eff_trimming,
+    )
 
 
-def _create_default_video_processor() -> VideoProcessor:
+def _create_default_video_processor(
+    mode: str = "dynamic_only",
+    backend: str = "experimental_42",
+    models_dir: Optional[Union[str, Path]] = None,
+    dynamic_checkpoint_path: Optional[Union[str, Path]] = None,
+    class_mapping_path: Optional[Union[str, Path]] = None,
+    calibration_path: Optional[Union[str, Path]] = None,
+    use_boundary_trimming: Optional[bool] = None,
+) -> VideoProcessor:
     """Creates default VideoProcessor initialized with RecognitionPipeline adapter."""
-    pipeline = get_default_recognition_pipeline()
+    pipeline = get_default_recognition_pipeline(
+        mode=mode,
+        backend=backend,
+        models_dir=models_dir,
+        dynamic_checkpoint_path=dynamic_checkpoint_path,
+        class_mapping_path=class_mapping_path,
+        calibration_path=calibration_path,
+        use_boundary_trimming=use_boundary_trimming,
+    )
     return VideoProcessor(recognition_pipeline=pipeline)
 
 
@@ -46,6 +85,9 @@ def process_video_file(
     manual_signer_id: Optional[int] = None,
     enable_tts: bool = False,
     chunk_size: int = 60,
+    mode: str = "dynamic_only",
+    backend: str = "experimental_42",
+    use_boundary_trimming: Optional[bool] = None,
 ) -> VideoProcessingResult:
     """Processes a local video file using the backend VideoProcessor.
 
@@ -55,12 +97,19 @@ def process_video_file(
         manual_signer_id: Optional manual signer track ID override.
         enable_tts: Whether to enable TTS synthesis for transcript text.
         chunk_size: Processing frame chunk size.
+        mode: Pipeline mode ("dynamic_only" or "multimodal").
+        backend: Recognition backend ("experimental_42" or "production").
+        use_boundary_trimming: Whether to enable boundary trimming.
 
     Returns:
         VideoProcessingResult from the backend VideoProcessor.
     """
     if processor is None:
-        processor = _create_default_video_processor()
+        processor = _create_default_video_processor(
+            mode=mode,
+            backend=backend,
+            use_boundary_trimming=use_boundary_trimming,
+        )
 
     return processor.process_file(
         file_path=file_path,
@@ -80,6 +129,9 @@ def process_video_url(
     manual_signer_id: Optional[int] = None,
     enable_tts: bool = False,
     chunk_size: int = 60,
+    mode: str = "dynamic_only",
+    backend: str = "experimental_42",
+    use_boundary_trimming: Optional[bool] = None,
 ) -> VideoProcessingResult:
     """Processes a public web video URL using backend URLVideoDownloader and VideoProcessor.
 
@@ -91,6 +143,9 @@ def process_video_url(
         manual_signer_id: Optional manual signer track ID override.
         enable_tts: Whether to enable TTS synthesis.
         chunk_size: Processing frame chunk size.
+        mode: Pipeline mode ("dynamic_only" or "multimodal").
+        backend: Recognition backend ("experimental_42" or "production").
+        use_boundary_trimming: Whether to enable boundary trimming.
 
     Returns:
         VideoProcessingResult from backend downloader/processor pipeline.
@@ -102,7 +157,11 @@ def process_video_url(
         downloader = URLVideoDownloader()
 
     if processor is None:
-        processor = _create_default_video_processor()
+        processor = _create_default_video_processor(
+            mode=mode,
+            backend=backend,
+            use_boundary_trimming=use_boundary_trimming,
+        )
 
     return downloader.process_url(
         url=url,
@@ -155,10 +214,19 @@ def convert_text_to_isl(
     """
     # 1. Resolve or instantiate ISLDictionaryIndex
     if dictionary is None:
-        if index_path is not None and Path(index_path).exists():
-            dictionary = ISLDictionaryIndex.load(index_path)
+        if index_path is None:
+            index_path = Path("data/external/isl_dictionary/index.json")
+        dict_path = Path(index_path)
+        if dict_path.exists():
+            dictionary = ISLDictionaryIndex.load(dict_path)
+            dict_base_dir = dict_path.parent
         else:
             dictionary = ISLDictionaryIndex(entries=[])
+            dict_base_dir = None
+    else:
+        dict_base_dir = getattr(dictionary, "index_path", None)
+        if dict_base_dir and Path(dict_base_dir).is_file():
+            dict_base_dir = Path(dict_base_dir).parent
 
     # 2. Convert text to ISLDemonstrationSequence
     converter = TextToISLConverter(
@@ -177,7 +245,7 @@ def convert_text_to_isl(
 
     if stitch_video and output_video_path is not None:
         if stitcher is None:
-            stitcher = ISLVideoStitcher()
+            stitcher = ISLVideoStitcher(base_dir=dict_base_dir)
 
         stitch_res = stitcher.stitch_sequence(sequence, output_path=output_video_path)
         included_tokens = list(stitch_res.included_tokens)
@@ -235,48 +303,51 @@ def get_recognition_readiness(
     models_dir: Optional[Union[str, Path]] = None,
     pipeline_instance: Optional[Any] = None,
     explicit_pipeline_available: Optional[bool] = None,
+    mode: str = "dynamic_only",
 ) -> Dict[str, Any]:
     """Determines model architecture, trained checkpoint, and recognition pipeline readiness.
 
     Strict semantics:
     - architecture_available: True (PyTorch ST-GCN, GNN, Transformer, Fusion modules exist)
-    - checkpoint_available: True only if trained checkpoint files exist on disk
-    - recognition_pipeline_available: False unless an explicit usable pipeline is verified/supplied
-
-    Args:
-        models_dir: Optional directory path to check for trained model checkpoints.
-        pipeline_instance: Optional instantiated pipeline/adapter object.
-        explicit_pipeline_available: Optional explicit boolean flag for pipeline readiness.
-
-    Returns:
-        Dictionary containing detailed availability status flags.
+    - checkpoint_available: True if trained checkpoint files exist on disk
+    - recognition_pipeline_available: Evaluated via RecognitionPipeline.is_available() for requested mode
     """
     m_dir = Path(models_dir) if models_dir is not None else Path("models")
+
+    if pipeline_instance is not None:
+        rec_avail = (
+            bool(pipeline_instance.is_available())
+            if hasattr(pipeline_instance, "is_available") and callable(getattr(pipeline_instance, "is_available"))
+            else False
+        )
+        pipe_mode = getattr(pipeline_instance, "mode", mode)
+    elif explicit_pipeline_available is not None:
+        rec_avail = bool(explicit_pipeline_available)
+        pipe_mode = mode
+    else:
+        try:
+            p = RecognitionPipeline(models_dir=m_dir, mode=mode)
+            rec_avail = p.is_available()
+            pipe_mode = p.mode
+        except Exception:
+            rec_avail = False
+            pipe_mode = mode
 
     checkpoint_files = []
     if m_dir.exists() and m_dir.is_dir():
         for ext in ("*.pt", "*.pth", "*.bin", "*.ckpt"):
             checkpoint_files.extend(list(m_dir.glob(ext)))
+        if (m_dir / "checkpoints").exists():
+            for ext in ("*.pt", "*.pth", "*.bin", "*.ckpt"):
+                checkpoint_files.extend(list((m_dir / "checkpoints").glob(f"**/{ext}")))
 
     checkpoint_files = sorted(list(set(checkpoint_files)))
-    checkpoint_available = len(checkpoint_files) > 0
-    architecture_available = True
-
-    if explicit_pipeline_available is not None:
-        recognition_pipeline_available = bool(explicit_pipeline_available)
-    elif (
-        pipeline_instance is not None
-        and hasattr(pipeline_instance, "is_available")
-        and callable(getattr(pipeline_instance, "is_available"))
-    ):
-        recognition_pipeline_available = bool(pipeline_instance.is_available())
-    else:
-        recognition_pipeline_available = False
 
     return {
-        "architecture_available": architecture_available,
-        "checkpoint_available": checkpoint_available,
-        "recognition_pipeline_available": recognition_pipeline_available,
+        "architecture_available": True,
+        "checkpoint_available": len(checkpoint_files) > 0,
+        "recognition_pipeline_available": rec_avail,
+        "mode": pipe_mode,
         "checkpoint_count": len(checkpoint_files),
         "models_dir": str(m_dir),
     }

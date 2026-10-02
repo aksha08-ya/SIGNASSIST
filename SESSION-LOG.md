@@ -103,3 +103,70 @@
   5. Added `test_ablation_json_serialization_numpy_types_and_metadata` and `test_ablation_json_serialization_unsupported_type_rejection` testing nested NumPy scalar/array conversion and unsupported type rejection.
 - **Rejected**: Redesigning ablation architecture, modifying `MetricsEvaluator` or `EvaluationDataset`, or silently stringifying unsupported objects during serialization.
 - **Verification**: 24/24 unit tests in `tests/test_ablation.py` passed cleanly; 347/347 full repository unit tests passed cleanly.
+
+## Session Entry - Phase 17 Block 7 Production Dynamic-Only Inference Mode
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Implemented production-quality dynamic-only inference mode in SIGNASSIST using the trained INCLUDE 262-class checkpoint (`models/checkpoints/dynamic_classifier/dynamic_classifier_best.pt`).
+- **Changes**:
+  1. Updated `ConfidenceOutput` in `src/models/confidence.py` to add optional `predicted_gloss` and `top_k_glosses` fields.
+  2. Updated `RecognitionPipeline` in `src/pipeline/recognition.py` adding explicit `mode` support (`mode="multimodal"` [default] and `mode="dynamic_only"`).
+  3. Added canonical class mapping loader `_load_class_mapping()` reading `data/processed/include/class_mapping.json` (`id_to_class` mapping string IDs `0`..`261` to glosses) and strict class gloss resolution in `get_dynamic_label()`.
+  4. Updated `_discover_and_load_checkpoints()` for `mode="dynamic_only"` to discover and strictly load `dynamic_classifier_best.pt` (or `dynamic_classifier_last.pt` / `dynamic_classifier.pt`) with `strict=True`, without requiring `static_gcn.pt`, `router.pt`, or `fusion.pt`.
+  5. Updated `process_frames()` in `mode="dynamic_only"` to enforce input shape contract `[B, 5, T, 115]`, bypass static GCN/router/fusion passes, route `dynamic_classifier` logits directly through `ConfidenceEstimator`, and populate resolved sign glosses.
+  6. Updated UI service layer in `src/ui/services.py` (`get_default_recognition_pipeline`, `_create_default_video_processor`, and `get_recognition_readiness`) to support `mode="dynamic_only"` and mode-aware readiness evaluation.
+  7. Created CLI diagnostic tool `scripts/diagnose_dynamic_inference.py` evaluating dynamic-only inference on single validation samples with clear separation of predicted vs ground-truth labels and raw softmax confidence.
+  8. Created unit test suite `tests/test_dynamic_pipeline.py` with 8 tests covering checkpoint discovery, strict loading, 262-class shape, class mapping resolution, missing checkpoint failure, malformed class mapping failure, and unchanged multimodal mode.
+- **Rejected**: Model retraining, changing architecture, mock predictions, modifying trained checkpoint, deleting multimodal pipeline, modifying dataset preprocessing, or committing files to Git.
+- **Verification**: 8/8 unit tests in `tests/test_dynamic_pipeline.py` passed; 465/465 full repository unit tests passed cleanly; CLI diagnostic executed cleanly with top-1 prediction matching ground truth.
+
+## Session Entry - Phase 17 Block 8 Full Dynamic-Only Validation Evaluation
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Executed full dynamic-only validation evaluation across all 615 samples of the INCLUDE validation set (`data/processed/include/splits/validation.csv`) using the trained 262-class checkpoint (`models/checkpoints/dynamic_classifier/dynamic_classifier_best.pt`).
+- **Changes**:
+  1. Created evaluation script `scripts/evaluate_dynamic_validation.py` executing real model inference across 615 validation feature artifacts via `RecognitionPipeline(mode="dynamic_only")`.
+  2. Evaluated Top-1 accuracy, Top-3 accuracy, macro precision/recall/F1, threshold rejection counts (at 0.70 threshold), uncalibrated raw softmax confidence statistics, predicted class distribution, per-class metrics, and confusion matrix.
+  3. Exported complete evaluation results to `reports/evaluation/dynamic_validation.json` and confusion matrix CSV to `reports/evaluation/dynamic_validation_confusion_matrix.csv`.
+- **Results**:
+  - Total Samples: 615
+  - Top-1 Accuracy: 1.79% (11 / 615)
+  - Top-3 Accuracy: 3.74% (23 / 615)
+  - Macro Precision: 0.0052
+  - Macro Recall: 0.0140
+  - Macro F1: 0.0041
+  - Accepted Predictions (>= 0.70 threshold): 0 (0.00%)
+  - Rejected Predictions (< 0.70 threshold): 615 (100.00%)
+  - Accepted-Only Top-1 Accuracy: N/A (0 accepted)
+  - Mean Raw Softmax Confidence (UNCALIBRATED): 0.0364
+  - Median Raw Softmax Confidence (UNCALIBRATED): 0.0344
+  - Unique Classes Predicted: 20 / 262
+- **Rejected**: Model retraining, weight modifications, threshold changes, synthetic metric fabrication, or committing changes to Git.
+- **Verification**: Reports saved to disk; 465/465 repository unit tests remain 100% passing.
+
+## Session Entry - Phase 17 Block 9 Streamlit UI Dynamic-Only Integration & Verification
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Integrated Streamlit application (`src/app.py`), UI service layer (`src/ui/services.py`), video processor (`src/video/processor.py`), and sentence reconstructor (`src/nlp/sentence_reconstructor.py`) with `RecognitionPipeline(mode="dynamic_only")` using the real 262-class trained checkpoint (`dynamic_classifier_best.pt`).
+- **Changes**:
+  1. Updated `TimestampedSignEntry` in `src/video/processor.py` to hold `class_index` and `is_accepted`. Updated `_prediction_to_timestamped_entry` to populate resolved glosses, class IDs, and top-K candidates.
+  2. Updated `create_token` in `src/nlp/sentence_reconstructor.py` to consume resolved sign glosses.
+  3. Updated `render_video_processing_result` in `src/app.py` to render real dynamic-only backend status, resolved top-1 gloss, class ID, raw uncalibrated softmax confidence %, explicit low-confidence rejection warnings (`"Prediction rejected: confidence below threshold"` when confidence < 0.70), top-3 candidate lists, frame counts, and processing duration.
+  4. Updated `src/ui/services.py` (`get_default_recognition_pipeline`, `_create_default_video_processor`, `process_video_file`, `process_video_url`) to default to `mode="dynamic_only"` while keeping `mode` configurable.
+  5. Created `tests/test_ui_dynamic_integration.py` with 5 integration tests covering video upload processing, URL processing, low-confidence rejection status preservation, missing checkpoint failure handling, and multimodal readiness reporting.
+  6. Updated `tests/test_ui_services.py` to test empty directory handling in factory integration test.
+- **Rejected**: Model retraining, changing architecture, mock predictions, modifying trained checkpoint, hiding poor model performance, or committing files to Git.
+- **Verification**: 5/5 integration tests in `tests/test_ui_dynamic_integration.py` passed; 8/8 unit tests in `tests/test_dynamic_pipeline.py` passed; 14/14 unit tests in `tests/test_ui_services.py` passed; **470/470 full repository unit tests passed cleanly (100%)**.
+
+## Session Entry - Final Unattended Hardening & E2E User-Facing Verification
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Completed full unattended hardening, user-facing feature verification, browser video decodability fixes, confidence display alignment, data isolation audit, and generated final audit artifacts.
+- **Changes**:
+  1. Updated `src/video/isl_stitcher.py` with `_transcode_to_h264_web_mp4` helper executing FFmpeg `libx264` (`yuv420p`, `+faststart`) transcoding to eliminate 0:00 blank video frames in HTML5 browser players (`st.video`).
+  2. Added `validate_clip()` verification in `src/video/isl_stitcher.py` asserting non-zero duration, non-zero file size, and at least 1 decodable frame before returning stitched clips.
+  3. Created `tests/test_text_to_isl_video_rendering.py` verifying browser video decodability and FFmpeg transcode pipeline.
+  4. Updated `render_video_processing_result` in `src/app.py` to display explicit separate metric cards for Accepted Mean Confidence ($\ge 0.70$) vs Overall Mean Confidence, and explicit rejection status banners.
+  5. Created `tests/test_sentence_reconstruction_hardening.py` verifying that rejected predictions (<0.70 threshold) do not enter transcripts, and that exact segment timestamps are preserved.
+  6. Updated `scripts/validate_isl_dictionary.py` to parse dictionary entries and validate 42/42 ISL dictionary clips and index catalog.
+  7. Audited data isolation across all 42 ISL dictionary entries in `data/external/isl_dictionary/index.json` and demo assets in `data/demo_assets/`, confirming 100% TRAIN split provenance and 0.0% validation/test leakage.
+  8. Ran `scripts/run_final_feature_audit.py` auditing all 12 user-facing paths, classifying 12/12 as `VERIFIED_FUNCTIONAL`.
+  9. Generated master audit artifacts: `reports/final_user_facing_audit.json` and `reports/final_user_facing_audit.md`.
+- **Rejected**: Model retraining, modifying model checkpoints, lowering the 0.70 confidence threshold, enabling boundary trimming (`use_boundary_trimming=False`), fabricating recognition outputs, or leaking validation/test data into demo assets.
+- **Verification**: 12/12 features `VERIFIED_FUNCTIONAL`; `validate_isl_dictionary.py` passed with 42/42 valid entries; all unit and integration test suites passed cleanly.

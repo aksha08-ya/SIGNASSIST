@@ -64,13 +64,13 @@ def test_process_video_file_default_processor_creation(tmp_path: Path) -> None:
         assert res is mock_result
 
 
-def test_default_video_processor_factory_pipeline_integration() -> None:
+def test_default_video_processor_factory_pipeline_integration(tmp_path: Path) -> None:
     """Tests _create_default_video_processor instantiates RecognitionPipeline adapter without fabricating recognition."""
-    processor = _create_default_video_processor()
+    processor = _create_default_video_processor(models_dir=tmp_path)
 
     assert isinstance(processor, VideoProcessor)
     assert isinstance(processor.recognition_pipeline, RecognitionPipeline)
-    # Since no trained checkpoints exist in repository, default pipeline is unavailable
+    # Since no trained checkpoints exist in empty models_dir, pipeline is unavailable
     assert processor.recognition_pipeline.is_available() is False
 
 

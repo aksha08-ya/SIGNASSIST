@@ -80,9 +80,11 @@ class INCLUDEFeatureDataset(Dataset):
         self.labels = self._load_labels()
 
     def _load_labels(self) -> np.ndarray:
-        """Load canonical label IDs from feature artifacts."""
-        labels = []
+        """Load label IDs from manifest column 'controlled_class_id' if available, else from feature artifacts."""
+        if "controlled_class_id" in self.frame.columns:
+            return self.frame["controlled_class_id"].to_numpy(dtype=np.int64)
 
+        labels = []
         for artifact in self.artifacts:
             if not artifact.exists():
                 labels.append(-1)
@@ -122,7 +124,7 @@ class INCLUDEFeatureDataset(Dataset):
             dynamic_mask = data["dynamic_mask"]
             static = data["static_features"]
             static_mask = data["static_mask"]
-            label_id = int(data["label_id"])
+            npz_label_id = int(data["label_id"])
 
         if dynamic.shape != EXPECTED_DYNAMIC_SHAPE:
             raise ValueError(
@@ -154,17 +156,18 @@ class INCLUDEFeatureDataset(Dataset):
         if not np.isfinite(static).all():
             raise ValueError(f"{artifact.name}: static features contain NaN/Inf")
 
-        expected_label = int(self.labels[index])
-        if label_id != expected_label:
-            raise ValueError(
-                f"{artifact.name}: inconsistent label_id "
-                f"{label_id} != {expected_label}"
-            )
+        target_label = int(self.labels[index])
+        if "controlled_class_id" not in self.frame.columns:
+            if npz_label_id != target_label:
+                raise ValueError(
+                    f"{artifact.name}: inconsistent label_id "
+                    f"{npz_label_id} != {target_label}"
+                )
 
         sample: dict[str, Any] = {
             "dynamic": torch.from_numpy(dynamic[0].astype(np.float32)),
             "dynamic_mask": torch.from_numpy(dynamic_mask[0].astype(bool)),
-            "label": torch.tensor(label_id, dtype=torch.long),
+            "label": torch.tensor(target_label, dtype=torch.long),
             "video_path": str(self.frame.iloc[index]["video_path"]),
         }
 

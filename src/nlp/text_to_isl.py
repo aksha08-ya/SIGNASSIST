@@ -148,32 +148,50 @@ class TextToISLConverter:
         demonstrations: List[ISLDemonstration] = []
         normalized_words: List[str] = []
 
-        for raw_token in raw_tokens:
+        i = 0
+        n_tokens = len(raw_tokens)
+        while i < n_tokens:
+            # 1. Multi-word greedy phrase lookup (up to 4 tokens)
+            matched_phrase = False
+            for span_len in range(min(4, n_tokens - i), 0, -1):
+                phrase_tokens = raw_tokens[i : i + span_len]
+                clean_phrase = " ".join(self._strip_punctuation(t) for t in phrase_tokens if self._strip_punctuation(t))
+                if not clean_phrase:
+                    continue
+
+                entry = self.dictionary.lookup(clean_phrase)
+                if entry is not None:
+                    norm_token = self.dictionary.normalize_term(clean_phrase)
+                    normalized_words.append(norm_token)
+                    demo = ISLDemonstration(
+                        token=clean_phrase,
+                        normalized_token=norm_token,
+                        source=DemonstrationSource.DICTIONARY,
+                        video_path=entry.video_path,
+                        characters=[],
+                        alphabet_video_paths=[],
+                        dictionary_gloss=entry.gloss,
+                        description=entry.description,
+                    )
+                    demonstrations.append(demo)
+                    i += span_len
+                    matched_phrase = True
+                    break
+
+            if matched_phrase:
+                continue
+
+            # 2. Fall back to single token processing if no dictionary phrase matched
+            raw_token = raw_tokens[i]
+            i += 1
             clean_word = self._strip_punctuation(raw_token)
             if not clean_word:
-                # Entire token was punctuation, skip creating demonstration clip
                 continue
 
             norm_token = self.dictionary.normalize_term(clean_word)
             normalized_words.append(norm_token)
 
-            # 1. Dictionary Lookup
-            entry = self.dictionary.lookup(clean_word)
-            if entry is not None:
-                demo = ISLDemonstration(
-                    token=clean_word,
-                    normalized_token=norm_token,
-                    source=DemonstrationSource.DICTIONARY,
-                    video_path=entry.video_path,
-                    characters=[],
-                    alphabet_video_paths=[],
-                    dictionary_gloss=entry.gloss,
-                    description=entry.description,
-                )
-                demonstrations.append(demo)
-                continue
-
-            # 2. Extract uppercase A-Z characters for fingerspelling
+            # 3. Extract uppercase A-Z characters for fingerspelling
             chars = [c.upper() for c in clean_word if c.isalpha()]
             if not chars:
                 demo = ISLDemonstration(

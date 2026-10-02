@@ -1,5 +1,594 @@
 {
   "schema_version": "1.0.0",
-  "description": "SIGNASSIST Indian Sign Language (ISL) Dictionary Index",
-  "entries": []
+  "description": "SIGNASSIST Indian Sign Language (ISL) Dictionary Index - 42 Controlled Classes (STRICT TRAIN SPLIT ONLY)",
+  "entries": [
+    {
+      "gloss": "10. Plane",
+      "video_path": "videos/class_000_MVI_3113.MOV",
+      "aliases": [
+        "Plane",
+        "10  Plane"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.68,
+      "description": "Controlled 42-class ISL demonstration clip for '10. Plane' (Sourced strictly from TRAIN split: MVI_3113.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "12. Truck",
+      "video_path": "videos/class_001_MVI_3119.MOV",
+      "aliases": [
+        "Truck",
+        "12  Truck"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.16,
+      "description": "Controlled 42-class ISL demonstration clip for '12. Truck' (Sourced strictly from TRAIN split: MVI_3119.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "15. Boat",
+      "video_path": "videos/class_002_MVI_3129.MOV",
+      "aliases": [
+        "Boat",
+        "15  Boat"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.48,
+      "description": "Controlled 42-class ISL demonstration clip for '15. Boat' (Sourced strictly from TRAIN split: MVI_3129.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "16. train ticket",
+      "video_path": "videos/class_003_MVI_3132.MOV",
+      "aliases": [
+        "train ticket",
+        "16  train ticket"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.52,
+      "description": "Controlled 42-class ISL demonstration clip for '16. train ticket' (Sourced strictly from TRAIN split: MVI_3132.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "17. Transportation",
+      "video_path": "videos/class_004_MVI_3135.MOV",
+      "aliases": [
+        "Transportation",
+        "17  Transportation"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 4.0,
+      "description": "Controlled 42-class ISL demonstration clip for '17. Transportation' (Sourced strictly from TRAIN split: MVI_3135.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "3. happy",
+      "video_path": "videos/class_005_MVI_5183.MOV",
+      "aliases": [
+        "happy",
+        "3  happy"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.84,
+      "description": "Controlled 42-class ISL demonstration clip for '3. happy' (Sourced strictly from TRAIN split: MVI_5183.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "40. I",
+      "video_path": "videos/class_006_MVI_0001.MOV",
+      "aliases": [
+        "I",
+        "40  I"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Controlled 42-class ISL demonstration clip for '40. I' (Sourced strictly from TRAIN split: MVI_0001.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "41. you",
+      "video_path": "videos/class_007_MVI_0015.MOV",
+      "aliases": [
+        "you",
+        "41  you"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 1.84,
+      "description": "Controlled 42-class ISL demonstration clip for '41. you' (Sourced strictly from TRAIN split: MVI_0015.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "42. he",
+      "video_path": "videos/class_008_MVI_0005.MOV",
+      "aliases": [
+        "he",
+        "42  he"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.0,
+      "description": "Controlled 42-class ISL demonstration clip for '42. he' (Sourced strictly from TRAIN split: MVI_0005.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "43. she",
+      "video_path": "videos/class_009_MVI_0009.MOV",
+      "aliases": [
+        "she",
+        "43  she"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.96,
+      "description": "Controlled 42-class ISL demonstration clip for '43. she' (Sourced strictly from TRAIN split: MVI_0009.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "44. it",
+      "video_path": "videos/class_010_MVI_0013.MOV",
+      "aliases": [
+        "it",
+        "44  it"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Controlled 42-class ISL demonstration clip for '44. it' (Sourced strictly from TRAIN split: MVI_0013.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "46. you (plural)",
+      "video_path": "videos/class_011_MVI_0021.MOV",
+      "aliases": [
+        "you (plural)",
+        "46  you (plural)"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.0,
+      "description": "Controlled 42-class ISL demonstration clip for '46. you (plural)' (Sourced strictly from TRAIN split: MVI_0021.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "47. they",
+      "video_path": "videos/class_012_MVI_0025.MOV",
+      "aliases": [
+        "they",
+        "47  they"
+      ],
+      "category": "Pronouns",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.04,
+      "description": "Controlled 42-class ISL demonstration clip for '47. they' (Sourced strictly from TRAIN split: MVI_0025.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "48. Hello",
+      "video_path": "videos/class_013_MVI_0029.MOV",
+      "aliases": [
+        "Hello",
+        "48  Hello"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.52,
+      "description": "Controlled 42-class ISL demonstration clip for '48. Hello' (Sourced strictly from TRAIN split: MVI_0029.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "49. How are you",
+      "video_path": "videos/class_014_MVI_0033.MOV",
+      "aliases": [
+        "How are you",
+        "49  How are you"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.24,
+      "description": "Controlled 42-class ISL demonstration clip for '49. How are you' (Sourced strictly from TRAIN split: MVI_0033.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "5. Cow",
+      "video_path": "videos/class_015_MVI_2990.MOV",
+      "aliases": [
+        "Cow",
+        "5  Cow"
+      ],
+      "category": "Animals",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.92,
+      "description": "Controlled 42-class ISL demonstration clip for '5. Cow' (Sourced strictly from TRAIN split: MVI_2990.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "50. Alright",
+      "video_path": "videos/class_016_MVI_0037.MOV",
+      "aliases": [
+        "Alright",
+        "50  Alright"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.92,
+      "description": "Controlled 42-class ISL demonstration clip for '50. Alright' (Sourced strictly from TRAIN split: MVI_0037.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "51. Good Morning",
+      "video_path": "videos/class_017_MVI_0042.MOV",
+      "aliases": [
+        "Good Morning",
+        "51  Good Morning"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.4,
+      "description": "Controlled 42-class ISL demonstration clip for '51. Good Morning' (Sourced strictly from TRAIN split: MVI_0042.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "52. Good afternoon",
+      "video_path": "videos/class_018_MVI_0046.MOV",
+      "aliases": [
+        "Good afternoon",
+        "52  Good afternoon"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.64,
+      "description": "Controlled 42-class ISL demonstration clip for '52. Good afternoon' (Sourced strictly from TRAIN split: MVI_0046.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "53. Good evening",
+      "video_path": "videos/class_019_MVI_0001.MOV",
+      "aliases": [
+        "Good evening",
+        "53  Good evening"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.2,
+      "description": "Controlled 42-class ISL demonstration clip for '53. Good evening' (Sourced strictly from TRAIN split: MVI_0001.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "54. Good night",
+      "video_path": "videos/class_020_MVI_0002.MOV",
+      "aliases": [
+        "Good night",
+        "54  Good night"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.24,
+      "description": "Controlled 42-class ISL demonstration clip for '54. Good night' (Sourced strictly from TRAIN split: MVI_0002.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "55. Thank you",
+      "video_path": "videos/class_021_MVI_0006.MOV",
+      "aliases": [
+        "Thank you",
+        "55  Thank you"
+      ],
+      "category": "Greetings",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.12,
+      "description": "Controlled 42-class ISL demonstration clip for '55. Thank you' (Sourced strictly from TRAIN split: MVI_0006.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "56. Grey",
+      "video_path": "videos/class_022_MVI_3746.MOV",
+      "aliases": [
+        "Grey",
+        "56  Grey"
+      ],
+      "category": "Colours",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Controlled 42-class ISL demonstration clip for '56. Grey' (Sourced strictly from TRAIN split: MVI_3746.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "77. Boy",
+      "video_path": "videos/class_023_MVI_3814.MOV",
+      "aliases": [
+        "Boy",
+        "77  Boy"
+      ],
+      "category": "People",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.52,
+      "description": "Controlled 42-class ISL demonstration clip for '77. Boy' (Sourced strictly from TRAIN split: MVI_3814.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "79. short",
+      "video_path": "videos/class_024_MVI_5110.MOV",
+      "aliases": [
+        "short",
+        "79  short"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.48,
+      "description": "Controlled 42-class ISL demonstration clip for '79. short' (Sourced strictly from TRAIN split: MVI_5110.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "80. tall",
+      "video_path": "videos/class_025_MVI_5114.MOV",
+      "aliases": [
+        "tall",
+        "80  tall"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.56,
+      "description": "Controlled 42-class ISL demonstration clip for '80. tall' (Sourced strictly from TRAIN split: MVI_5114.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "81. wide",
+      "video_path": "videos/class_026_MVI_5117.MOV",
+      "aliases": [
+        "wide",
+        "81  wide"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.44,
+      "description": "Controlled 42-class ISL demonstration clip for '81. wide' (Sourced strictly from TRAIN split: MVI_5117.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "82. narrow",
+      "video_path": "videos/class_027_MVI_5120.MOV",
+      "aliases": [
+        "narrow",
+        "82  narrow"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.08,
+      "description": "Controlled 42-class ISL demonstration clip for '82. narrow' (Sourced strictly from TRAIN split: MVI_5120.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "83. big large",
+      "video_path": "videos/class_028_MVI_5123.MOV",
+      "aliases": [
+        "big large",
+        "83  big large"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.16,
+      "description": "Controlled 42-class ISL demonstration clip for '83. big large' (Sourced strictly from TRAIN split: MVI_5123.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "84. small little",
+      "video_path": "videos/class_029_MVI_5126.MOV",
+      "aliases": [
+        "small little",
+        "84  small little"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.32,
+      "description": "Controlled 42-class ISL demonstration clip for '84. small little' (Sourced strictly from TRAIN split: MVI_5126.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "85. slow",
+      "video_path": "videos/class_030_MVI_5130.MOV",
+      "aliases": [
+        "slow",
+        "85  slow"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Controlled 42-class ISL demonstration clip for '85. slow' (Sourced strictly from TRAIN split: MVI_5130.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "86. fast",
+      "video_path": "videos/class_031_MVI_5133.MOV",
+      "aliases": [
+        "fast",
+        "86  fast"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.6,
+      "description": "Controlled 42-class ISL demonstration clip for '86. fast' (Sourced strictly from TRAIN split: MVI_5133.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "89. warm",
+      "video_path": "videos/class_032_MVI_5141.MOV",
+      "aliases": [
+        "warm",
+        "89  warm"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Controlled 42-class ISL demonstration clip for '89. warm' (Sourced strictly from TRAIN split: MVI_5141.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "9. Train",
+      "video_path": "videos/class_033_MVI_3110.MOV",
+      "aliases": [
+        "Train",
+        "9  Train"
+      ],
+      "category": "Means_of_Transportation",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.08,
+      "description": "Controlled 42-class ISL demonstration clip for '9. Train' (Sourced strictly from TRAIN split: MVI_3110.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "92. old",
+      "video_path": "videos/class_034_MVI_5152.MOV",
+      "aliases": [
+        "old",
+        "92  old"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Controlled 42-class ISL demonstration clip for '92. old' (Sourced strictly from TRAIN split: MVI_5152.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "93. young",
+      "video_path": "videos/class_035_MVI_5155.MOV",
+      "aliases": [
+        "young",
+        "93  young"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.64,
+      "description": "Controlled 42-class ISL demonstration clip for '93. young' (Sourced strictly from TRAIN split: MVI_5155.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "94. good",
+      "video_path": "videos/class_036_MVI_5158.MOV",
+      "aliases": [
+        "good",
+        "94  good"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.92,
+      "description": "Controlled 42-class ISL demonstration clip for '94. good' (Sourced strictly from TRAIN split: MVI_5158.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "95. bad",
+      "video_path": "videos/class_037_MVI_5161.MOV",
+      "aliases": [
+        "bad",
+        "95  bad"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.36,
+      "description": "Controlled 42-class ISL demonstration clip for '95. bad' (Sourced strictly from TRAIN split: MVI_5161.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "96. wet",
+      "video_path": "videos/class_038_MVI_5164.MOV",
+      "aliases": [
+        "wet",
+        "96  wet"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 3.32,
+      "description": "Controlled 42-class ISL demonstration clip for '96. wet' (Sourced strictly from TRAIN split: MVI_5164.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "97. dry",
+      "video_path": "videos/class_039_MVI_5167.MOV",
+      "aliases": [
+        "dry",
+        "97  dry"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.72,
+      "description": "Controlled 42-class ISL demonstration clip for '97. dry' (Sourced strictly from TRAIN split: MVI_5167.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "98. sick",
+      "video_path": "videos/class_040_MVI_5170.MOV",
+      "aliases": [
+        "sick",
+        "98  sick"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.8,
+      "description": "Controlled 42-class ISL demonstration clip for '98. sick' (Sourced strictly from TRAIN split: MVI_5170.MOV).",
+      "fingerspelling_available": true
+    },
+    {
+      "gloss": "99. healthy",
+      "video_path": "videos/class_041_MVI_5173.MOV",
+      "aliases": [
+        "healthy",
+        "99  healthy"
+      ],
+      "category": "Adjectives",
+      "source": "INCLUDE_TRAIN",
+      "license": "Academic Open Research",
+      "duration_sec": 2.68,
+      "description": "Controlled 42-class ISL demonstration clip for '99. healthy' (Sourced strictly from TRAIN split: MVI_5173.MOV).",
+      "fingerspelling_available": true
+    }
+  ]
 }

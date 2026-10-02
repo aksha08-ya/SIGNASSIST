@@ -372,3 +372,17 @@ def test_no_recurrent_modules():
             for module in attr().modules():
                 assert not isinstance(module, (nn.LSTM, nn.GRU, nn.RNN, nn.LSTMCell, nn.GRUCell, nn.RNNCell))
 
+
+def test_signer_tracker_canonical_tracks_and_select_signer_signature():
+    """Regression test: verify SignerTrackerOutput exposes 'tracks' and SignerTracker accepts 'track_id'."""
+    box = BoundingBox(xmin=0.1, ymin=0.1, xmax=0.3, ymax=0.3)
+    tracker = SignerTracker()
+    out = tracker.process_frame([box], frame_index=0)
+    assert hasattr(out, "tracks")
+    assert len(out.tracks) == 1
+    # Verify select_signer accepts keyword argument track_id
+    success = tracker.select_signer(track_id=out.tracks[0].track_id)
+    assert success is True
+    assert tracker.manual_primary_id == out.tracks[0].track_id
+
+

@@ -204,3 +204,11 @@ def test_no_recurrent_modules():
         if isinstance(attr, type) and issubclass(attr, nn.Module if hasattr(nn, 'Module') else object):
             for module in attr().modules():
                 assert not isinstance(module, (nn.LSTM, nn.GRU, nn.RNN, nn.LSTMCell, nn.GRUCell, nn.RNNCell))
+
+
+def test_tts_audio_output_canonical_engine_used_attribute():
+    """Regression test: verify TTSAudioOutput exposes canonical 'engine_used' attribute."""
+    output = TTSAudioOutput(audio_bytes=b"123", engine_used="mock")
+    assert hasattr(output, "engine_used")
+    assert output.engine_used == "mock"
+

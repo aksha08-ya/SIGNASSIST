@@ -15,6 +15,7 @@ import logging
 # Bootstrap repository root
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from src.nlp.text_to_isl import DemonstrationSource
 from src.nlp.types import BoundedSignPrediction
 from src.ui import (
     TextToISLResult,
@@ -63,14 +64,23 @@ def make_video_frame_callback(session: WebcamRecognitionSession):
     return video_frame_callback
 
 
-def get_or_create_webcam_session() -> WebcamRecognitionSession:
+def get_or_create_webcam_session(backend: str = "experimental_42") -> WebcamRecognitionSession:
     """Retrieves or initializes the session-scoped WebcamRecognitionSession instance."""
-    if "webcam_session" not in st.session_state or st.session_state["webcam_session"] is None:
-        try:
-            pipeline = get_default_recognition_pipeline()
-        except Exception:
-            pipeline = None
-        st.session_state["webcam_session"] = WebcamRecognitionSession(recognition_pipeline=pipeline)
+    current_session = st.session_state.get("webcam_session")
+    if current_session is not None:
+        current_backend = getattr(current_session, "backend", None)
+        if current_backend is None or not isinstance(current_backend, str) or current_backend == backend:
+            return current_session
+
+    try:
+        pipeline = get_default_recognition_pipeline(backend=backend)
+    except TypeError:
+        pipeline = get_default_recognition_pipeline()
+    except Exception:
+        pipeline = None
+    session = WebcamRecognitionSession(recognition_pipeline=pipeline)
+    session.backend = backend
+    st.session_state["webcam_session"] = session
     return st.session_state["webcam_session"]
 
 
@@ -101,6 +111,8 @@ def extract_prediction_info(pred: Optional[BoundedSignPrediction]) -> Dict[str, 
             conf_score = 0.0
 
     accepted = bool(getattr(p, "is_accepted", True))
+    if not accepted:
+        gloss = "N/A (Rejected)"
 
     top_k_list = []
     top_k_idxs = getattr(p, "top_k_indices", None)
@@ -154,7 +166,11 @@ def render_mode_live_webcam(status_info: dict) -> None:
         )
         return
 
-    session = get_or_create_webcam_session()
+    backend = st.session_state.get("selected_backend", "production")
+    if backend != "production":
+        session = get_or_create_webcam_session(backend=backend)
+    else:
+        session = get_or_create_webcam_session()
     video_callback = make_video_frame_callback(session)
 
     col_stream, col_controls = st.columns([3, 1])
@@ -250,21 +266,25 @@ def render_mode_live_webcam(status_info: dict) -> None:
 
 
 
-def get_or_create_continuous_sentence_session() -> ContinuousSentenceSession:
+def get_or_create_continuous_sentence_session(backend: str = "experimental_42") -> ContinuousSentenceSession:
     """Retrieves or initializes the session-scoped continuous sentence session."""
-    if (
-        "continuous_sentence_session" not in st.session_state
-        or st.session_state["continuous_sentence_session"] is None
-    ):
-        try:
-            pipeline = get_default_recognition_pipeline()
-        except Exception:
-            pipeline = None
+    current_session = st.session_state.get("continuous_sentence_session")
+    if current_session is not None:
+        current_backend = getattr(current_session, "backend", None)
+        if current_backend is None or not isinstance(current_backend, str) or current_backend == backend:
+            return current_session
 
-        webcam_session = WebcamRecognitionSession(recognition_pipeline=pipeline)
-        st.session_state["continuous_sentence_session"] = ContinuousSentenceSession(
-            webcam_session=webcam_session
-        )
+    try:
+        pipeline = get_default_recognition_pipeline(backend=backend)
+    except TypeError:
+        pipeline = get_default_recognition_pipeline()
+    except Exception:
+        pipeline = None
+
+    webcam_session = WebcamRecognitionSession(recognition_pipeline=pipeline)
+    session = ContinuousSentenceSession(webcam_session=webcam_session)
+    session.backend = backend
+    st.session_state["continuous_sentence_session"] = session
 
     return st.session_state["continuous_sentence_session"]
 
@@ -307,7 +327,11 @@ def render_mode_continuous_sentence(status_info: dict) -> None:
         )
         return
 
-    session = get_or_create_continuous_sentence_session()
+    backend = st.session_state.get("selected_backend", "production")
+    if backend != "production":
+        session = get_or_create_continuous_sentence_session(backend=backend)
+    else:
+        session = get_or_create_continuous_sentence_session()
     video_callback = make_continuous_sentence_frame_callback(session)
 
     col_stream, col_controls = st.columns([3, 1])
@@ -485,7 +509,16 @@ def render_video_processing_result(result: Any) -> None:
     # 1. Recognition status banner
     rec_avail = getattr(result, "recognition_available", False)
     if rec_avail:
-        st.success("Recognition backend active.")
+        selected_b = st.session_state.get("selected_backend", "experimental_42")
+        if selected_b == "experimental_42":
+            st.success(
+                "🎯 **Experimental 42-Class Backend — Demo Mode** Active\n\n"
+                "- **Boundary trimming**: OFF | **Calibration**: T=0.68 | **Acceptance threshold**: 0.70"
+            )
+        else:
+            st.warning(
+                "⚠️ **Production — 262 classes** Active (research/experimental; low validation accuracy)"
+            )
     else:
         st.warning(
             "Video processing completed, but the recognition backend is unavailable (standby / no model checkpoint)."
@@ -527,28 +560,53 @@ def render_video_processing_result(result: Any) -> None:
     if manual_signer is not None:
         st.info(f"**Signer Tracking**: Manual Signer ID `{manual_signer}` assigned.")
 
-    # 5. Transcript if genuinely present
+    # 5. Sentence Transcript if genuinely present
     transcript = getattr(result, "transcript", None)
     if transcript is not None and getattr(transcript, "text", "").strip():
         st.markdown("#### 📝 Sentence Transcript")
         st.success(f"**Transcript**: {transcript.text}")
         if hasattr(transcript, "mean_confidence") and transcript.mean_confidence > 0:
-            st.caption(f"Mean Confidence: {transcript.mean_confidence:.2%}")
+            st.caption(f"Mean Raw Softmax Confidence (UNCALIBRATED): {transcript.mean_confidence:.2%}")
 
-    # 6. Timeline entries if present
+    # 6. Timeline & Diagnostic Entries
     timeline = getattr(result, "timeline", []) or []
     if timeline:
-        st.markdown("#### ⏱️ Sign Recognition Timeline")
+        st.markdown("#### ⏱️ Sign Recognition Timeline & Diagnostics")
         timeline_data = []
-        for entry in timeline:
+        for idx, entry in enumerate(timeline, start=1):
+            conf = getattr(entry, "confidence", 0.0)
+            is_acc = getattr(entry, "is_accepted", conf >= 0.70)
+            status_str = "Accepted" if is_acc else "Prediction rejected: confidence below threshold"
+
+            gloss = getattr(entry, "recognized_gloss", "")
+            cls_id = getattr(entry, "class_index", "N/A")
+            top_3 = getattr(entry, "top_3_candidates", [])
+
+            if not is_acc:
+                st.warning(
+                    f"⚠️ **Segment {idx} ({getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')})**: "
+                    f"**Prediction rejected: confidence below threshold** (0.70 threshold).\n\n"
+                    f"- **Predicted Gloss**: `{gloss}`\n"
+                    f"- **Class ID**: `{cls_id}`\n"
+                    f"- **Raw Softmax Confidence (UNCALIBRATED)**: `{conf:.4f}` ({conf * 100:.2f}%)\n"
+                )
+                if top_3:
+                    top_3_str = ", ".join([f"`{g}` ({p * 100:.1f}%)" for g, p in top_3])
+                    st.caption(f"Top-3 Candidates: {top_3_str}")
+            else:
+                st.success(
+                    f"✅ **Segment {idx} ({getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')})**: "
+                    f"**Accepted** (`{gloss}`, Class ID `{cls_id}`, Confidence: `{conf * 100:.2f}%`)"
+                )
+
             timeline_data.append(
                 {
-                    "Start Frame": getattr(entry, "start_frame", 0),
-                    "End Frame": getattr(entry, "end_frame", 0),
+                    "Segment": idx,
                     "Timestamp": f"{getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')}",
-                    "Gloss": getattr(entry, "recognized_gloss", ""),
-                    "Confidence": f"{getattr(entry, 'confidence', 0.0):.2%}",
-                    "Signer Track ID": getattr(entry, "primary_signer_track_id", "N/A"),
+                    "Predicted Gloss": gloss,
+                    "Class ID": cls_id,
+                    "Raw Softmax Confidence": f"{conf * 100:.2f}%",
+                    "Status": status_str,
                 }
             )
         st.dataframe(timeline_data, use_container_width=True)
@@ -577,7 +635,11 @@ def _handle_video_upload(uploaded_file: Any) -> None:
             temp_file.write(content)
             temp_path = Path(temp_file.name)
 
-        result = process_video_file(temp_path)
+        backend = st.session_state.get("selected_backend", "production")
+        if backend != "production":
+            result = process_video_file(temp_path, backend=backend)
+        else:
+            result = process_video_file(temp_path)
 
         st.session_state["latest_video_result"] = result
         st.session_state["processing"] = False
@@ -606,6 +668,44 @@ def render_mode_upload_video(status_info: dict) -> None:
         page_icon="📁",
         description="Upload MP4 or AVI video files for sign language recognition and translation.",
     )
+
+    # Verified Demo Examples helper (TRAIN split only)
+    demo_manifest_path = Path("data/processed/include/demo_assets/index.json")
+    if demo_manifest_path.exists():
+        st.markdown("#### 🧪 Verified Demo Examples (TRAIN Split Only)")
+        try:
+            with open(demo_manifest_path, "r", encoding="utf-8") as f:
+                demo_data = json.load(f)
+            assets = demo_data.get("demo_assets", [])
+        except Exception:
+            assets = []
+
+        if assets:
+            asset_options = {
+                f"Class '{a['label']}' ({Path(a['demo_video_path']).name} - {a['duration_seconds']}s)": a
+                for a in assets
+            }
+            selected_asset_label = st.selectbox(
+                "Select a Verified INCLUDE Training Sample Video:",
+                options=list(asset_options.keys()),
+                key="sb_demo_asset_select",
+            )
+            selected_asset = asset_options[selected_asset_label]
+            sample_demo_path = Path("data/processed/include") / selected_asset["demo_video_path"]
+
+            st.caption(
+                f"**Selected Asset**: `{selected_asset['label']}` | **Path**: `{sample_demo_path}` | **Duration**: `{selected_asset['duration_seconds']}s`"
+            )
+            if st.button(f"▶️ Run Selected Demo Video ('{selected_asset['label']}')", key="btn_run_selected_demo_video"):
+                st.session_state["processing"] = True
+                st.session_state["status_message"] = f"Processing demo video '{selected_asset['label']}'..."
+                selected_b = st.session_state.get("selected_backend", "experimental_42")
+                result = process_video_file(sample_demo_path, backend=selected_b)
+                st.session_state["latest_video_result"] = result
+                st.session_state["processing"] = False
+                st.session_state["status_message"] = "Demo video processing completed."
+        st.markdown("---")
+
     uploaded_file = st.file_uploader(
         "Choose a video file", type=["mp4", "mov", "avi", "mkv", "webm"]
     )
@@ -621,11 +721,15 @@ def render_mode_upload_video(status_info: dict) -> None:
         if result is not None:
             render_video_processing_result(result)
     else:
-        render_empty_state(
-            title="Video Upload Processing",
-            message="Upload a video file above to process frames through the landmark extraction and recognition pipeline.",
-            icon="📁",
-        )
+        result = st.session_state.get("latest_video_result")
+        if result is not None:
+            render_video_processing_result(result)
+        else:
+            render_empty_state(
+                title="Video Upload Processing",
+                message="Upload a video file above or run the Known-Good Demo Test to process frames through the recognition pipeline.",
+                icon="📁",
+            )
 
 
 def _handle_video_url_processing(url: str) -> None:
@@ -635,7 +739,11 @@ def _handle_video_url_processing(url: str) -> None:
     st.session_state["last_error"] = None
 
     try:
-        result = process_video_url(url=url)
+        backend = st.session_state.get("selected_backend", "production")
+        if backend != "production":
+            result = process_video_url(url=url, backend=backend)
+        else:
+            result = process_video_url(url=url)
         st.session_state["latest_video_result"] = result
         st.session_state["last_processed_url"] = url
         st.session_state["processing"] = False
@@ -722,20 +830,34 @@ def render_text_to_isl_result(result: TextToISLResult) -> None:
     with col3:
         st.metric("Unknown Words", result.unknown_count)
 
-    # 2. Included & Skipped Tokens
-    if result.included_tokens:
-        st.markdown(f"**Included Tokens**: `{', '.join(result.included_tokens)}`")
+    # 2. Missing & Included Tokens Handling
+    demos = getattr(result.sequence, "demonstrations", []) or []
+    missing_tokens = []
+    for d in demos:
+        if d.source == DemonstrationSource.UNKNOWN or (d.source == DemonstrationSource.DICTIONARY and not d.video_path):
+            missing_tokens.append(d.token)
+    
     if result.skipped_tokens:
-        st.warning(f"**Skipped / Unknown Tokens**: `{', '.join(result.skipped_tokens)}`")
+        for st_tok in result.skipped_tokens:
+            if st_tok not in missing_tokens:
+                missing_tokens.append(st_tok)
+
+    if missing_tokens:
+        missing_str = ", ".join([f"'{w}'" for w in missing_tokens])
+        st.warning(f"⚠️ **ISL demonstration unavailable for**: {missing_str}")
+        if result.included_tokens:
+            st.info("ℹ️ **Partial Translation**: Stitching video only for available dictionary clips. Missing tokens are omitted from video compilation.")
+
+    if result.included_tokens:
+        st.markdown(f"**Included Words**: `{', '.join(result.included_tokens)}`")
 
     # 3. Demonstration Sequence in Token Order
-    demos = getattr(result.sequence, "demonstrations", [])
     if demos:
         st.markdown("#### 📋 Demonstration Sequence")
         seq_data = []
         for idx, d in enumerate(demos, 1):
             source_str = d.source.value if hasattr(d.source, "value") else str(d.source)
-            detail = d.dictionary_gloss if d.dictionary_gloss else (", ".join(d.characters) if d.characters else "N/A")
+            detail = d.dictionary_gloss if d.dictionary_gloss else (", ".join(d.characters) if d.characters else "Unavailable")
             seq_data.append(
                 {
                     "Step": idx,
@@ -1063,6 +1185,35 @@ def render_mode_research_analytics(status_info: dict) -> None:
         elif res_type == "ablation":
             render_ablation_result_dashboard(res_payload)
     elif uploaded_file is None and not st.session_state.get("research_last_error"):
+        comp_json_path = Path("reports/evaluations/retrieval_hybrid_comparison.json")
+        if comp_json_path.exists():
+            try:
+                with open(comp_json_path, "r", encoding="utf-8") as f:
+                    comp_data = json.load(f)
+                st.markdown("### 🔬 Recognition Strategy Evaluation (Model vs Retrieval vs Hybrid)")
+                st.caption(
+                    f"Evaluated on {comp_data.get('dataset_inventory', {}).get('validation_samples', 126)} validation "
+                    f"and {comp_data.get('dataset_inventory', {}).get('test_samples', 126)} held-out test videos across "
+                    f"{comp_data.get('dataset_inventory', {}).get('controlled_classes', 42)} controlled classes."
+                )
+                
+                val_m = comp_data.get("validation_metrics", {})
+                rows = []
+                for strategy, m in val_m.items():
+                    rows.append({
+                        "Strategy": strategy,
+                        "Validation Top-1 Acc": f"{m.get('top1_accuracy', 0.0):.2f}%",
+                        "Validation Top-3 Acc": f"{m.get('top3_accuracy', 0.0):.2f}%",
+                        "Validation ECE": f"{m.get('ece', 0.0):.4f}",
+                        "Acceptance Rate (>=0.70)": f"{m.get('acceptance_rate', 0.0):.2f}%",
+                        "Accepted Precision": f"{m.get('accepted_precision', 0.0):.2f}%",
+                    })
+                st.dataframe(rows, use_container_width=True)
+                st.info(f"**Selected Default Strategy**: `{comp_data.get('selected_default_mode', 'Model-Only')}` — {comp_data.get('rationale', '')}")
+                st.markdown("---")
+            except Exception as err:
+                logger.warning(f"Could not load retrieval_hybrid_comparison.json: {err}")
+
         checkpoint_count = status_info.get("checkpoint_count", 0)
         render_empty_state(
             title="Research Evaluation Framework",
@@ -1108,10 +1259,32 @@ def main() -> None:
     )
     st.session_state["current_mode"] = selected_mode
 
+    # Sidebar backend selection
+    st.sidebar.markdown("---")
+    st.sidebar.title("Recognition Backend")
+    backend_options = {
+        "experimental_42": "Experimental — 42 classes (Controlled Demo Backend)",
+        "production": "Production — 262 classes (research/experimental; low validation accuracy)",
+    }
+    selected_backend = st.sidebar.radio(
+        "Active Model Backend",
+        options=list(backend_options.keys()),
+        format_func=lambda k: backend_options[k],
+        index=0 if st.session_state.get("selected_backend", "experimental_42") == "experimental_42" else 1,
+        help="Select between Experimental 42-class controlled demo model and Production 262-class research model.",
+    )
+    st.session_state["selected_backend"] = selected_backend
+
+    if selected_backend == "experimental_42":
+        st.sidebar.warning(
+            "⚠️ **Controlled Vocabulary Notice**: The Experimental backend supports only a controlled subset "
+            "of 42 high-frequency ISL classes (min 15 training samples/class). It is NOT a general 262-class ISL translator."
+        )
+
     # Model and checkpoint availability check
     models_dir = getattr(app_config.paths, "models_dir", "models")
     status_info = check_model_availability(models_dir)
-    render_model_status(status_info)
+    render_model_status(status_info, backend=selected_backend)
 
     # Render selected mode page
     if selected_mode == "Live Webcam":

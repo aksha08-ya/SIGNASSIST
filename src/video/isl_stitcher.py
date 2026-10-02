@@ -230,6 +230,15 @@ class ISLVideoStitcher:
         finally:
             writer.release()
 
+        # Transcode to H.264 (yuv420p / faststart) for HTML5 browser compatibility if ffmpeg is available
+        self._transcode_to_h264_web_mp4(out_p)
+
+        # Validate final generated video clip
+        if not self.validate_clip(out_p):
+            raise VideoProcessingError(
+                f"Generated stitched ISL video clip at '{out_p}' is corrupted or unplayable in video player."
+            )
+
         duration_sec = round(total_written_frames / self.output_fps, 4)
 
         return ISLStitchResult(
@@ -243,3 +252,40 @@ class ISLVideoStitcher:
             output_width=self.output_width,
             output_height=self.output_height,
         )
+
+    def _transcode_to_h264_web_mp4(self, raw_path: Path) -> Path:
+        """Transcodes raw OpenCV MP4 output into standard H.264 / yuv420p web-playable MP4 using ffmpeg."""
+        import shutil
+        import subprocess
+        import logging
+        logger = logging.getLogger(__name__)
+
+        ffmpeg_bin = shutil.which("ffmpeg")
+        if not ffmpeg_bin:
+            logger.warning("FFmpeg binary not found on PATH. Output MP4 will use raw OpenCV codec.")
+            return raw_path
+
+        temp_h264 = raw_path.parent / f"{raw_path.stem}_h264{raw_path.suffix}"
+        cmd = [
+            ffmpeg_bin, "-y",
+            "-i", str(raw_path),
+            "-c:v", "libx264",
+            "-pix_fmt", "yuv420p",
+            "-movflags", "+faststart",
+            str(temp_h264),
+        ]
+        try:
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+            if res.returncode == 0 and temp_h264.exists() and temp_h264.stat().st_size > 0:
+                shutil.move(str(temp_h264), str(raw_path))
+                return raw_path
+            else:
+                logger.warning(f"FFmpeg transcoding failed (code {res.returncode}): {res.stderr}")
+                if temp_h264.exists():
+                    temp_h264.unlink()
+        except Exception as e:
+            logger.warning(f"Error executing FFmpeg transcoding: {e}")
+            if temp_h264.exists():
+                temp_h264.unlink()
+
+        return raw_path

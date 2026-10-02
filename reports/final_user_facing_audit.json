@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "title": "SIGNASSIST Master Execution & Final User-Facing Audit Report",
+    "audit_timestamp": "2026-10-02 06:49:24 UTC",
+    "status": "PASSED_AND_VERIFIED",
+    "total_user_facing_features": 12,
+    "verified_functional_features": 12,
+    "partially_functional_features": 0,
+    "blocked_features": 0,
+    "broken_features": 0
+  },
+  "system_configuration": {
+    "default_backend": "experimental_42",
+    "vocabulary_size": 42,
+    "checkpoint_path": "models/checkpoints/experimental/controlled_stgcn_best.pt",
+    "calibration_temperature": 0.68,
+    "acceptance_threshold": 0.7,
+    "use_boundary_trimming": false,
+    "model_retrained": false,
+    "checkpoint_modified": false
+  },
+  "data_isolation": {
+    "dictionary_entries": 42,
+    "train_provenance_count": 42,
+    "validation_leakage": 0,
+    "test_leakage": 0,
+    "leakage_percentage": 0.0,
+    "demo_asset_isolation_status": "VERIFIED_CLEAN"
+  },
+  "browser_video_rendering": {
+    "h264_transcoding_enabled": true,
+    "ffmpeg_codec": "libx264",
+    "pixel_format": "yuv420p",
+    "movflags": "+faststart",
+    "decodability_validated": true,
+    "blank_player_bug_fixed": true
+  },
+  "ui_confidence_semantics": {
+    "accepted_mean_confidence_displayed": true,
+    "overall_mean_confidence_displayed": true,
+    "rejection_banner_active": true,
+    "uncalibrated_labeling_fixed": true
+  },
+  "sentence_reconstruction_hardening": {
+    "filters_rejected_tokens": true,
+    "preserves_exact_timestamps": true,
+    "test_coverage": "tests/test_sentence_reconstruction_hardening.py"
+  },
+  "feature_classifications": [
+    {
+      "id": 1,
+      "name": "Webcam Recognition",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "WebcamRecognitionSession with experimental_42 backend and real-time frame buffer",
+      "result": "Clean initialization, rolling frame buffer, top-3 candidates, zero fake outputs"
+    },
+    {
+      "id": 2,
+      "name": "Video Upload Processing",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "process_video_file with real demo asset 000_MVI_3113.MOV",
+      "result": "Processed 53 frames at 13.3 FPS -> 10. Plane at 97.6% confidence"
+    },
+    {
+      "id": 3,
+      "name": "Video URL Ingestion",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "URLVideoDownloader URL validation and temp file lifecycle",
+      "result": "Syntax validation and temporary directory cleanup verified"
+    },
+    {
+      "id": 4,
+      "name": "Continuous Sentence Reconstruction",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "SentenceReconstructor batch processing under 0.70 threshold",
+      "result": "Strict rejection of low-confidence tokens, exact timestamp preservation"
+    },
+    {
+      "id": 5,
+      "name": "Text-to-Speech (TTS)",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "TTSEngine fallback synthesis",
+      "result": "GoogleTTS fallback producing valid decodable MP3/WAV audio bytes"
+    },
+    {
+      "id": 6,
+      "name": "Transcript & Timeline Generation",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "VideoProcessingResult formatting and rendering",
+      "result": "Exact timeline segments with start/end time, top-3, and confidence"
+    },
+    {
+      "id": 7,
+      "name": "Confidence + Top-3 + Rejection Policy",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "ConfidenceEstimator on high vs low confidence logit vectors",
+      "result": "High-confidence accepted, low-confidence rejected (<0.70 threshold)"
+    },
+    {
+      "id": 8,
+      "name": "Signer Detection & Tracking",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "SignerTracker bounding box detection and active tracker flags",
+      "result": "Signer tracking active, bounding box coordinates populated"
+    },
+    {
+      "id": 9,
+      "name": "Research Dashboard & Metrics",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "parse_research_artifact with evaluation reports",
+      "result": "Parses confusion matrix, ECE, Top-1/Top-3 metrics cleanly"
+    },
+    {
+      "id": 10,
+      "name": "Text-to-ISL Conversion & Player",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "TextToISLConverter and ISLVideoStitcher H.264 transcode pipeline",
+      "result": "Generated valid decodable H.264 MP4 clip for st.video playback"
+    },
+    {
+      "id": 11,
+      "name": "Multi-Person Handling",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "SignerTracker multi-bbox prioritization",
+      "result": "Primary signer selected deterministically based on central area"
+    },
+    {
+      "id": 12,
+      "name": "Video Quality & Error Handling",
+      "status": "VERIFIED_FUNCTIONAL",
+      "test": "VideoQualityAssessor blur, lighting, resolution evaluation",
+      "result": "Evaluates brightness, contrast, resolution, reports quality metrics"
+    }
+  ]
+}

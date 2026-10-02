@@ -106,10 +106,16 @@ class SentenceReconstructor:
         top_k_indices = _to_1d_list(prediction.top_k_indices)
         top_k_probs = _to_1d_list(prediction.top_k_probabilities)
 
-        top_k_glosses = [self.resolve_gloss(int(idx)) for idx in top_k_indices]
+        if getattr(prediction, "top_k_glosses", None):
+            top_k_glosses = prediction.top_k_glosses
+        else:
+            top_k_glosses = [self.resolve_gloss(int(idx)) for idx in top_k_indices]
         top_k_probabilities = [float(p) for p in top_k_probs]
 
-        gloss = self.resolve_gloss(cls_idx)
+        if getattr(prediction, "predicted_gloss", None):
+            gloss = prediction.predicted_gloss
+        else:
+            gloss = self.resolve_gloss(cls_idx)
 
         boundary_ev = segment.boundary_evidence if segment is not None else None
         start_f = segment.start_frame if segment is not None else None

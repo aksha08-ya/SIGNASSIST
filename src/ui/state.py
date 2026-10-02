@@ -5,6 +5,7 @@ import streamlit as st
 
 INITIAL_STATE_DEFAULTS: Dict[str, Any] = {
     "current_mode": "Live Webcam",
+    "selected_backend": "experimental_42",
     "processing": False,
     "transcript": [],
     "prediction_history": [],

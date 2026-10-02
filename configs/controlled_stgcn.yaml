@@ -1,0 +1,30 @@
+# Controlled ST-GCN Experimental Model Training Configuration
+model:
+  name: "ControlledSTGCN"
+  in_channels: 5
+  num_nodes: 115
+  channel_progression: [64, 128, 256, 256]
+  dropout: 0.3
+  classifier_hidden: 256
+  classifier_dropout: 0.2
+  use_transformer: false
+
+data:
+  vocabulary_path: "data/processed/include/vocabulary_initial.json"
+  train_csv: "data/processed/include/controlled/train.csv"
+  val_csv: "data/processed/include/controlled/validation.csv"
+  test_csv: "data/processed/include/controlled/test.csv"
+  feature_root: "data/processed/include/features"
+  include_static: false
+
+training:
+  seed: 42
+  batch_size: 32
+  learning_rate: 3.0e-4
+  weight_decay: 1.0e-4
+  epochs: 30
+  early_stopping_patience: 7
+  class_weighting: false
+  gradient_clipping: 1.0
+  checkpoint_dir: "models/checkpoints/experimental"
+  report_out: "reports/training/controlled_stgcn.json"
