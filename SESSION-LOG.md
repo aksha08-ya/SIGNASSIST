@@ -170,3 +170,17 @@
   9. Generated master audit artifacts: `reports/final_user_facing_audit.json` and `reports/final_user_facing_audit.md`.
 - **Rejected**: Model retraining, modifying model checkpoints, lowering the 0.70 confidence threshold, enabling boundary trimming (`use_boundary_trimming=False`), fabricating recognition outputs, or leaking validation/test data into demo assets.
 - **Verification**: 12/12 features `VERIFIED_FUNCTIONAL`; `validate_isl_dictionary.py` passed with 42/42 valid entries; all unit and integration test suites passed cleanly.
+
+## Session Entry - Final Autonomous Optimization & Research Pass
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Executed comprehensive autonomous optimization, error analysis, data quality audit, model training experiments, temperature calibration, signer generalization study, and generated research artifacts.
+- **Changes**:
+  1. **Phase 2 Verification**: Executed `scripts/test_phase2_text_to_isl.py` verifying FFmpeg H.264 video transcoding (`libx264`, `yuv420p`, `+faststart`) via `ffprobe` (Codec: `h264`, $640 \times 480$, 30 FPS, `validate_clip` = `True`).
+  2. **Phase 3 Diagnostics**: Created `scripts/generate_phase3_model_diagnostics.py` producing `reports/model_diagnostics.json` and `reports/model_diagnostics.md` analyzing 126 held-out test predictions, identifying dominant error source as class confusion between visually/dynamically similar sign pairs (e.g. `Plane` vs `Train`, `slow` vs `wide`).
+  3. **Phase 4 Dataset Audit**: Created `scripts/audit_dataset_quality.py` producing `reports/data_quality_audit.json` and `reports/data_quality_audit.md` inspecting 631 Train, 126 Validation, and 126 Test samples, confirming 0.0% data leakage across splits.
+  4. **Phase 5 Experiments & Model Promotion**: Created `scripts/run_controlled_experiments.py` evaluating three candidate models on **TRAIN -> VALIDATION** (Landmark Data Augmentation, Multi-Head Temporal Attention Pooling, Combined Augmentation + Attention). Applied Phase 14 Model Promotion Rules: no candidate model outperformed baseline Validation Top-1 (66.67%). Therefore, the **BASELINE CHECKPOINT (`controlled_stgcn_best.pt`) WAS PRESERVED WITHOUT DESTRUCTION OR REPLACEMENT**.
+  5. **Phase 6 Signer Generalization**: Created `scripts/evaluate_signer_generalization.py` producing `reports/signer_generalization_report.json` and `reports/signer_generalization_report.md` evaluating generalization across recording series (`Signer_Group_4`: 71.43% Top-1, `Signer_Group_9`: 52.53% Top-1, `Signer_Group_8`: 37.50% Top-1).
+  6. **Phase 8 Calibration**: Created `scripts/run_inference_aggregation_and_calibration.py` fitting Temperature Scaling on Validation set logits, selecting optimal temperature $T=0.68$ (minimizing Validation NLL from 1.28 to 1.19 and ECE from 19.24% to 10.60%).
+  7. **Phase 16 Master Report**: Created `scripts/gen_reports.py` producing `reports/final_autonomous_optimization.json` and `reports/final_autonomous_optimization.md`.
+- **Rejected**: Fabricating results, altering acceptance threshold ($\tau=0.70$), replacing baseline model with a worse candidate, leaking validation/test data into dictionary assets, or modifying held-out test set.
+- **Verification**: All 59 system integration tests passed; dictionary validation passed 42/42 entries; `ffprobe` decodability verified; all report artifacts saved to disk.

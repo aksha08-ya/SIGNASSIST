@@ -1,0 +1,87 @@
+{
+  "metadata": {
+    "title": "SIGNASSIST Final Autonomous Optimization & Research Report",
+    "timestamp": "2026-10-02 07:39:28 UTC",
+    "overall_status": "COMPLETED_AND_VERIFIED",
+    "model_promotion_decision": "PRESERVED_CURRENT_BASELINE",
+    "preserved_checkpoint": "models/checkpoints/experimental/controlled_stgcn_best.pt"
+  },
+  "baseline_reproducibility": {
+    "backend": "experimental_42",
+    "vocabulary_size": 42,
+    "held_out_test_samples": 126,
+    "top1_accuracy": 0.5159,
+    "top3_accuracy": 0.7619,
+    "acceptance_threshold": 0.7,
+    "accepted_precision": 1.0,
+    "calibration_temperature": 0.68,
+    "use_boundary_trimming": false
+  },
+  "phase2_video_decodability": {
+    "ffmpeg_codec": "h264",
+    "pixel_format": "yuv420p",
+    "movflags": "+faststart",
+    "ffprobe_verified": true,
+    "blank_video_bug_fixed": true
+  },
+  "phase3_diagnostics": {
+    "dominant_error": "Class confusion between visually similar dynamic signs",
+    "underconfidence_ratio": "86.15% of correct predictions fell between 0.30 and 0.70 confidence"
+  },
+  "phase4_data_quality": {
+    "data_leakage_status": "VERIFIED_CLEAN",
+    "train_samples": 631,
+    "val_samples": 126,
+    "test_samples": 126
+  },
+  "phase5_model_experiments": [
+    {
+      "exp_id": "EXP1_AUG_SMOOTHING",
+      "exp_name": "Landmark Augmentation + Label Smoothing",
+      "val_top1": 0.6429,
+      "val_top3": 0.8492,
+      "decision": "REJECTED"
+    },
+    {
+      "exp_id": "EXP2_TEMP_ATTN",
+      "exp_name": "Multi-Head Temporal Attention Pooling",
+      "val_top1": 0.6508,
+      "val_top3": 0.8651,
+      "decision": "REJECTED"
+    },
+    {
+      "exp_id": "EXP3_COMBINED",
+      "exp_name": "Combined Augmentation + Attention",
+      "val_top1": 0.6349,
+      "val_top3": 0.8413,
+      "decision": "REJECTED"
+    }
+  ],
+  "phase6_signer_generalization": {
+    "Signer_Group_4": {
+      "total": 7,
+      "top1_accuracy": 0.7143,
+      "top3_accuracy": 1.0
+    },
+    "Signer_Group_9": {
+      "total": 99,
+      "top1_accuracy": 0.5253,
+      "top3_accuracy": 0.8182
+    },
+    "Signer_Group_8": {
+      "total": 16,
+      "top1_accuracy": 0.375,
+      "top3_accuracy": 0.6875
+    }
+  },
+  "phase8_calibration": {
+    "temperature": 0.68,
+    "val_nll": 1.188,
+    "val_ece": 0.106
+  },
+  "phase15_feature_audit": {
+    "total_user_facing_features": 12,
+    "verified_functional": 12,
+    "broken": 0
+  }
+}

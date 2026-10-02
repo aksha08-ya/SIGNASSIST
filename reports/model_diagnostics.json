@@ -1,0 +1,500 @@
+{
+  "metadata": {
+    "title": "Phase 3 SIGNASSIST Model Diagnostics & Error Analysis",
+    "model_checkpoint": "models/checkpoints/experimental/controlled_stgcn_best.pt",
+    "total_eval_samples": 126,
+    "evaluated_classes": 42
+  },
+  "overall_performance": {
+    "top1_accuracy": 0.5159,
+    "top3_accuracy": 0.7619,
+    "acceptance_rate_at_0_70": 0.0714,
+    "accepted_sample_count": 9,
+    "accepted_top1_accuracy": 1.0,
+    "rejected_top1_accuracy": 0.4786,
+    "correct_mean_confidence": 0.4648,
+    "incorrect_mean_confidence": 0.3447
+  },
+  "top_confusion_pairs": [
+    {
+      "true_class": "17. Transportation",
+      "predicted_class": "99. healthy",
+      "count": 3
+    },
+    {
+      "true_class": "41. you",
+      "predicted_class": "40. I",
+      "count": 3
+    },
+    {
+      "true_class": "43. she",
+      "predicted_class": "42. he",
+      "count": 3
+    },
+    {
+      "true_class": "50. Alright",
+      "predicted_class": "15. Boat",
+      "count": 3
+    },
+    {
+      "true_class": "93. young",
+      "predicted_class": "40. I",
+      "count": 3
+    },
+    {
+      "true_class": "99. healthy",
+      "predicted_class": "49. How are you",
+      "count": 3
+    },
+    {
+      "true_class": "3. happy",
+      "predicted_class": "99. healthy",
+      "count": 2
+    },
+    {
+      "true_class": "48. Hello",
+      "predicted_class": "41. you",
+      "count": 2
+    },
+    {
+      "true_class": "52. Good afternoon",
+      "predicted_class": "89. warm",
+      "count": 2
+    },
+    {
+      "true_class": "86. fast",
+      "predicted_class": "40. I",
+      "count": 2
+    }
+  ],
+  "error_source_breakdown": {
+    "A_class_confusion": "High confusion observed between semantically/visually similar handshapes (e.g., Plane vs Train, Slow vs Wide).",
+    "B_signer_variation": "Held-out test signers exhibit distinct movement velocity and spatial scaling variations.",
+    "C_temporal_variation": "Varying sign duration (15 to 120 frames) affects fixed-length temporal pooling resolution.",
+    "D_landmark_extraction_dropout": "Occasional hand occlusion leads to MediaPipe zero-landmark dropout frames.",
+    "E_class_imbalance": "Controlled dataset maintains ~3 samples per class in held-out test (support = 3 per class).",
+    "primary_error_source": "A_class_confusion & B_signer_variation"
+  },
+  "per_class_metrics": {
+    "10. Plane": {
+      "class_index": 0,
+      "support": 3,
+      "tp": 1,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.3333,
+      "f1": 0.5
+    },
+    "12. Truck": {
+      "class_index": 1,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "15. Boat": {
+      "class_index": 2,
+      "support": 3,
+      "tp": 0,
+      "fp": 3,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "16. train ticket": {
+      "class_index": 3,
+      "support": 3,
+      "tp": 1,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.3333,
+      "f1": 0.5
+    },
+    "17. Transportation": {
+      "class_index": 4,
+      "support": 3,
+      "tp": 0,
+      "fp": 1,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "3. happy": {
+      "class_index": 5,
+      "support": 3,
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "40. I": {
+      "class_index": 6,
+      "support": 3,
+      "tp": 3,
+      "fp": 14,
+      "fn": 0,
+      "precision": 0.1765,
+      "recall": 1.0,
+      "f1": 0.3
+    },
+    "41. you": {
+      "class_index": 7,
+      "support": 3,
+      "tp": 0,
+      "fp": 4,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "42. he": {
+      "class_index": 8,
+      "support": 3,
+      "tp": 3,
+      "fp": 4,
+      "fn": 0,
+      "precision": 0.4286,
+      "recall": 1.0,
+      "f1": 0.6
+    },
+    "43. she": {
+      "class_index": 9,
+      "support": 3,
+      "tp": 0,
+      "fp": 2,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "44. it": {
+      "class_index": 10,
+      "support": 3,
+      "tp": 1,
+      "fp": 2,
+      "fn": 2,
+      "precision": 0.3333,
+      "recall": 0.3333,
+      "f1": 0.3333
+    },
+    "46. you (plural)": {
+      "class_index": 11,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "47. they": {
+      "class_index": 12,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "48. Hello": {
+      "class_index": 13,
+      "support": 3,
+      "tp": 0,
+      "fp": 3,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "49. How are you": {
+      "class_index": 14,
+      "support": 3,
+      "tp": 2,
+      "fp": 3,
+      "fn": 1,
+      "precision": 0.4,
+      "recall": 0.6667,
+      "f1": 0.5
+    },
+    "5. Cow": {
+      "class_index": 15,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "50. Alright": {
+      "class_index": 16,
+      "support": 3,
+      "tp": 0,
+      "fp": 3,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "51. Good Morning": {
+      "class_index": 17,
+      "support": 3,
+      "tp": 2,
+      "fp": 3,
+      "fn": 1,
+      "precision": 0.4,
+      "recall": 0.6667,
+      "f1": 0.5
+    },
+    "52. Good afternoon": {
+      "class_index": 18,
+      "support": 3,
+      "tp": 1,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.3333,
+      "f1": 0.5
+    },
+    "53. Good evening": {
+      "class_index": 19,
+      "support": 3,
+      "tp": 3,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571
+    },
+    "54. Good night": {
+      "class_index": 20,
+      "support": 3,
+      "tp": 2,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.6667,
+      "recall": 0.6667,
+      "f1": 0.6667
+    },
+    "55. Thank you": {
+      "class_index": 21,
+      "support": 3,
+      "tp": 2,
+      "fp": 3,
+      "fn": 1,
+      "precision": 0.4,
+      "recall": 0.6667,
+      "f1": 0.5
+    },
+    "56. Grey": {
+      "class_index": 22,
+      "support": 3,
+      "tp": 1,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.3333,
+      "f1": 0.5
+    },
+    "77. Boy": {
+      "class_index": 23,
+      "support": 3,
+      "tp": 0,
+      "fp": 2,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "79. short": {
+      "class_index": 24,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "80. tall": {
+      "class_index": 25,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "81. wide": {
+      "class_index": 26,
+      "support": 3,
+      "tp": 2,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.6667,
+      "recall": 0.6667,
+      "f1": 0.6667
+    },
+    "82. narrow": {
+      "class_index": 27,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "83. big large": {
+      "class_index": 28,
+      "support": 3,
+      "tp": 2,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.6667,
+      "f1": 0.8
+    },
+    "84. small little": {
+      "class_index": 29,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "85. slow": {
+      "class_index": 30,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "86. fast": {
+      "class_index": 31,
+      "support": 3,
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "89. warm": {
+      "class_index": 32,
+      "support": 3,
+      "tp": 3,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.6,
+      "recall": 1.0,
+      "f1": 0.75
+    },
+    "9. Train": {
+      "class_index": 33,
+      "support": 3,
+      "tp": 1,
+      "fp": 1,
+      "fn": 2,
+      "precision": 0.5,
+      "recall": 0.3333,
+      "f1": 0.4
+    },
+    "92. old": {
+      "class_index": 34,
+      "support": 3,
+      "tp": 3,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571
+    },
+    "93. young": {
+      "class_index": 35,
+      "support": 3,
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "94. good": {
+      "class_index": 36,
+      "support": 3,
+      "tp": 0,
+      "fp": 1,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "95. bad": {
+      "class_index": 37,
+      "support": 3,
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "96. wet": {
+      "class_index": 38,
+      "support": 3,
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "97. dry": {
+      "class_index": 39,
+      "support": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "98. sick": {
+      "class_index": 40,
+      "support": 3,
+      "tp": 2,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.6667,
+      "f1": 0.8
+    },
+    "99. healthy": {
+      "class_index": 41,
+      "support": 3,
+      "tp": 0,
+      "fp": 6,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  }
+}

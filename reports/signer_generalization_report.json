@@ -1,0 +1,87 @@
+{
+  "metadata": {
+    "title": "Phase 6 Signer Generalization Evaluation Report",
+    "eval_split": "test.csv (126 samples)",
+    "total_signer_groups": 8
+  },
+  "signer_group_counts": {
+    "Signer_Group_3": {
+      "train": 115,
+      "validation": 7,
+      "test": 0,
+      "total": 122
+    },
+    "Signer_Group_5": {
+      "train": 164,
+      "validation": 6,
+      "test": 4,
+      "total": 174
+    },
+    "Signer_Group_9": {
+      "train": 181,
+      "validation": 99,
+      "test": 99,
+      "total": 379
+    },
+    "Signer_Group_0": {
+      "train": 149,
+      "validation": 0,
+      "test": 0,
+      "total": 149
+    },
+    "Signer_Group_2": {
+      "train": 3,
+      "validation": 0,
+      "test": 0,
+      "total": 3
+    },
+    "Signer_Group_Other": {
+      "train": 4,
+      "validation": 0,
+      "test": 0,
+      "total": 4
+    },
+    "Signer_Group_4": {
+      "train": 15,
+      "validation": 14,
+      "test": 7,
+      "total": 36
+    },
+    "Signer_Group_8": {
+      "train": 0,
+      "validation": 0,
+      "test": 16,
+      "total": 16
+    }
+  },
+  "test_performance_by_signer_group": {
+    "Signer_Group_4": {
+      "total": 7,
+      "top1_correct": 5,
+      "top3_correct": 7,
+      "top1_accuracy": 0.7143,
+      "top3_accuracy": 1.0
+    },
+    "Signer_Group_8": {
+      "total": 16,
+      "top1_correct": 6,
+      "top3_correct": 11,
+      "top1_accuracy": 0.375,
+      "top3_accuracy": 0.6875
+    },
+    "Signer_Group_9": {
+      "total": 99,
+      "top1_correct": 52,
+      "top3_correct": 81,
+      "top1_accuracy": 0.5253,
+      "top3_accuracy": 0.8182
+    },
+    "Signer_Group_5": {
+      "total": 4,
+      "top1_correct": 1,
+      "top3_correct": 1,
+      "top1_accuracy": 0.25,
+      "top3_accuracy": 0.25
+    }
+  }
+}

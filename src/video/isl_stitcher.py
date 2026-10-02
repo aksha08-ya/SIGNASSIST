@@ -158,7 +158,7 @@ class ISLVideoStitcher:
         Returns:
             ISLStitchResult containing operational metadata and video properties.
         """
-        out_p = Path(output_path)
+        out_p = Path(output_path).resolve()
         out_p.parent.mkdir(parents=True, exist_ok=True)
 
         included_tokens: List[str] = []
