@@ -36,13 +36,20 @@ class WebcamSessionResult:
     frames_valid_landmarks: int = 0
     frames_rejected_landmarks: int = 0
     current_buffer_count: int = 0
+    max_buffer_size: int = 120
+    history_count: int = 0
+    max_history_count: int = 100
+    session_creation_count: int = 1
     window_size: int = 60
     inference_errors: int = 0
     rejection_reason: str = "N/A"
+    last_evaluated_prediction: Optional[BoundedSignPrediction] = None
 
 
 class WebcamRecognitionSession:
     """Thread-safe, Streamlit-independent rolling window webcam recognition session."""
+
+    _creation_counter: int = 0
 
     def __init__(
         self,
@@ -51,6 +58,9 @@ class WebcamRecognitionSession:
         stride: int = 15,
         target_fps: float = 30.0,
         duplicate_suppression_window: float = 1.0,
+        min_agreeing: int = 3,
+        max_prediction_history: int = 100,
+        max_buffer_size: int = 120,
     ) -> None:
         """Initializes webcam recognition session.
 
@@ -60,15 +70,27 @@ class WebcamRecognitionSession:
             stride: Number of new frames added per recognition step (default 15).
             target_fps: Target video frame rate for timestamp computation (default 30.0).
             duplicate_suppression_window: Temporal window in seconds for duplicate sign suppression.
+            min_agreeing: Minimum agreeing predictions for temporal consensus (default 3).
+            max_prediction_history: Maximum stored predictions in history (default 100).
+            max_buffer_size: Maximum stored raw frames in rolling buffer (default 120).
         """
+        WebcamRecognitionSession._creation_counter += 1
+        self.session_creation_id = WebcamRecognitionSession._creation_counter
         self._lock = threading.Lock()
         self.pipeline = recognition_pipeline
         self.window_size = int(window_size) if window_size > 0 else 60
         self.stride = int(stride) if stride > 0 else 15
         self.target_fps = float(target_fps) if target_fps > 0 else 30.0
         self.duplicate_suppression_window = float(duplicate_suppression_window)
+        self.min_agreeing = int(min_agreeing) if min_agreeing > 0 else 1
+        self.max_prediction_history = int(max_prediction_history) if max_prediction_history > 0 else 100
+        self.max_buffer_size = int(max_buffer_size) if max_buffer_size > 0 else 120
 
         # Session state variables
+        from src.nlp.duplicate_suppressor import TemporalConsensusFilter
+        self.consensus_filter = TemporalConsensusFilter(
+            window_size=5, min_agreeing=self.min_agreeing, min_confidence=0.70
+        )
         self._frame_buffer: List[np.ndarray] = []
         self._total_frames_received = 0
         self._frames_converted = 0
@@ -80,6 +102,7 @@ class WebcamRecognitionSession:
         self._last_latency_ms = 0.0
         self._prediction_history: List[BoundedSignPrediction] = []
         self._latest_prediction: Optional[BoundedSignPrediction] = None
+        self._last_evaluated_prediction: Optional[BoundedSignPrediction] = None
         self._start_time: Optional[float] = None
         self._status = "idle"
         self._rejection_reason = "No frames received yet"
@@ -89,6 +112,8 @@ class WebcamRecognitionSession:
     def reset(self) -> None:
         """Resets frame buffer, prediction history, counters, and timing state."""
         with self._lock:
+            if hasattr(self, "consensus_filter"):
+                self.consensus_filter.reset()
             self._frame_buffer.clear()
             self._total_frames_received = 0
             self._frames_converted = 0
@@ -100,6 +125,7 @@ class WebcamRecognitionSession:
             self._last_latency_ms = 0.0
             self._prediction_history.clear()
             self._latest_prediction = None
+            self._last_evaluated_prediction = None
             self._start_time = None
             self._rejection_reason = "No inference windows evaluated yet"
 
@@ -155,8 +181,10 @@ class WebcamRecognitionSession:
             if self._start_time is None:
                 self._start_time = time.perf_counter()
 
-            # Store frame copy in rolling buffer
+            # Store frame copy in rolling buffer and enforce hard max_buffer_size bound
             self._frame_buffer.append(frame.copy())
+            if len(self._frame_buffer) > self.max_buffer_size:
+                self._frame_buffer = self._frame_buffer[-self.max_buffer_size:]
 
             # Check if rolling window is complete
             if len(self._frame_buffer) >= self.window_size:
@@ -208,21 +236,34 @@ class WebcamRecognitionSession:
                     self._last_latency_ms = (t1 - t0) * 1000.0
                     self._processed_windows += 1
 
-                    # Process predictions with duplicate suppression
+                    # Process predictions with temporal consensus and duplicate suppression
                     if raw_preds:
                         for pred in raw_preds:
                             if isinstance(pred, BoundedSignPrediction):
+                                self._last_evaluated_prediction = pred
                                 is_acc = bool(getattr(pred.prediction, "is_accepted", True)) if pred.prediction else False
                                 conf_val = getattr(pred.prediction, "confidence", 0.0) if pred.prediction else 0.0
                                 conf_float = float(conf_val.item()) if hasattr(conf_val, "item") else float(conf_val)
-                                if not is_acc:
-                                    self._rejection_reason = f"Confidence {conf_float * 100:.1f}% below 0.70 threshold"
-                                else:
-                                    self._rejection_reason = f"Accepted by confidence policy (≥0.70)"
+                                cls_val = getattr(pred.prediction, "predicted_class", 0) if pred.prediction else 0
+                                cls_id = int(cls_val.item()) if hasattr(cls_val, "item") else int(cls_val)
+                                gloss = getattr(pred.prediction, "predicted_gloss", f"SIGN_{cls_id}")
 
-                                if not self._is_duplicate(pred):
-                                    self._prediction_history.append(pred)
-                                    self._latest_prediction = pred
+                                consensus_res = self.consensus_filter.add_prediction(
+                                    class_id=cls_id, gloss=gloss, confidence=conf_float, is_accepted=is_acc
+                                )
+
+                                if consensus_res is not None:
+                                    if not self._is_duplicate(pred):
+                                        self._prediction_history.append(pred)
+                                        if len(self._prediction_history) > self.max_prediction_history:
+                                            self._prediction_history = self._prediction_history[-self.max_prediction_history:]
+                                        self._latest_prediction = pred
+                                        self._rejection_reason = f"ACCEPTED: {self.min_agreeing}-of-5 temporal consensus met ({gloss})"
+                                else:
+                                    if not is_acc or conf_float < 0.70:
+                                        self._rejection_reason = f"Confidence {conf_float * 100:.1f}% below 0.70 threshold"
+                                    else:
+                                        self._rejection_reason = f"Awaiting {self.min_agreeing}-of-5 temporal consensus agreement"
                     else:
                         if self._status != "unavailable":
                             self._rejection_reason = "No valid sign segment or prediction generated for window"
@@ -298,6 +339,10 @@ class WebcamRecognitionSession:
             frames_valid_landmarks=self._frames_valid_landmarks,
             frames_rejected_landmarks=self._frames_rejected_landmarks,
             current_buffer_count=len(self._frame_buffer),
+            max_buffer_size=self.max_buffer_size,
+            history_count=len(self._prediction_history),
+            max_history_count=self.max_prediction_history,
+            session_creation_count=self.session_creation_id,
             window_size=self.window_size,
             processed_windows=self._processed_windows,
             inference_errors=self._inference_errors,
@@ -306,4 +351,5 @@ class WebcamRecognitionSession:
             latest_prediction=self._latest_prediction,
             prediction_history=list(self._prediction_history),
             rejection_reason=self._rejection_reason,
+            last_evaluated_prediction=self._last_evaluated_prediction,
         )

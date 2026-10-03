@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "audit_timestamp": "2026-10-02 06:46:37",
+    "audit_timestamp": "2026-10-02 11:42:53",
     "total_features_audited": 12,
     "classification_summary": {
       "VERIFIED_FUNCTIONAL": 12,
@@ -42,7 +42,7 @@
       "feature_name": "2. Video Upload Processing",
       "classification": "VERIFIED_FUNCTIONAL",
       "actual_test_performed": "Processed sample video file (MVI_4175.MOV) through process_video_file service with experimental_42 backend (use_boundary_trimming=False).",
-      "exact_result": "Processed 53 frames at 13.3 FPS. Output gloss: '10. Plane' (Conf: 97.6%).",
+      "exact_result": "Processed 53 frames at 11.1 FPS. Output gloss: '10. Plane' (Conf: 97.6%).",
       "evidence": "result.timeline length = 1, recognized_gloss = '10. Plane', confidence = 0.9758.",
       "blocker": null,
       "fixable_before_tomorrow_evening": true,

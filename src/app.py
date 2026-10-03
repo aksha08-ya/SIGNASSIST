@@ -25,7 +25,6 @@ from src.ui import (
     get_default_recognition_pipeline,
     get_ui_config,
     init_session_state,
-    parse_research_artifact,
     process_video_file,
     process_video_url,
     render_empty_state,
@@ -45,7 +44,6 @@ APPLICATION_MODES: List[str] = [
     "Upload Video",
     "Video URL",
     "Text → ISL",
-    "Research Analytics",
 ]
 
 
@@ -88,7 +86,7 @@ def get_or_create_webcam_session(backend: str = "experimental_42") -> WebcamReco
 def extract_prediction_info(pred: Optional[BoundedSignPrediction]) -> Dict[str, Any]:
     """Extracts UI-displayable gloss, confidence, class index, and top-3 candidates from BoundedSignPrediction."""
     if pred is None or getattr(pred, "prediction", None) is None:
-        return {"gloss": "N/A", "confidence": 0.0, "top_k": [], "accepted": False}
+        return {"gloss": "N/A", "raw_gloss": "N/A", "confidence": 0.0, "top_k": [], "accepted": False}
 
     p = pred.prediction
 
@@ -100,7 +98,7 @@ def extract_prediction_info(pred: Optional[BoundedSignPrediction]) -> Dict[str, 
     else:
         cls_idx = 0
 
-    gloss = getattr(p, "predicted_gloss", None) or f"Sign #{cls_idx}"
+    raw_gloss = getattr(p, "predicted_gloss", None) or f"Sign #{cls_idx}"
 
     conf_val = getattr(p, "confidence", 0.0)
     if hasattr(conf_val, "item"):
@@ -112,8 +110,7 @@ def extract_prediction_info(pred: Optional[BoundedSignPrediction]) -> Dict[str, 
             conf_score = 0.0
 
     accepted = bool(getattr(p, "is_accepted", True))
-    if not accepted:
-        gloss = "N/A (Rejected)"
+    gloss = raw_gloss if accepted else f"{raw_gloss} (Candidate / Rejected)"
 
     top_k_list = []
     top_k_idxs = getattr(p, "top_k_indices", None)
@@ -142,6 +139,7 @@ def extract_prediction_info(pred: Optional[BoundedSignPrediction]) -> Dict[str, 
 
     return {
         "gloss": gloss,
+        "raw_gloss": raw_gloss,
         "class_index": cls_idx,
         "confidence": conf_score,
         "top_k": top_k_list,
@@ -198,6 +196,8 @@ def render_mode_live_webcam(status_info: dict) -> None:
 
     res = session.get_result()
     info = extract_prediction_info(res.latest_prediction)
+    last_eval_pred = getattr(res, "last_evaluated_prediction", None)
+    eval_info = extract_prediction_info(last_eval_pred) if last_eval_pred else None
 
     if not res.recognition_available:
         st.warning(
@@ -233,6 +233,9 @@ def render_mode_live_webcam(status_info: dict) -> None:
     with d_col6:
         st.metric("Inference Windows", res.processed_windows if is_playing else 0)
 
+    has_accepted_pred = bool(is_playing and res.latest_prediction is not None and info.get("accepted", False) and info.get("gloss") != "N/A")
+    has_candidate_pred = bool(is_playing and not has_accepted_pred and eval_info is not None and eval_info.get("raw_gloss", "N/A") != "N/A")
+
     # Row 2: Model Performance & Latest Prediction
     m_col1, m_col2, m_col3, m_col4, m_col5, m_col6 = st.columns(6)
     with m_col1:
@@ -240,22 +243,43 @@ def render_mode_live_webcam(status_info: dict) -> None:
     with m_col2:
         st.metric("Latency", f"{res.last_latency_ms:.1f} ms" if is_playing else "0.0 ms")
     with m_col3:
-        st.metric("Latest Sign", info["gloss"] if is_playing else "N/A")
+        if has_accepted_pred:
+            st.metric("Latest Sign", info["raw_gloss"])
+        elif has_candidate_pred:
+            st.metric("Candidate Sign", f"{eval_info['raw_gloss']} (Candidate / Rejected)")
+        else:
+            st.metric("Latest Sign", "N/A")
     with m_col4:
-        conf_label = "Calibrated Conf" if selected_b == "experimental_42" else "Raw Conf"
-        conf_val = f"{info['confidence'] * 100:.1f}%" if (is_playing and info["gloss"] != "N/A") else "N/A"
+        if has_accepted_pred:
+            conf_label = "Calibrated Conf" if selected_b == "experimental_42" else "Raw Conf"
+            conf_val = f"{info['confidence'] * 100:.1f}%"
+        elif has_candidate_pred:
+            conf_label = "Candidate Confidence"
+            conf_val = f"{eval_info['confidence'] * 100:.1f}%"
+        else:
+            conf_label = "Calibrated Conf" if selected_b == "experimental_42" else "Raw Conf"
+            conf_val = "N/A"
         st.metric(conf_label, conf_val)
     with m_col5:
-        decision_label = "ACCEPTED" if (is_playing and info["accepted"] and info["gloss"] != "N/A") else ("REJECTED" if is_playing else "N/A")
+        if has_accepted_pred:
+            decision_label = "ACCEPTED"
+        elif has_candidate_pred:
+            decision_label = "REJECTED"
+        elif is_playing:
+            decision_label = "REJECTED"
+        else:
+            decision_label = "N/A"
         st.metric("Decision", decision_label)
     with m_col6:
         reason_str = getattr(res, "rejection_reason", "N/A") if is_playing else "Camera Idle"
         st.caption(f"**Policy Reason**: `{reason_str}`")
 
-    if is_playing and info["top_k"]:
-        st.markdown("#### 🎯 Top-3 Candidates")
-        cand_cols = st.columns(len(info["top_k"]))
-        for idx, (label, prob) in enumerate(info["top_k"]):
+    display_top_k = info["top_k"] if has_accepted_pred else (eval_info["top_k"] if has_candidate_pred else [])
+    if display_top_k:
+        top_k_title = "🎯 Top-3 Candidates" if has_accepted_pred else "🎯 Top-3 Candidates (Candidate / Rejected)"
+        st.markdown(f"#### {top_k_title}")
+        cand_cols = st.columns(len(display_top_k))
+        for idx, (label, prob) in enumerate(display_top_k):
             with cand_cols[idx]:
                 st.metric(f"Rank {idx+1}: {label}", f"{prob * 100:.1f}%")
 
@@ -520,108 +544,77 @@ def render_mode_continuous_sentence(status_info: dict) -> None:
         st.rerun()
 
 
-def render_video_processing_result(result: Any) -> None:
-    """Displays VideoProcessingResult fields in a structured Streamlit summary layout."""
-    st.markdown("### 📊 Processing Results")
+def render_combined_video_intelligence_results(
+    local_result: Any,
+    ai_result: Optional[Dict[str, Any]] = None,
+    video_path: Optional[Union[str, Path]] = None,
+) -> None:
+    """Displays structured, separated output for local ST-GCN, AI analysis, Research Grounding, and Final Interpretation."""
+    st.markdown("---")
+    st.markdown("## 🧭 Multimodal Video Interpretation Results")
 
     selected_b = st.session_state.get("selected_backend", "experimental_42")
 
-    # 1. Recognition status banner
-    rec_avail = getattr(result, "recognition_available", False)
+    # ==========================================
+    # SECTION A: SIGNASSIST LOCAL MODEL
+    # ==========================================
+    st.markdown("### A. 🎯 SIGNASSIST Local Recognition Model")
+
+    rec_avail = getattr(local_result, "recognition_available", False)
     if rec_avail:
         if selected_b == "experimental_42":
             st.success(
                 "🎯 **Experimental 42-Class Backend — Demo Mode** Active\n\n"
-                "- **Boundary trimming**: OFF | **Calibration**: T=0.68 | **Acceptance threshold**: 0.70"
+                "- **Supported Vocabulary**: 42 Controlled Classes\n"
+                "- **Boundary Trimming**: OFF | **Calibration**: T=0.68 | **Acceptance Threshold**: 0.70"
             )
         else:
-            st.warning(
-                "⚠️ **Production — 262 classes** Active (research/experimental; low validation accuracy)"
-            )
+            st.warning("⚠️ **Production — 262 classes** Active (research/experimental; low validation accuracy)")
     else:
-        st.warning(
-            "Video processing completed, but the recognition backend is unavailable (standby / no model checkpoint)."
-        )
+        st.warning("Local recognition backend unavailable (standby / no model checkpoint).")
 
-    # 2. Key Metrics
+    # Key Metrics
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Frames Processed", getattr(result, "frames_processed", 0))
+        st.metric("Frames Processed", getattr(local_result, "frames_processed", 0))
     with col2:
-        fps = getattr(result, "processing_fps", 0.0)
+        fps = getattr(local_result, "processing_fps", 0.0)
         st.metric("Processing FPS", f"{fps:.1f}")
     with col3:
-        exec_sec = getattr(result, "execution_seconds", 0.0)
+        exec_sec = getattr(local_result, "execution_seconds", 0.0)
         st.metric("Execution Time", f"{exec_sec:.2f} s")
     with col4:
         st.metric("Recognition Status", "Active" if rec_avail else "Standby")
 
-    # 3. Quality Report if present
-    quality = getattr(result, "quality_report", None)
+    # Quality Report if present
+    quality = getattr(local_result, "quality_report", None)
     if quality is not None:
-        st.markdown("#### 🎥 Video Quality Assessment")
+        st.markdown("#### 🎥 Local Video Quality Assessment")
         q_col1, q_col2, q_col3, q_col4 = st.columns(4)
         with q_col1:
             st.metric("Overall Rating", getattr(quality, "overall_rating", "N/A"))
         with q_col2:
-            brightness = getattr(quality, "average_brightness", 0.0)
-            st.metric("Brightness", f"{brightness:.1f}")
+            st.metric("Brightness", f"{getattr(quality, 'average_brightness', 0.0):.1f}")
         with q_col3:
-            contrast = getattr(quality, "average_contrast", 0.0)
-            st.metric("Contrast", f"{contrast:.1f}")
+            st.metric("Contrast", f"{getattr(quality, 'average_contrast', 0.0):.1f}")
         with q_col4:
-            blur = getattr(quality, "average_blur_score", 0.0)
-            st.metric("Sharpness (Blur)", f"{blur:.1f}")
+            st.metric("Sharpness (Blur)", f"{getattr(quality, 'average_blur_score', 0.0):.1f}")
 
-    # 4. Signer / Tracking Information if present
-    meta = getattr(result, "additional_metadata", {}) or {}
-    manual_signer = meta.get("manual_signer_id")
-    if manual_signer is not None:
-        st.info(f"**Signer Tracking**: Manual Signer ID `{manual_signer}` assigned.")
-
-    # 5. Sentence Transcript if genuinely present
-    transcript = getattr(result, "transcript", None)
-    if transcript is not None and getattr(transcript, "text", "").strip():
-        st.markdown("#### 📝 Sentence Transcript")
-        st.success(f"**Transcript**: {transcript.text}")
-        if hasattr(transcript, "mean_confidence") and transcript.mean_confidence > 0:
-            conf_label = "Mean Calibrated Confidence ($T=0.68$)" if selected_b == "experimental_42" else "Mean Raw Softmax Confidence (UNCALIBRATED)"
-            st.caption(f"{conf_label}: {transcript.mean_confidence:.2%}")
-
-    # 6. Timeline & Diagnostic Entries
-    timeline = getattr(result, "timeline", []) or []
+    # Timeline & Diagnostic Entries
+    timeline = getattr(local_result, "timeline", []) or []
     if timeline:
-        st.markdown("#### ⏱️ Sign Recognition Timeline & Diagnostics")
+        st.markdown("#### ⏱️ Local Sign Recognition Timeline & Diagnostics")
         timeline_data = []
         conf_type_str = "Calibrated Confidence ($T=0.68$)" if selected_b == "experimental_42" else "Raw Softmax Confidence (UNCALIBRATED)"
+        accepted_glosses = []
         for idx, entry in enumerate(timeline, start=1):
             conf = getattr(entry, "confidence", 0.0)
             is_acc = getattr(entry, "is_accepted", conf >= 0.70)
             status_str = "Accepted" if is_acc else "Prediction rejected: confidence below threshold"
-
             gloss = getattr(entry, "recognized_gloss", "")
             cls_id = getattr(entry, "class_index", "N/A")
-            top_3 = getattr(entry, "top_3_candidates", [])
-
-            if not is_acc:
-                st.warning(
-                    f"⚠️ **Segment {idx} ({getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')})**: "
-                    f"**[MODEL PREDICTION | REJECTED BY CONFIDENCE POLICY (<0.70) | NOT USER-VERIFIED]**\n\n"
-                    f"- **Predicted Gloss**: `{gloss}`\n"
-                    f"- **Class ID**: `{cls_id}`\n"
-                    f"- **{conf_type_str}**: `{conf:.4f}` ({conf * 100:.2f}%)\n"
-                    f"- **Acceptance Threshold**: `0.70` (Rejection Policy Active)\n"
-                )
-                if top_3:
-                    top_3_str = ", ".join([f"`{g}` ({p * 100:.1f}%)" for g, p in top_3])
-                    st.caption(f"Top-3 Candidates: {top_3_str}")
-            else:
-                st.success(
-                    f"✅ **Segment {idx} ({getattr(entry, 'start_timestamp', '')} - {getattr(entry, 'end_timestamp', '')})**: "
-                    f"**[MODEL PREDICTION | ACCEPTED BY CONFIDENCE POLICY (≥0.70) | NOT USER-VERIFIED]**\n\n"
-                    f"- **Accepted Gloss**: `{gloss}` (Class ID `{cls_id}`)\n"
-                    f"- **{conf_type_str}**: `{conf * 100:.2f}%` (Acceptance Threshold: `0.70`)\n"
-                )
+            if is_acc and gloss:
+                accepted_glosses.append(gloss)
 
             timeline_data.append(
                 {
@@ -635,6 +628,101 @@ def render_video_processing_result(result: Any) -> None:
                 }
             )
         st.dataframe(timeline_data, use_container_width=True)
+
+        pred_gloss_str = ", ".join(accepted_glosses) if accepted_glosses else "None"
+        st.warning(
+            f"⚠️ **WARNING**: This is a controlled-vocabulary prediction (`{pred_gloss_str}`) "
+            "and does not establish that the video means this phrase in continuous ISL."
+        )
+
+    # ==========================================
+    # SECTION B: AI-ASSISTED VIDEO ANALYSIS
+    # ==========================================
+    st.markdown("---")
+    st.markdown("### B. 🤖 AI-Assisted Multimodal Video Analysis")
+
+    if not ai_result or ai_result.get("status") == "AI_ANALYSIS_UNAVAILABLE":
+        err_msg = ai_result.get("error", "GEMINI_API_KEY environment variable is not configured.") if ai_result else "GEMINI_API_KEY environment variable is not configured."
+        st.info(
+            f"ℹ️ **AI Analysis Unavailable**: {err_msg}\n\n"
+            "Local SIGNASSIST recognition remains active. Configure `GEMINI_API_KEY` in `.env` to enable Gemini multimodal video analysis."
+        )
+    elif ai_result.get("status") == "SUCCESS":
+        st.success(
+            f"✅ **Gemini Multimodal Video Analysis Complete**\n\n"
+            f"- **Provider**: `{ai_result.get('provider')}` | **Model**: `{ai_result.get('model')}`\n"
+            f"- **ISL Detected**: `{ai_result.get('is_probably_isl')}`"
+        )
+        if ai_result.get("isl_assessment"):
+            st.markdown(f"**ISL Assessment**: {ai_result.get('isl_assessment')}")
+
+        segments = ai_result.get("sign_segments", [])
+        if segments:
+            st.markdown("#### 👁️ Observed Visual Sign Segments")
+            st.dataframe(segments, use_container_width=True)
+
+        col_g, col_e = st.columns(2)
+        with col_g:
+            glosses = ai_result.get("gloss_sequence", [])
+            st.markdown(f"**Inferred Gloss Sequence**: `{ ' -> '.join(glosses) if glosses else 'None' }`")
+        with col_e:
+            st.markdown(f"**English Interpretation**: **{ai_result.get('interpreted_sentence') or 'N/A'}**")
+
+        if ai_result.get("spoken_audio_transcript"):
+            st.markdown(f"**Spoken Audio Transcript**: *{ai_result.get('spoken_audio_transcript')}*")
+        if ai_result.get("visible_text"):
+            st.markdown(f"**Visible Text / Subtitles**: *{ai_result.get('visible_text')}*")
+        if ai_result.get("uncertainty_notes"):
+            st.caption(f"**Uncertainty / Ambiguity Notes**: {ai_result.get('uncertainty_notes')}")
+
+    elif ai_result.get("status") == "ERROR":
+        st.error(f"❌ AI Video Analysis Error: {ai_result.get('error')}")
+
+    # ==========================================
+    # SECTION C: RESEARCH / EVIDENCE SOURCES
+    # ==========================================
+    st.markdown("---")
+    st.markdown("### C. 🔍 Research / Evidence Sources (Google Search Grounding)")
+
+    sources = ai_result.get("evidence_sources", []) if ai_result else []
+    if sources:
+        for idx, src in enumerate(sources, start=1):
+            st.markdown(
+                f"**{idx}. [{src.get('title', 'Link')}]({src.get('url', '#')})**\n"
+                f"- **Relevance**: {src.get('relevance')}\n"
+                f"- **Support Level**: `{src.get('support_level')}`"
+            )
+    else:
+        st.caption("No external web research grounding sources returned for this video query.")
+
+    # ==========================================
+    # SECTION D: FINAL INTERPRETATION
+    # ==========================================
+    st.markdown("---")
+    st.markdown("### D. 📜 Final Combined Interpretation")
+
+    interp_text = ai_result.get("interpreted_sentence") if (ai_result and ai_result.get("status") == "SUCCESS") else None
+    if not interp_text and getattr(local_result, "transcript", None):
+        interp_text = getattr(local_result.transcript, "text", "")
+
+    if interp_text:
+        st.success(
+            f"### **Final Meaning**: {interp_text}\n\n"
+            f"🏷️ **Provenance**: `{ai_result.get('provenance', 'AI-assisted / unverified') if ai_result else 'Local Controlled Model / unverified'}`"
+        )
+    else:
+        st.info("No definitive final sentence interpretation supported by current evidence.")
+
+    st.caption(
+        "⚠️ **Disclaimer**: This interpretation combines local controlled recognition with external AI multimodal analysis. "
+        "It has not been independently validated by a certified ISL human interpreter."
+    )
+
+
+def render_video_processing_result(result: Any, ai_result: Optional[Dict[str, Any]] = None, video_path: Optional[str] = None) -> None:
+    """Displays VideoProcessingResult fields in a structured Streamlit summary layout."""
+    ai_res = ai_result or st.session_state.get("latest_ai_result")
+    render_combined_video_intelligence_results(result, ai_result=ai_res, video_path=video_path)
 
 
 def _handle_video_upload(uploaded_file: Any) -> None:
@@ -1054,291 +1142,9 @@ def render_mode_text_to_isl(status_info: dict) -> None:
         )
 
 
-def render_core_metrics_summary(metrics_dict: Dict[str, Any]) -> None:
-    """Renders 9 core classification metrics using st.metric cards."""
-    st.markdown("#### 🎯 Overall Classification Metrics")
-
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Accuracy", f"{metrics_dict.get('accuracy', 0.0):.2%}")
-        st.metric("Macro Precision", f"{metrics_dict.get('macro_precision', 0.0):.2%}")
-        st.metric("Weighted Precision", f"{metrics_dict.get('weighted_precision', 0.0):.2%}")
-    with col2:
-        st.metric("Total Samples", metrics_dict.get("total_samples", 0))
-        st.metric("Macro Recall", f"{metrics_dict.get('macro_recall', 0.0):.2%}")
-        st.metric("Weighted Recall", f"{metrics_dict.get('weighted_recall', 0.0):.2%}")
-    with col3:
-        st.metric("Number of Classes", metrics_dict.get("num_classes", 0))
-        st.metric("Macro F1", f"{metrics_dict.get('macro_f1', 0.0):.2%}")
-        st.metric("Weighted F1", f"{metrics_dict.get('weighted_f1', 0.0):.2%}")
-
-
-def render_per_class_metrics_table(per_class_dict: Dict[str, Any]) -> None:
-    """Renders per-class precision, recall, f1, and support in a dataframe."""
-    if not per_class_dict:
-        return
-
-    st.markdown("#### 🏷️ Per-Class Performance")
-    rows = []
-    for cls_name, vals in per_class_dict.items():
-        if isinstance(vals, dict):
-            rows.append(
-                {
-                    "Class": cls_name,
-                    "Precision": f"{vals.get('precision', 0.0):.4f}",
-                    "Recall": f"{vals.get('recall', 0.0):.4f}",
-                    "F1 Score": f"{vals.get('f1', 0.0):.4f}",
-                    "Support": vals.get("support", 0),
-                }
-            )
-
-    if rows:
-        st.dataframe(rows, use_container_width=True)
-
-
-def render_confusion_matrix_table(cm_list: List[List[int]], class_names: List[str]) -> None:
-    """Renders confusion matrix table with rows as Actual and columns as Predicted classes."""
-    if not cm_list:
-        return
-
-    st.markdown("#### 🔢 Confusion Matrix")
-    num_classes = len(cm_list)
-    if not class_names or len(class_names) != num_classes:
-        class_names = [f"Class_{i}" for i in range(num_classes)]
-
-    cm_df_data = []
-    for idx, row in enumerate(cm_list):
-        row_dict = {"Actual Class": class_names[idx]}
-        for c_idx, val in enumerate(row):
-            col_name = f"Pred: {class_names[c_idx]}"
-            row_dict[col_name] = val
-        cm_df_data.append(row_dict)
-
-    st.dataframe(cm_df_data, use_container_width=True)
-
-
-def render_evaluation_result_dashboard(payload: Dict[str, Any]) -> None:
-    """Renders standard EvaluationResult artifact metrics, per-class metrics, and confusion matrix."""
-    st.markdown("### 📈 Evaluation Result Dashboard")
-    render_core_metrics_summary(payload)
-    render_per_class_metrics_table(payload.get("per_class_metrics", {}))
-    render_confusion_matrix_table(payload.get("confusion_matrix", []), payload.get("class_names", []))
-
-
-def render_loso_result_dashboard(payload: Dict[str, Any]) -> None:
-    """Renders Leave-One-Signer-Out (LOSO) cross-validation evaluation results."""
-    st.markdown("### 👥 Leave-One-Signer-Out (LOSO) Evaluation Dashboard")
-
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Number of Signers", payload.get("num_signers", len(payload.get("folds", []))))
-    with col2:
-        st.metric("Total Samples", payload.get("num_samples", 0))
-    with col3:
-        agg = payload.get("aggregate_metrics", {})
-        st.metric("Aggregate Accuracy", f"{agg.get('accuracy', 0.0):.2%}")
-    with col4:
-        st.metric("Aggregate Macro F1", f"{agg.get('macro_f1', 0.0):.2%}")
-
-    agg = payload.get("aggregate_metrics", {})
-    if agg:
-        render_core_metrics_summary(agg)
-        render_per_class_metrics_table(agg.get("per_class_metrics", {}))
-        render_confusion_matrix_table(agg.get("confusion_matrix", []), agg.get("class_names", []))
-
-    folds = payload.get("folds", [])
-    if folds:
-        st.markdown("#### 📂 Per-Fold Signer Isolation Details")
-        fold_rows = []
-        for idx, fold in enumerate(folds, 1):
-            f_metrics = fold.get("metrics", {})
-            fold_rows.append(
-                {
-                    "Fold": idx,
-                    "Held-Out Signer": fold.get("held_out_signer", f"Signer_{idx}"),
-                    "Train Samples": fold.get("train_sample_count", 0),
-                    "Test Samples": fold.get("test_sample_count", 0),
-                    "Accuracy": f"{f_metrics.get('accuracy', 0.0):.4f}",
-                    "Macro F1": f"{f_metrics.get('macro_f1', 0.0):.4f}",
-                }
-            )
-        st.dataframe(fold_rows, use_container_width=True)
-
-
-def render_ablation_result_dashboard(payload: Dict[str, Any]) -> None:
-    """Renders Ablation Study results across multiple experiment configurations."""
-    st.markdown("### 🔬 Ablation Study Dashboard")
-    st.caption(
-        f"Evaluation Mode: `{payload.get('evaluation_type', 'standard').upper()}` | "
-        f"Experiments: `{payload.get('num_experiments', len(payload.get('experiments', [])))}`"
-    )
-
-    experiments = payload.get("experiments", [])
-    if not experiments:
-        st.info("No experiment results found in ablation artifact.")
-        return
-
-    exp_rows = []
-    for exp in experiments:
-        m = exp.get("metrics", {})
-        params = exp.get("parameters", {})
-        param_str = ", ".join(f"{k}={v}" for k, v in params.items()) if isinstance(params, dict) else str(params)
-
-        exp_rows.append(
-            {
-                "Experiment Name": exp.get("name", "N/A"),
-                "Description": exp.get("description", "N/A"),
-                "Accuracy": f"{m.get('accuracy', 0.0):.4f}",
-                "Macro F1": f"{m.get('macro_f1', 0.0):.4f}",
-                "Parameters": param_str,
-                "Sample Count": exp.get("sample_count", "N/A"),
-                "Signer Count": exp.get("signer_count", "N/A"),
-            }
-        )
-
-    st.dataframe(exp_rows, use_container_width=True)
-
-
-def generate_synthetic_demo_artifact() -> Dict[str, Any]:
-    """Generates a synthetic LOSO evaluation artifact for UI demonstration only."""
-    from scripts.evaluate_loso import create_demo_dataset, mock_deterministic_classifier
-    from src.utils.loso_evaluator import LOSOEvaluator
-
-    ds = create_demo_dataset()
-    evaluator = LOSOEvaluator(zero_division=0.0, num_classes=3, class_names=["CLASS_0", "CLASS_1", "CLASS_2"])
-    res = evaluator.evaluate(ds, mock_deterministic_classifier)
-    return {
-        "artifact_type": "loso",
-        "payload": res.to_dict(),
-    }
-
-
-def render_mode_research_analytics(status_info: dict) -> None:
-    """Renders Research Analytics & Benchmarks mode."""
-    render_header(
-        title="Research Analytics & Benchmarks",
-        page_icon="📊",
-        description=(
-            "Visualize genuine evaluation result artifacts, confusion matrices, LOSO cross-validation, "
-            "and ablation study results produced by the Phase 16 evaluation framework."
-        ),
-    )
-
-    col_up, col_demo = st.columns([3, 2])
-
-    with col_up:
-        uploaded_file = st.file_uploader(
-            "Upload Evaluation Result Artifact (JSON)",
-            type=["json"],
-            key="research_file_uploader",
-        )
-
-    with col_demo:
-        st.markdown("#### 🧪 Demo Mode")
-        demo_active = st.checkbox(
-            "Run Synthetic Demonstration (TEST ONLY)",
-            value=st.session_state.get("research_demo_active", False),
-            key="research_demo_active_checkbox",
-        )
-        st.session_state["research_demo_active"] = demo_active
-
-    # Handle synthetic demo mode
-    if demo_active:
-        st.error("⚠️ DEMONSTRATION / TEST ONLY — SYNTHETIC DATA — NOT RESEARCH RESULTS")
-        demo_artifact = generate_synthetic_demo_artifact()
-        render_loso_result_dashboard(demo_artifact["payload"])
-        return
-
-    # Handle file upload
-    if uploaded_file is not None:
-        file_id = f"{uploaded_file.name}_{getattr(uploaded_file, 'size', 0)}"
-        if st.session_state.get("research_result_file_id") != file_id:
-            try:
-                raw_bytes = uploaded_file.getvalue() if hasattr(uploaded_file, "getvalue") else uploaded_file.read()
-                json_data = json.loads(raw_bytes.decode("utf-8"))
-                parsed = parse_research_artifact(json_data)
-
-                st.session_state["research_result"] = parsed["payload"]
-                st.session_state["research_result_type"] = parsed["artifact_type"]
-                st.session_state["research_result_filename"] = uploaded_file.name
-                st.session_state["research_result_file_id"] = file_id
-                st.session_state["research_last_error"] = None
-            except json.JSONDecodeError as err:
-                st.session_state["research_result"] = None
-                st.session_state["research_result_type"] = None
-                st.session_state["research_last_error"] = f"Malformed JSON file: {err}"
-                render_error_state(f"Malformed JSON file: {err}")
-            except ValueError as err:
-                st.session_state["research_result"] = None
-                st.session_state["research_result_type"] = None
-                st.session_state["research_last_error"] = str(err)
-                render_error_state(str(err))
-            except Exception as err:
-                st.session_state["research_result"] = None
-                st.session_state["research_result_type"] = None
-                st.session_state["research_last_error"] = str(err)
-                render_error_state(f"Failed to load evaluation artifact: {err}")
-
-    res_payload = st.session_state.get("research_result")
-    res_type = st.session_state.get("research_result_type")
-
-    if res_payload is not None and res_type is not None:
-        st.caption(f"Loaded Artifact: `{st.session_state.get('research_result_filename', 'uploaded.json')}`")
-        if res_type == "evaluation":
-            render_evaluation_result_dashboard(res_payload)
-        elif res_type == "loso":
-            render_loso_result_dashboard(res_payload)
-        elif res_type == "ablation":
-            render_ablation_result_dashboard(res_payload)
-    elif uploaded_file is None and not st.session_state.get("research_last_error"):
-        comp_json_path = Path("reports/evaluations/retrieval_hybrid_comparison.json")
-        if comp_json_path.exists():
-            try:
-                with open(comp_json_path, "r", encoding="utf-8") as f:
-                    comp_data = json.load(f)
-                st.markdown("### 🔬 Recognition Strategy Evaluation (Model vs Retrieval vs Hybrid)")
-                st.caption(
-                    f"Evaluated on {comp_data.get('dataset_inventory', {}).get('validation_samples', 126)} validation "
-                    f"and {comp_data.get('dataset_inventory', {}).get('test_samples', 126)} held-out test videos across "
-                    f"{comp_data.get('dataset_inventory', {}).get('controlled_classes', 42)} controlled classes."
-                )
-                
-                val_m = comp_data.get("validation_metrics", {})
-                rows = []
-                for strategy, m in val_m.items():
-                    rows.append({
-                        "Strategy": strategy,
-                        "Validation Top-1 Acc": f"{m.get('top1_accuracy', 0.0):.2f}%",
-                        "Validation Top-3 Acc": f"{m.get('top3_accuracy', 0.0):.2f}%",
-                        "Validation ECE": f"{m.get('ece', 0.0):.4f}",
-                        "Acceptance Rate (>=0.70)": f"{m.get('acceptance_rate', 0.0):.2f}%",
-                        "Accepted Precision": f"{m.get('accepted_precision', 0.0):.2f}%",
-                    })
-                st.dataframe(rows, use_container_width=True)
-                st.info(f"**Selected Default Strategy**: `{comp_data.get('selected_default_mode', 'Model-Only')}` — {comp_data.get('rationale', '')}")
-                st.markdown("---")
-            except Exception as err:
-                logger.warning(f"Could not load retrieval_hybrid_comparison.json: {err}")
-
-        checkpoint_count = status_info.get("checkpoint_count", 0)
-        render_empty_state(
-            title="Research Evaluation Framework",
-            message=(
-                "Model architectures and evaluation frameworks are available.\n\n"
-                f"**System Status**:\n"
-                f"- Model Architecture: ✅ Available (ST-GCN / GNN)\n"
-                f"- Checkpoints Found: {checkpoint_count}\n"
-                f"- Evaluation Framework: ✅ Ready (MetricsEvaluator / LOSO / Ablation)\n\n"
-                "Real research analytics require uploading a genuine evaluation result JSON artifact produced by Phase 16 benchmark scripts. "
-                "You may also enable 'Run Synthetic Demonstration (TEST ONLY)' above for framework validation."
-            ),
-            icon="📊",
-        )
-
 
 def main() -> None:
     """Main application entry point."""
-    # Load application configuration with error handling
     try:
         app_config = get_ui_config()
     except Exception as err:
@@ -1346,26 +1152,24 @@ def main() -> None:
         render_error_state(f"Failed to load application configuration: {err}")
         return
 
-    # Configure Streamlit page from config
     st.set_page_config(
         page_title=app_config.ui.app.title,
         page_icon=app_config.ui.app.page_icon,
         layout=app_config.ui.app.layout,
     )
 
-    # Centralized session state initialization
     init_session_state()
 
-    # Sidebar mode selection
     st.sidebar.title("Navigation")
     selected_mode = st.sidebar.selectbox(
         "Application Mode",
         options=APPLICATION_MODES,
-        index=APPLICATION_MODES.index(st.session_state.get("current_mode", APPLICATION_MODES[0])),
+        index=APPLICATION_MODES.index(
+            st.session_state.get("current_mode", APPLICATION_MODES[0])
+        ),
     )
     st.session_state["current_mode"] = selected_mode
 
-    # Sidebar backend selection
     st.sidebar.markdown("---")
     st.sidebar.title("Recognition Backend")
     backend_options = {
@@ -1387,12 +1191,10 @@ def main() -> None:
             "of 42 high-frequency ISL classes (min 15 training samples/class). It is NOT a general 262-class ISL translator."
         )
 
-    # Model and checkpoint availability check
     models_dir = getattr(app_config.paths, "models_dir", "models")
     status_info = check_model_availability(models_dir)
     render_model_status(status_info, backend=selected_backend)
 
-    # Render selected mode page
     if selected_mode == "Live Webcam":
         render_mode_live_webcam(status_info)
     elif selected_mode == "Continuous Sentence":
@@ -1403,8 +1205,6 @@ def main() -> None:
         render_mode_video_url(status_info)
     elif selected_mode == "Text → ISL":
         render_mode_text_to_isl(status_info)
-    elif selected_mode == "Research Analytics":
-        render_mode_research_analytics(status_info)
     else:
         render_error_state(f"Unknown mode: {selected_mode}")
 

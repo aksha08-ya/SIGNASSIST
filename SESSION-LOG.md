@@ -234,3 +234,43 @@
   5. **Unit & Integration Test Suite Expansion**: Created `tests/test_text_to_isl_e2e_hardening.py` with 6 new tests covering dictionary path validation, normalized lookup, phrase matching, unsupported words, mixed input, and asset provenance.
 - **Rejected**: Retraining models, modifying checkpoints, lowering 0.70 confidence threshold, substituting ASL assets, or fabricating predictions or video clips.
 - **Verification**: **534 / 534 pytest tests passed (100% pass rate across 3 batches)**; `py_compile` succeeded cleanly; real smoke test passed with 100% assertions.
+
+## Session Entry - Next-Generation Video Interpretation Pipeline & Audit
+- **Agent**: Antigravity (Pair Programming Agent)
+- **Task**: Implemented the Next-Generation Video Interpretation Pipeline combining local ST-GCN recognition, shared Video Intelligence Service (Google GenAI `gemini-3.8-flash`), Google Search Grounding, 3-of-5 temporal consensus, and structured 4-section UI rendering.
+- **Changes**:
+  1. **Shared Video Intelligence Service (`src/ai/video_intelligence.py`)**: Built `VideoIntelligenceService` and `VideoIntelligenceResult` supporting Gemini Files API upload, polling, search grounding, prompt execution, and SHA-256 local JSON response caching (`data/processed/ai_video_cache/`).
+  2. **Dependencies & Environment**: Added `google-genai>=0.1.0` to `requirements.txt` and `GEMINI_API_KEY=` to `.env.example`. Installed `google-genai` into virtualenv.
+  3. **Service Layer Integration (`src/ui/services.py`)**: Exposed `analyze_video_intelligence()` connecting backend AI video intelligence with Streamlit presentation layer.
+  4. **Upload Video & Video URL Pipeline Alignment**: Updated Upload Video (`_handle_video_upload`) and Video URL (`_handle_video_url_processing`) to run local recognition followed by AI video analysis + Google Search grounding when available, persisting uploaded/downloaded temporary job files until processing completes.
+  5. **Live Webcam & Continuous Sentence Stabilization**: Added `TemporalConsensusFilter` (3-of-5 consensus requiring 3 agreeing accepted window predictions out of 5 eligible windows) and duplicate token suppression to `WebcamRecognitionSession` and `SentenceReconstructor`. Added status badges (`SUPPORTED SIGN`, `REJECTED / UNCERTAIN`, `NO SIGN DETECTED`), diagnostic Top-3 expander, and explicit local continuous model disclaimers.
+  6. **Separated 4-Section UI Presentation**: Implemented `render_combined_video_intelligence_results` rendering Section A (Local ST-GCN), Section B (AI Video Analysis), Section C (Research Grounding), and Section D (Final Meaning marked `[AI-assisted / unverified]`).
+  7. **Comprehensive Mock-Based Test Suite**: Created `tests/test_video_intelligence.py` with 17 tests (specs A through Q) ensuring 100% mock isolation (zero network calls).
+  8. **Documentation**: Created `docs/AI_VIDEO_ANALYSIS.md` detailing architecture, evidence flow, prompt design, privacy, and local vs AI separation.
+- **Rejected**: Retraining models, modifying checkpoints, lowering the 0.70 threshold, changing $T=0.68$ calibration, fabricating predictions or clips, or replacing the local 42-class model.
+- **Verification**: **551 / 551 pytest tests passed (100% pass rate across test suite)**; `python -m compileall src` succeeded with 0 errors.
+
+
+## Session Entry - Webcam Diagnostics & Research Analytics Removal Pass
+- **Agent**: Antigravity (Google DeepMind - Pair Programming Agent)
+- **Task**: Implemented Part 1 Webcam Diagnostics (preserving raw rejected candidate predictions in UI telemetry while maintaining strict rejection status) and Part 2 Research Analytics Removal (deleting unused research evaluation/ablation modules and test suites).
+- **Changes**:
+  1. **Webcam Diagnostics Fix (`src/ui/webcam.py` & `src/app.py`)**:
+     - Retained the most recently evaluated raw candidate prediction in `self._last_evaluated_prediction` in `WebcamRecognitionSession` regardless of whether it passed the 0.70 confidence threshold or temporal consensus filter.
+     - Exposed `last_evaluated_prediction` in `WebcamSessionResult`.
+     - Preserved raw candidate prediction without treating it as accepted or adding it to `_latest_prediction` or `prediction_history`.
+     - Updated `extract_prediction_info()` and `render_mode_live_webcam()` in `src/app.py`: when no accepted prediction exists but `last_evaluated_prediction` exists, displays `Candidate Sign` (clearly labeled `(Candidate / Rejected)`), `Candidate Confidence`, `Top-3 Candidates (Candidate / Rejected)`, `Decision = REJECTED`, and exact policy rejection reason (`Confidence 68.0% below 0.70 threshold` or `Awaiting 3-of-5 temporal consensus agreement`).
+  2. **Research Analytics Removal**:
+     - Verified `Research Analytics` mode was removed from `APPLICATION_MODES` in `src/app.py`.
+     - Verified `evaluate_loso()`, `evaluate_ablation()`, `export_report()`, and `parse_research_artifact()` were removed from `src/ui/services.py` and `src/ui/__init__.py`.
+     - Searched codebase and safely removed unused research framework files: `src/utils/loso_evaluator.py`, `src/utils/ablation.py`, and `src/utils/evaluation_dataset.py`. Retained `src/utils/report_exporter.py` because it is required for video upload result export (`ReportExporter.export_json`/`export_pdf`) and audit scripts.
+     - Safely deleted corresponding dedicated tests: `tests/test_ui_research_analytics.py`, `tests/test_loso_evaluator.py`, `tests/test_ablation.py`, and `tests/test_evaluation_dataset.py`. Retained `tests/test_report_exporter.py` for `ReportExporter`.
+     - Updated `tests/test_ui_foundation.py` to assert 5 application modes cleanly.
+     - Updated `scripts/run_final_feature_audit.py` and `scripts/generate_final_audit_report.py` to remove `parse_research_artifact` import and record Research Analytics mode retirement.
+- **Rejected**: Model retraining, modifying model weights, lowering the 0.70 confidence threshold, changing T=0.68 temperature calibration, fabricating predictions, launching Streamlit during task, running pytest suites concurrently, or deleting `src/utils/report_exporter.py`.
+- **Verification**:
+  - `python -m pytest tests/test_ui_webcam.py -q`: PASSED (12/12 passed including new `test_rejected_prediction_preserved_as_last_evaluated`).
+  - `python -m pytest tests/test_memory_lifecycle.py -q`: PASSED (9/9 passed).
+  - `python -m compileall -q src`: PASSED (0 errors).
+  - Repository-wide grep check for `parse_research_artifact`, `render_mode_research_analytics`, `evaluate_loso`, `evaluate_ablation`: PASSED (0 matches across `src/`, `tests/`, `scripts/`, `configs/`).
+

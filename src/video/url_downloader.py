@@ -266,8 +266,10 @@ class URLVideoDownloader:
             result.additional_metadata["original_url"] = metadata.original_url
             result.additional_metadata["platform_name"] = metadata.platform_name
             result.additional_metadata["video_title"] = metadata.video_title
+            result.additional_metadata["downloaded_file_path"] = metadata.retrieved_file_path
             result.additional_metadata["is_temporary"] = metadata.is_temporary
 
             return result
         finally:
+            # Note: caller or AI service reads downloaded_file_path before cleanup
             metadata.cleanup()

@@ -97,10 +97,10 @@ def test_model_availability_explicit_pipeline_available(tmp_path: Path) -> None:
     assert info["recognition_pipeline_available"] is True
 
 
-def test_six_application_modes_defined_exactly_once() -> None:
-    """Tests that exactly six application mode names are defined without duplicates."""
-    assert len(APPLICATION_MODES) == 6
-    assert len(set(APPLICATION_MODES)) == 6
+def test_five_application_modes_defined_exactly_once() -> None:
+    """Tests that exactly five application mode names are defined without duplicates."""
+    assert len(APPLICATION_MODES) == 5
+    assert len(set(APPLICATION_MODES)) == 5
 
     expected_modes = [
         "Live Webcam",
@@ -108,6 +108,5 @@ def test_six_application_modes_defined_exactly_once() -> None:
         "Upload Video",
         "Video URL",
         "Text → ISL",
-        "Research Analytics",
     ]
     assert APPLICATION_MODES == expected_modes

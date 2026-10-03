@@ -134,7 +134,7 @@ def test_first_window_processing_and_prediction_preservation() -> None:
     pred_obj = create_dummy_prediction(class_idx=5, start_frame=10, end_frame=25)
     mock_pipeline.process_frames.return_value = [pred_obj]
 
-    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=60, stride=15)
+    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=60, stride=15, min_agreeing=1)
     dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)
 
     for _ in range(60):
@@ -161,7 +161,7 @@ def test_overlap_and_stride_behavior() -> None:
     mock_pipeline.is_available.return_value = True
     mock_pipeline.process_frames.return_value = []
 
-    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=60, stride=15)
+    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=60, stride=15, min_agreeing=1)
     dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)
 
     # 1. First window: 60 frames
@@ -199,6 +199,7 @@ def test_duplicate_suppression() -> None:
         window_size=10,
         stride=5,
         duplicate_suppression_window=1.0,  # 30 frames
+        min_agreeing=1,
     )
     dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)
 
@@ -232,7 +233,7 @@ def test_reset() -> None:
     mock_pipeline.is_available.return_value = True
     mock_pipeline.process_frames.return_value = [create_dummy_prediction(5, 0, 10)]
 
-    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=10, stride=5)
+    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=10, stride=5, min_agreeing=1)
     dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)
 
     for _ in range(10):
@@ -274,3 +275,28 @@ def test_thread_safe_concurrent_add_frame() -> None:
     res = session.get_result()
     assert res.total_frames_received == 100
     assert res.processed_windows > 0
+
+
+def test_rejected_prediction_preserved_as_last_evaluated() -> None:
+    """Verifies raw candidate predictions below threshold are retained as last_evaluated_prediction without updating latest_prediction or prediction_history."""
+    mock_pipeline = MagicMock()
+    mock_pipeline.is_available.return_value = True
+
+    rejected_pred = create_dummy_prediction(class_idx=12, start_frame=0, end_frame=20)
+    rejected_pred.prediction.confidence = np.array([0.68])
+    rejected_pred.prediction.is_accepted = np.array([False])
+    rejected_pred.prediction.is_rejected = np.array([True])
+
+    mock_pipeline.process_frames.return_value = [rejected_pred]
+
+    session = WebcamRecognitionSession(recognition_pipeline=mock_pipeline, window_size=10, stride=5)
+    dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)
+
+    for _ in range(10):
+        res = session.add_frame(dummy_frame)
+
+    assert res.processed_windows == 1
+    assert res.last_evaluated_prediction is rejected_pred
+    assert res.latest_prediction is None
+    assert res.prediction_history == []
+    assert "below 0.70 threshold" in res.rejection_reason

@@ -1,0 +1,12 @@
+{
+  "webcam_recognition": "VERIFIED_FUNCTIONAL",
+  "uploaded_video_recognition": "VERIFIED_FUNCTIONAL",
+  "video_url_input": "VERIFIED_FUNCTIONAL",
+  "continuous_sentence_reconstruction": "PARTIALLY_FUNCTIONAL",
+  "text_to_speech": "VERIFIED_FUNCTIONAL",
+  "signer_tracking": "VERIFIED_FUNCTIONAL",
+  "video_quality_assessment": "VERIFIED_FUNCTIONAL",
+  "research_dashboard_analytics": "VERIFIED_FUNCTIONAL",
+  "session_history_and_export": "VERIFIED_FUNCTIONAL",
+  "text_to_isl_demonstration": "VERIFIED_FUNCTIONAL"
+}

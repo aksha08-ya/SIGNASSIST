@@ -109,6 +109,15 @@ class ContinuousSentenceSession:
                     self._consumed_prediction_ids.add(key)
                     self._latest_prediction = pred
 
+        # Enforce memory cap on consumed prediction IDs set
+        if len(self._consumed_prediction_ids) > 200:
+            active_keys = {
+                _make_prediction_key(p)
+                for p in webcam_res.prediction_history
+                if isinstance(p, BoundedSignPrediction)
+            }
+            self._consumed_prediction_ids = active_keys
+
     def add_frame(self, frame: Any) -> ContinuousSentenceResult:
         """Ingests a video frame into webcam session and updates continuous sentence state.
 

@@ -118,9 +118,9 @@ def main():
             {
                 "id": 9,
                 "name": "Research Dashboard & Metrics",
-                "status": "VERIFIED_FUNCTIONAL",
-                "test": "parse_research_artifact with evaluation reports",
-                "result": "Parses confusion matrix, ECE, Top-1/Top-3 metrics cleanly"
+                "status": "REMOVED",
+                "test": "Research Analytics feature deprecation",
+                "result": "Feature deprecated and backend components removed per scope"
             },
             {
                 "id": 10,

@@ -16,7 +16,6 @@ from src.ui.services import (
     evaluate_classification,
     get_default_recognition_pipeline,
     get_recognition_readiness,
-    parse_research_artifact,
     process_video_file,
     process_video_url,
 )
@@ -40,7 +39,6 @@ __all__ = [
     "evaluate_classification",
     "get_recognition_readiness",
     "get_default_recognition_pipeline",
-    "parse_research_artifact",
     "TextToISLResult",
     "ContinuousSentenceResult",
     "ContinuousSentenceSession",

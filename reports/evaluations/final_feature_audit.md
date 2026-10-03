@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-- **Audit Date**: `2026-10-02 06:46:37`
+- **Audit Date**: `2026-10-02 11:42:53`
 - **Total Features Audited**: **12 / 12**
 - **Classification Breakdown**:
   - 🟢 **VERIFIED_FUNCTIONAL**: **12 / 12**
@@ -31,7 +31,7 @@
 | # | Feature Name | Classification | Actual Test Performed | Exact Result | Blocker | Fixable w/o Retraining |
 | :---: | :--- | :---: | :--- | :--- | :--- | :---: |
 | **1** | `1. Webcam Recognition` | **`VERIFIED_FUNCTIONAL`** | Instantiated WebcamRecognitionSession with experimental_42 pipeline, fed BGR frame, retrieved WebRTC result container. | Webcam session initialized cleanly, backend='experimental_42', recognition_available=True, total_frames_received=1. | None | Yes |
-| **2** | `2. Video Upload Processing` | **`VERIFIED_FUNCTIONAL`** | Processed sample video file (MVI_4175.MOV) through process_video_file service with experimental_42 backend (use_boundary_trimming=False). | Processed 53 frames at 13.3 FPS. Output gloss: '10. Plane' (Conf: 97.6%). | None | Yes |
+| **2** | `2. Video Upload Processing` | **`VERIFIED_FUNCTIONAL`** | Processed sample video file (MVI_4175.MOV) through process_video_file service with experimental_42 backend (use_boundary_trimming=False). | Processed 53 frames at 11.1 FPS. Output gloss: '10. Plane' (Conf: 97.6%). | None | Yes |
 | **3** | `3. Video URL Ingestion` | **`VERIFIED_FUNCTIONAL`** | Tested URL syntax validation, platform classification, query parameter isolation, and temporary file lifecycle management. | Valid URL accepted: https://www.youtube.com/watch?v=dQw4w9WgXcQ, platform detected: 'youtube'. | None | Yes |
 | **4** | `4. Continuous Sentence Reconstruction` | **`VERIFIED_FUNCTIONAL`** | Tested SentenceReconstructor.process_batch with aligned SignSegment and ConfidenceOutput containers. | Reconstructed English transcript text: 'Sign_0.'. | None | Yes |
 | **5** | `5. Text-to-Speech (TTS)` | **`VERIFIED_FUNCTIONAL`** | Instantiated TTSEngine and executed synthesize('Plane slow'). | TTS synthesis executed cleanly, engine_used='gtts', audio_bytes_len=9792. | None | Yes |
@@ -59,7 +59,7 @@
 ### 2. Video Upload Processing
 - **Classification**: **`VERIFIED_FUNCTIONAL`**
 - **Actual Test Performed**: Processed sample video file (MVI_4175.MOV) through process_video_file service with experimental_42 backend (use_boundary_trimming=False).
-- **Exact Result**: Processed 53 frames at 13.3 FPS. Output gloss: '10. Plane' (Conf: 97.6%).
+- **Exact Result**: Processed 53 frames at 11.1 FPS. Output gloss: '10. Plane' (Conf: 97.6%).
 - **Evidence**: result.timeline length = 1, recognized_gloss = '10. Plane', confidence = 0.9758.
 - **Blocker**: None
 - **Fixable Before Tomorrow Evening**: Yes

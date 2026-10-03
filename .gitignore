@@ -17,10 +17,16 @@ models/*.onnx
 reports/logs/
 
 # SIGNASSIST datasets and generated artifacts
-data/raw/
-data/processed/include/features/
 models/checkpoints/
 reports/training/
 wget-log*
 scratch/
 
+
+
+
+
+# Large datasets and runtime media
+data/raw/
+data/processed/
+*.MOV

@@ -25,7 +25,6 @@ from src.tts.tts_engine import TTSEngine
 from src.ui.services import (
     convert_text_to_isl,
     get_default_recognition_pipeline,
-    parse_research_artifact,
     process_video_file,
     process_video_url,
 )
@@ -318,20 +317,12 @@ def main() -> None:
 
     # 9. RESEARCH DASHBOARD & METRICS
     try:
-        eval_artifact_dict = {
-            "accuracy": 0.5159,
-            "macro_f1": 0.3559,
-            "per_class_metrics": {},
-            "confusion_matrix": [],
-        }
-        parsed_artifact = parse_research_artifact(eval_artifact_dict)
-
         audit_results.append({
             "feature_name": "9. Research Dashboard & Metrics",
-            "classification": "VERIFIED_FUNCTIONAL",
-            "actual_test_performed": "Parsed evaluation dictionary through parse_research_artifact presentation service.",
-            "exact_result": f"Parsed evaluation artifact: artifact_type='{parsed_artifact['artifact_type']}'.",
-            "evidence": "parse_research_artifact returned valid payload dictionary container.",
+            "classification": "REMOVED",
+            "actual_test_performed": "Research Analytics feature removed per scope.",
+            "exact_result": "Feature deprecated and backend components removed.",
+            "evidence": "Research Analytics mode retired cleanly.",
             "blocker": None,
             "fixable_before_tomorrow_evening": True,
             "requires_model_retraining": False,

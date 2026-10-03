@@ -353,59 +353,27 @@ def get_recognition_readiness(
     }
 
 
-# --- Service 6: Research Analytics Artifact Parsing ---
 
-def parse_research_artifact(data: Any) -> Dict[str, Any]:
-    """Parses and validates JSON evaluation result artifacts for Research Analytics dashboard.
 
-    Supported types:
-    - "evaluation": Standard EvaluationResult JSON (contains accuracy, macro_f1, per_class_metrics, confusion_matrix)
-    - "loso": LOSOEvaluationResult JSON (contains evaluation_type="leave_one_signer_out" or folds & aggregate_metrics)
-    - "ablation": AblationStudyResult JSON (contains experiments list or num_experiments)
 
-    Returns:
-        Dict containing:
-            - "artifact_type": "evaluation" | "loso" | "ablation"
-            - "payload": Dict data
+# --- Service 7: Shared Video Intelligence ---
 
-    Raises:
-        ValueError: If data structure is unsupported or missing required fields.
-    """
-    if not isinstance(data, dict):
-        raise ValueError("JSON artifact must be a top-level dictionary object.")
+def analyze_video_intelligence(
+    video_path: Union[str, Path],
+    local_model_result: Optional[Dict[str, Any]] = None,
+    api_key: Optional[str] = None,
+    force_refresh: bool = False,
+    client_override: Optional[Any] = None,
+) -> Dict[str, Any]:
+    """Exposes VideoIntelligenceService to the UI presentation layer."""
+    from src.ai.video_intelligence import VideoIntelligenceService
 
-    # 1. Ablation Study Result
-    eval_type = str(data.get("evaluation_type", "")).lower()
-    if "experiments" in data and isinstance(data["experiments"], list):
-        if len(data["experiments"]) == 0:
-            raise ValueError("Ablation study artifact contains no experiment results.")
-        return {"artifact_type": "ablation", "payload": data}
-
-    # 2. LOSO Evaluation Result
-    if eval_type == "leave_one_signer_out" or ("folds" in data and "aggregate_metrics" in data):
-        if not isinstance(data.get("folds"), list):
-            raise ValueError("LOSO evaluation artifact is missing a valid 'folds' list.")
-        if not isinstance(data.get("aggregate_metrics"), dict):
-            raise ValueError("LOSO evaluation artifact is missing valid 'aggregate_metrics'.")
-        return {"artifact_type": "loso", "payload": data}
-
-    # 3. Standard Evaluation Result
-    required_eval_keys = {"accuracy", "macro_f1", "per_class_metrics", "confusion_matrix"}
-    if required_eval_keys.issubset(data.keys()):
-        return {"artifact_type": "evaluation", "payload": data}
-
-    # Single Ablation Result dictionary fallback
-    if "name" in data and "parameters" in data and "metrics" in data:
-        return {
-            "artifact_type": "ablation",
-            "payload": {
-                "evaluation_type": "standard",
-                "num_experiments": 1,
-                "experiments": [data],
-            },
-        }
-
-    raise ValueError(
-        "Unsupported research evaluation artifact structure. Expected a valid EvaluationResult, "
-        "LOSOEvaluationResult, or AblationStudyResult JSON file."
+    service = VideoIntelligenceService(api_key=api_key)
+    res = service.analyze_video(
+        video_path=video_path,
+        local_model_result=local_model_result,
+        force_refresh=force_refresh,
+        client_override=client_override,
     )
+    return res.to_dict()
+
